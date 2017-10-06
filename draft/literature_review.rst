@@ -153,9 +153,24 @@ Different in that it uses a hybrid data repository. Metadata in RDBMS for fast
 querying and data as flat files. Similar to iRODS.
 
 
+API-centric Linked Data integration: The Open PHACTS Discovery Platform case study
+----------------------------------------------------------------------------------
+
+http://www.sciencedirect.com/science/article/pii/S1570826814000195
+
+Talks about the importance of an API for data integration in the context of
+linked data.
+
+In the context of linked data the API provides a means to answer questions as
+to how and when to integrate data.
+
+Key realisation: access to data is almost always mediated by by some end-user
+application, i.e no one writes SPARQL queries. Data access is more relevant to
+tool developers than data models in a pay-as-you-go fashion.
+
+
 TODO
 ----
 
-- Metadata in a triple store? `API-centric Linked Data integration: The Open
-  PHACTS Discovery Platform case study
-  <http://www.sciencedirect.com/science/article/pii/S1570826814000195>`_
+- `Principles of Dataspace Systems <https://www.cs.ubc.ca/~rap/teaching/534P/2011/readings/dataspaces-pods.pdf>`_
+- `Interlinking Scientific Data on a Global Scale <https://datascience.codata.org/articles/abstract/10.2481/dsj.GRDI-002/>`_
