@@ -115,11 +115,23 @@ https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-12-361
 Article illustrating the commitment required to setup a system where the
 metadata is stored in a database.
 
+
+Research Objects: Towards Exchange and Reuse of Digital Knowledge
+-----------------------------------------------------------------
+
+http://precedings.nature.com/documents/4626/version/1/files/npre20104626-1.pdf
+
+More akin to our idea of a "snaphot" of an analysis in a project, i.e.  the
+bundling of code, execution environment and data. However, the paper does not
+provide a reference implementation it is a discussion of principles and ideas.
+It also differs from our thinking in that the authors believe their research
+objects have state that changes throughout that life cycle of the research
+object. Another difference is that they believe in versioning of research
+objects.
+
 TODO
 ----
 
-- Similar to dtool? `Research Objects: Towards Exchange and Reuse of Digital Knowledge
-  <http://precedings.nature.com/documents/4626/version/1/files/npre20104626-1.pdf>`_
 - Like Galaxy? `openBIS: a flexible framework for managing and analyzing
   complex data in biology research
   <https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-12-468>`_
