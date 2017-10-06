@@ -129,12 +129,33 @@ objects have state that changes throughout that life cycle of the research
 object. Another difference is that they believe in versioning of research
 objects.
 
+openBIS: a flexible framework for managing and analyzing complex data in biology research
+-----------------------------------------------------------------------------------------
+
+https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-12-468
+
+openBIS: Open Biology Information System.
+
+Centralised system designed to be open for extension and integration.
+
+Seems to be used by ETH Zurich.
+
+This was the system Martin was talking about.
+
+Has the concept of a "container dataset" that can provide different views of
+the data, which in some sense sounds similar to a dtool dataset. It also seems
+to have the ability to show a fused view of items from all datasets to the user.
+
+- Datasets are immutable
+- Ability to create child datasets from one or more parents
+
+Different in that it uses a hybrid data repository. Metadata in RDBMS for fast
+querying and data as flat files. Similar to iRODS.
+
+
 TODO
 ----
 
-- Like Galaxy? `openBIS: a flexible framework for managing and analyzing
-  complex data in biology research
-  <https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-12-468>`_
 - Metadata in a triple store? `API-centric Linked Data integration: The Open
   PHACTS Discovery Platform case study
   <http://www.sciencedirect.com/science/article/pii/S1570826814000195>`_
