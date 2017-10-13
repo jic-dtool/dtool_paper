@@ -174,3 +174,4 @@ TODO
 
 - `Principles of Dataspace Systems <https://www.cs.ubc.ca/~rap/teaching/534P/2011/readings/dataspaces-pods.pdf>`_
 - `Interlinking Scientific Data on a Global Scale <https://datascience.codata.org/articles/abstract/10.2481/dsj.GRDI-002/>`_
+- `Dat data management <https://github.com/datproject/dat>`_
