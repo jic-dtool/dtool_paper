@@ -176,3 +176,5 @@ TODO
 - `Interlinking Scientific Data on a Global Scale <https://datascience.codata.org/articles/abstract/10.2481/dsj.GRDI-002/>`_
 - `Dat data management <https://github.com/datproject/dat>`_
 - `Quilt <https://quiltdata.com>`_
+- `Tidy data <http://vita.had.co.nz/papers/tidy-data.html>`_
+- `How to share data with a statistician <https://github.com/jtleek/datasharing>`_
