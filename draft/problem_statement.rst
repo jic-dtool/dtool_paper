@@ -21,7 +21,7 @@ Accessible, Interoperable and Rusable [`FAIR data REF
 <https://www.nature.com/articles/sdata201618>`_] are admirable they are at this
 point in time very difficult to reach for anyone other than organisations dedicated to
 hosting scientific data [`Effective research data REF
-`https://www.elsevier.com/connect/10-aspects-of-highly-effective-research-data`_].
+<https://www.elsevier.com/connect/10-aspects-of-highly-effective-research-data>`_].
 One reason for this is that there is a lack of tooling even for basic data management
 at the level of research institutes, research groups and individual researchers.
 
