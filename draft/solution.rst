@@ -86,6 +86,10 @@ is "frozen" it can no longer be altered. In other words the dataset fails to
 self-verify if an item has been removed or altered or if additional items have
 been added to it.
 
+
+Example use cases
+-----------------
+
 A common use with Dtool is to package raw data and copy it to a remote storage
 to back it up. The first step is to create a proto dataset. The command
 to create a proto dataset takes as input the name of the dataset and it returns
