@@ -74,7 +74,7 @@ more reproducible. Although this is not an aim in data management itself,
 reproducibility is a key feature of science.
 
 Using this workflow  we fulfil the first six steps of
-`Effective research data REF<https://www.elsevier.com/connect/10-aspects-of-highly-effective-research-data>`_,
+`Effective research data REF <https://www.elsevier.com/connect/10-aspects-of-highly-effective-research-data>`_,
 at least within the institute.
 
 1. Stored
