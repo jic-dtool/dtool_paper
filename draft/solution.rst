@@ -65,6 +65,8 @@ RNA sequencing experiment. The ``README.yml`` file is where the descriptive
 metadata used to describe the whole dataset is stored. The items of the dataset
 are stored in the directory named data. The administrative and structural
 metadata is stored as as JSON files in a hidden directory named ``.dtool``.
+This is an explicit design decision aimed at making all files human readable,
+in order to future proof the dataset.
 
 .. code-block:: none
 
@@ -210,12 +212,18 @@ To verify that the dataset has not been corrupted one can use the ``dtool verify
     $ dtool verify ~/my_datasets/aphid-rna-seq-data
     All good :)
 
+All of the commands above have been working on the dataset stored on local file
+system.  It is worth noting that in all instances the commands would have
+worked the same if the URI for the input dataset had been changed from
+``~/my_datasets/aphid-rna-seq-data`` to the URI of the dataset copied to iRODS
+``irods:///jic_archive/1f79d594-e57a-4baa-a33a-dd724ad92cd6``.
+
 A third common scenario is to want to access to data in order to be able to process it.
 It is possible to simply copy a whole dataset from one location to another.
 
 .. code-block:: none
 
-    $ dtool copy ~/my_datasets/aphid-rna-seq-data /tmp
+    $ dtool copy irods:///jic_archive/1f79d594-e57a-4baa-a33a-dd724ad92cd6 /tmp
     Generating manifest  [####################################]  100%  rna_seq_reads_3.fq.gz
     Dataset copied to:
     file:///tmp/aphid-rna-seq-data
@@ -230,15 +238,9 @@ can create a Bash script to process all the items in a dataset.
 
 .. code-block:: bash
 
-    DS_URI=~/my_datasets/aphid-rna-seq-data
+    DS_URI=irods:///jic_archive/1f79d594-e57a-4baa-a33a-dd724ad92cd6
     for ITEM_ID in `dtool identifiers $DS_URI`;
     do
       ITEM_FPATH=`dtool item fetch $DS_URI $ITEM_ID`;
       echo $ITEM_FPATH;
     done
-
-All of the commands above have been working on the dataset stored on local file
-system.  It is worth noting that in all instances the commands would have
-worked the same if the URI for the input dataset had been changed from
-``~/my_datasets/aphid-rna-seq-data`` to the URI of the dataset copied to iRODS
-``irods:///jic_archive/1f79d594-e57a-4baa-a33a-dd724ad92cd6``.
