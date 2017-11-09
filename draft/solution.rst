@@ -150,6 +150,95 @@ the dataset.
     irods:///jic_archive/1f79d594-e57a-4baa-a33a-dd724ad92cd6
 
 
-Scenario 2: discovering, understanding and verifying data...
+Another common scenario is to want to discover, understand and verify data. To list the
+dataset in a particular location one can use the ``dtool ls`` command.
 
-Scenario 3: accessing and processing data...
+.. code-block:: none
+
+    $ dtool ls ~/my_datasets
+    53e006ee-ac6b-47bb-9020-7464dbd77cf4 - another-demo-for-adam - file:///Users/olssont/my_datasets/another-demo-for-adam
+    1f79d594-e57a-4baa-a33a-dd724ad92cd6 - aphid-rna-seq-data    - file:///Users/olssont/my_datasets/aphid-rna-seq-data
+    469ca967-4239-4eb8-880b-4741a882b2c4 - bgi-sequencing-12345  - file:///Users/olssont/my_datasets/bgi-sequencing-12345
+    c2542c2b-d149-4f73-84bc-741bf9af918f - drone-images          - file:///Users/olssont/my_datasets/drone-images
+    f416ded6-2f9a-4909-ab43-2447d0d1a0d4 - fishers-iris-data     - file:///Users/olssont/my_datasets/fishers-iris-data
+    6847e637-a61c-4043-a9e2-bbf4ff6f6baa - my_rnaseq_data        - file:///Users/olssont/my_datasets/my_rnaseq_data
+    96d82bb5-ac9a-4c00-ba0a-7a2d078a64da - swissprot             - file:///Users/olssont/my_datasets/swissprot
+
+To list the item in the ``aphid-rna-seq-data`` one can use the same ``dtool ls`` command.
+
+.. code-block:: none
+
+    dtool ls ~/my_datasets/aphid-rna-seq-data
+    6ee35e352bebf61537bfd6d7875d4d9de995e413 - rna_seq_reads_1.fq.gz
+    5a76ffc3622534acc7bde558c3256d4811210398 - rna_seq_reads_3.fq.gz
+    5de26adb6fd52023ba48c554e4d1e6d4bfed119d - rna_seq_reads_2.fq.gz
+
+Summary information about the dataset can be retrieved using the ``dtool summary`` command.
+
+.. code-block:: none
+
+    $ dtool summary ~/my_datasets/aphid-rna-seq-data
+    {
+      "name": "aphid-rna-seq-data",
+      "uuid": "1f79d594-e57a-4baa-a33a-dd724ad92cd6",
+      "creator_username": "olssont",
+      "number_of_items": 3,
+      "size_in_bytes": 6,
+      "frozen_at": 1510225974.0
+    }
+
+The descriptive metadata can be displayed using the ``dtool readme show`` command.
+
+.. code-block:: none
+
+    $ dtool readme show ~/my_datasets/aphid-rna-seq-data
+    ---
+    description: Aphid RNA sequencing data
+    project: Xenobiotic stress investigation
+    confidential: false
+    personally_identifiable_information: false
+    owners:
+    - name: Tjelvar Olsson
+      email: olssont@nbi.ac.uk
+      username: olssont
+    creation_date: 2017-11-09
+
+To verify that the dataset has not been corrupted one can use the ``dtool verify`` command.
+
+.. code-block:: none
+
+    $ dtool verify ~/my_datasets/aphid-rna-seq-data
+    All good :)
+
+A third common scenario is to want to access to data in order to be able to process it.
+It is possible to simply copy a whole dataset from one location to another.
+
+.. code-block:: none
+
+    $ dtool copy ~/my_datasets/aphid-rna-seq-data /tmp
+    Generating manifest  [####################################]  100%  rna_seq_reads_3.fq.gz
+    Dataset copied to:
+    file:///tmp/aphid-rna-seq-data
+
+The data will then be available in the ``data`` subdirectory.
+
+Alternatively, one can gain access to a data item on local file system using
+the ``dtool item fetch`` command which returns the absolute path to a file with
+the content of the data once it is available. By combining this command with
+``dtool identifiers``, which list the data item identifiers in a dataset one
+can create a Bash script to process all the items in a dataset.
+
+.. code-block:: bash
+
+    DS_URI=~/my_datasets/aphid-rna-seq-data
+    for ITEM_ID in `dtool identifiers $DS_URI`;
+    do
+      ITEM_FPATH=`dtool item fetch $DS_URI $ITEM_ID`;
+      echo $ITEM_FPATH;
+    done
+
+All of the commands above have been working on the dataset stored on local file
+system.  It is worth noting that in all instances the commands would have
+worked the same if the URI for the input dataset had been changed from
+``~/my_datasets/aphid-rna-seq-data`` to the URI of the dataset copied to iRODS
+``irods:///jic_archive/1f79d594-e57a-4baa-a33a-dd724ad92cd6``.
