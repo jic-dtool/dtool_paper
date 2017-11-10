@@ -4,7 +4,21 @@ Lightweight Data management
 Introduction
 ============
 
-Write this...
+Data management is important in science...
+
+The scientific community and funders care about analysis being reproducible and
+data being reusable...
+
+Data management is a broad topic. At one extreme there are recordings made in
+laboratory notebooks. At another extreme there are organisations dedicated to
+hosting scientific data...
+
+There is also a diverse middle ground which includes many different types of
+solutions to data management...
+
+Here we describe an alternative, more lightweight approach to managing data. It
+centres around the concept of packing metadata with the data, creating a
+unified whole.
 
 Problem statement
 =================
