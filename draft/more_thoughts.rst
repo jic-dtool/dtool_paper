@@ -103,15 +103,7 @@ Helping contracts implement a data management plan for the institute to fulfil
 obligations towards funding bodies. Helping researchers manage their data
 better to free up space on the expensive centralised storage system.  Helping
 ourselves develop more standardised methods to process data coming into the
-Informatics group so that we could expand more easily. About a year ago we got
-involved in discussions with the institutes contracts department who were
-worried about the funding bodies data management requirements and whether or
-not the institute was doing enough to ensure that the research groups were
-aware and abiding to them. At around the same time it was becoming apparent
-that on-site storage was filling up and we needed to help (force) researchers
-to start managing their data better. Thirdly our centralised Informatics group
-was undergoing expansion and to enable this scaling we needed to develop more
-standardised ways of being able to handle and process incoming data.
+Informatics group so that we could expand more easily.
 
 To put this into context it is worth describing the structure of the JIC at
 a high level. It is a plant and microbe research institute employing about 400
@@ -150,8 +142,7 @@ The institute has centralised high-performance computing cluster and associated
 storage. With an increasing number of groups doing more and more next
 generation sequencing the storage system was filling up. This meant that some
 research groups resorted to shuttling data in between the cluster storage and
-external hard-drives. As external hard-drives are notoriously prone to failure
-this was a non-ideal situation.
+external hard-drives.
 
 In an attempt to improve this situation we configured a centrally managed 
 system with cheaper storage that could be accessed using iRODS. However, we
@@ -165,7 +156,7 @@ systems such as iRODS and S3 object stores. Furthermore, this tool needed to
 have the ability to verify that the data transfer had been successful.*
 
 As more and more of the research groups at the institute require support from
-the Informatics team the throughput of the data we recieved and processed was
+the Informatics team the throughput of the data we received and processed was
 increasing. We therefore wanted a means to standardise the way we organised and
 processed the data we received, to make it easier to distribute the work
 between individuals in the team.
@@ -209,7 +200,7 @@ it difficult to work off site when the database is managed centrally within
 an institute.
 
 When using Dtool to create a dataset it generates both administrative metadata
-and structural metadata. The administrative metadata conteins information that
+and structural metadata. The administrative metadata contains information that
 helps manage the dataset and includes for example an automatically generated
 UUID.  The structural metadata describes how the dataset is put together, for
 example each data item in the dataset has associated information about its
@@ -273,10 +264,10 @@ been added to it.
 Example use cases
 -----------------
 
-A common use with Dtool is to package raw data and copy it to a remote storage
-to back it up. The first step is to create a proto dataset. The command
+A common use case with Dtool is to package raw data and copy it to remote
+storage to back it up. The first step is to create a proto dataset. The command
 to create a proto dataset takes as input the name of the dataset and it returns
-instructions on how to finalise the dataset creation process.
+instructions on how to finalise the dataset creation.
 
 .. code-block:: none
 
@@ -472,15 +463,14 @@ data is annotated with descriptive metadata and that it gets stored in a
 canonical location.
 
 In order to be able to process data it needs to be accessible from the
-convenient storage. Dtool enables this in two fashions. At the most
+cluster. Dtool enables this in two fashions. At the most
 basic level the whole dataset can be copied from the capacious (iRODS)
 storage to the convenient (file system) storage. Alternatively it is
 possible to fetch specific data items from the capacious storage.
 
-Many bioinformatics pipelines produce large intermediate files that take a long
-time to generate. Although these are intermediate files that can be regenerated
-people like to keep them until work has been published because they take a long
-time to regenerate.
+Many bioinformatics pipelines produce large intermediate files. Although these
+are intermediate files that can be regenerated people like to keep them until
+work has been published because they take a long time to regenerate.
 
 In order to be able to get these files off the convenient storage we have
 created a separate capacious location for storing long term intermediate data.
@@ -504,7 +494,7 @@ are only stored there temporarily. From a data management perspective it means
 that long term intermediate and final results are also stored in canonical locations.
 
 Because the raw/intermediate data accessed in (1) are stored in a canonical
-location with and are accessible via persistent URIs the batch scripts become
+location and are accessible via persistent URIs the batch scripts become
 more reproducible. Although this is not an aim in data management itself,
 reproducibility is a key feature of science.
 
