@@ -4,21 +4,60 @@ Lightweight Data management
 Introduction
 ============
 
-Data management is important in science...
+Good science requires careful data management. This is true as science is
+intrinsically a data driven discipline. Where, in the text book scenario,
+one collects and analyses data to disprove a null hypothesis.
 
-The scientific community and funders care about analysis being reproducible and
-data being reusable...
+A relatively recent trend highlighting the importance of data and data
+management is the movement towards open access to data. Open access to data is
+increasingly viewed as a public good [`Open Data and the Social Contract of
+Scientific Publishing
+<http://www.bioone.org/doi/full/10.1525/bio.2010.60.5.2>`_], and funding
+organisations are enforcing this through requirements to provide plans for
+sharing data through research projects [`Data management plan REF
+<http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1004525>`_].
 
-Data management is a broad topic. At one extreme there are recordings made in
-laboratory notebooks. At another extreme there are organisations dedicated to
-hosting scientific data...
+Despite this need for scientific data management it remains a challenge and
+many different approaches to meeting this need has emerged.
 
-There is also a diverse middle ground which includes many different types of
-solutions to data management...
+At one extreme scientific data management consists of researchers recording
+observations in laboratory notebooks. And at another extreme there are
+organisations dedicated to curating and hosting scientific data, examples
+include `The UniProt Consortium
+<https://academic.oup.com/nar/article-lookup/doi/10.1093/nar/gkw1099>`_, `The
+CCDC <http://scripts.iucr.org/cgi-bin/paper?S2052520616003954>`_, `The SRA
+<https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3013647/>`_.
+
+In-between these two extremes solutions there is a variety of systems aimed at
+making data management easier for particular types of data. Laboratory
+Information Management Systems, or LIMS for short, provide ways to manage an
+categorise certain types of data.  Traditionally these were oriented towards
+sample management and they often rely on central databases. More specialised
+systems for managing data produced by certain types of instruments also exist.
+[`OMERO <https://www.ncbi.nlm.nih.gov/pubmed/22373911>`_, for example, is a
+system aimed at managing microscopy data. These systems also tend to rely on
+central databases.
+
+More generic solutions for managing data also exist. One example is [`iRODS
+<https://irods.org/uploads/2015/01/irods4-microservices-book-web.pdf>`_], which
+focuses on the ability to build up capacious storage solutions by allowing
+access to distributed storage assets, associating data items with metadata
+stored in a central database and the ability to creating rules for to
+automatically perform data management task when data items are added to the
+system.  Another example is [`openBIS
+<Https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-12-468>`_],
+which has some great ideas on how to manage data in particular stating outright
+that data is immutable, the concept of a "container datasets" that can provide
+different views of the data and the ability to create child datasets from one
+or more parents. openBIS is similar to iRODS in that it is a hybrid data
+repository with metadata stored in a database for fast querying and data as
+flat files.  Bare bones systems such as these are flexible, but require effort
+to customise [`iRODS at Sanger
+<https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-12-361>`].
 
 Here we describe an alternative, more lightweight approach to managing data. It
-centres around the concept of packing metadata with the data, creating a
-unified whole.
+centres around the concept of packing metadata with the data, and working with
+the two as a unified whole.
 
 Problem statement
 =================
