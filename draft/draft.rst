@@ -4,11 +4,11 @@ Lightweight Data management
 Introduction
 ============
 
-Good science requires careful data management. This is true as science is
-intrinsically a data driven discipline. Where, in the text book scenario,
-one collects and analyses data to disprove a null hypothesis.
+Science is a data driven discipline and therefore requires careful data
+management. Particularly in biology, advances in our ability to capture and
+store data have resulted in a "big data explosion".
 
-A relatively recent trend highlighting the importance of data and data
+Another recent trend highlighting the importance of data and data
 management is the movement towards open access to data. Open access to data is
 increasingly viewed as a public good [`Open Data and the Social Contract of
 Scientific Publishing
@@ -18,7 +18,7 @@ sharing data through research projects [`Data management plan REF
 <http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1004525>`_].
 
 Despite this need for scientific data management it remains a challenge and
-many different approaches to meeting this need has emerged.
+many different approaches to meeting this need have emerged.
 
 At one extreme scientific data management consists of researchers recording
 observations in laboratory notebooks. And at another extreme there are
@@ -62,115 +62,81 @@ the two as a unified whole.
 Problem statement
 =================
 
-Data management is a broad term and it means different things to different
-people. At a very high level funders and the research community as a whole
-cares about data being trusted, shared and reusable [`FAIR data REF
+Data management is a broad term and means different things to different
+people. At a high level, funders and the research community as a whole
+care about data being trusted, shared and reusable [`FAIR data REF
 <https://www.nature.com/articles/sdata201618>`_, `Effective research data REF
 <https://www.elsevier.com/connect/10-aspects-of-highly-effective-research-data>`_.
-At an intermediate level research institutes and project leaders need to think
+At an intermediate level, research institutes and project leaders need to think
 about the life cycle of data [`Data management plan REF
-<http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1004525>`_].
-Whereas at the ground level individual researchers need to think about how to
+<http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1004525>`_],
+and how to get the resources they need for their data.
+At the ground level individual researchers need to think about how to
 structure their data into files, how these data files are organised and how to
 associate metadata with these data files [`Digital Data Storage REF
 <http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005097>`_,
 `Tidy Data REF <http://vita.had.co.nz/papers/tidy-data.html>`_, `Leek data
 sharing REF <http://vita.had.co.nz/papers/tidy-data.html>`_.
 
-Although the high level goals of data management such as making data Findable,
+Although the broad and general goals of data management such as making data Findable,
 Accessible, Interoperable and Rusable [`FAIR data REF
-<https://www.nature.com/articles/sdata201618>`_] are admirable they are at this
-point in time very difficult to reach for anyone other than organisations dedicated to
+<https://www.nature.com/articles/sdata201618>`_] are admirable, they are at this
+point in time very difficult to achieve for anyone other than organisations dedicated to
 hosting scientific data [`Effective research data REF
 <https://www.elsevier.com/connect/10-aspects-of-highly-effective-research-data>`_].
-One reason for this is that there is a lack of tooling even for basic data management
+One reason for this is that there is a lack of tools even for basic data management
 at the level of research institutes, research groups and individual researchers.
 
 Another reason data management is difficult at the ground level is that there
 is little incentive for the people generating the data, most commonly PhD
-students and post-docs, to care about data management.
+students and post-docs, to care about data management. EXPAND
 
-Our strategy to data management at the JIC is therefore to provide light weight
-tooling that solves problems of the people generating and analysing data that
-results in better data management as a side-effect rather than as the primary goal.
+Our strategy for data management at our institution is therefore to provide light-weight
+tooling that solves immediate problems for the people generating and analysing data that
+also results in better data management as a side-effect rather than as the primary goal.
 
 
 Our Motivations
 ===============
 
-The work described in this paper is the result of three driving forces.
-Helping contracts implement a data management plan for the institute to fulfil
-obligations towards funding bodies. Helping researchers manage their data
-better to free up space on the expensive centralised storage system.  Helping
-ourselves develop more standardised methods to process data coming into the
-Informatics group so that we could expand more easily.
+Our data management challenges occur at the John Innes Centre (JIC), an
+independent research institute in plant and microbial sciences. Like many
+academic or research institutions, the JIC has a strongly decentralised
+structure and culture. Each of the 40+ research groups acts mostly as an
+independent unit.
 
-To put this into context it is worth describing the structure of the JIC at
-a high level. It is a plant and microbe research institute employing about 400
-researchers. Its research falls into four strategic programs whose aims are to
+This poses a significant challenge to any data management processes, and
+renders many existing solutions, which rely on enforced compliance with
+centralised systems, difficult to use.
 
-1. Develop a wider and deeper understanding of how the environment influences plant growth and development
-2. Investigate the vast diversity of chemicals produced by plants and microbes
-3. To understand the molecular dialogue between plants and microbes
-4. To develop new wheat germplasm containing the next generation of key traits
+The research funding environment is usually very unpredictable. As a result,
+we have a mixture of different storage technologies bought at different times.
 
-Although the research field is focussed around plants and microbe the scope is
-very broad.
+Within this context, we need to:
 
-The research is driven by the 40 research groups in the institute. The research
-groups are largely autonomous as there is little central management of the
-research. This means that the institute can be likened to an incubator with
-lots of small startup companies in it. This is a great environment for
-innovation and generating research discoveries. However, it is not a setup that
-lends itself to developing centralised protocols and standard operating
-procedures.
+1. Ensure that we can meet our obligations towards our funding bodies regarding
+   data mangement and sharing.
+2. Help our researchers to manage their data, particularly to make cost
+   effective use of our storage systems.
+3. Develop more standardised methods to process data coming into the
+   Informatics group so that we could expand more easily.
 
-*The broad nature of the research at the institute meant that
-one requirement was that our data management tool needed to be able to deal
-with heterogeneous data. This meant that specialised systems that deal with
-specific types of data did not fit our needs.*
+We needed a solution that would:
 
-*The innovative nature of the research at the institute meant that the tool
-would be constantly challenged with new types of data. This meant that any
-system that needed customisations to deal with new types of data did not
-fit our needs.*
+* Provide clear immediate benefit to the front line data managers (either core
+  facility staff or bioinformaticians embedded in research groups).
+* Allow group leaders and institute management to see summaries of data.
+* Enable use of different storage systems and technologies, without changing
+  tools and pipelines.
 
-*The distributed and autonomous nature of the research in the institute meant
-that the tool needed to be able to deal with heterogeneous working practises.*
+The solution needed to be light-weight enough to get users started without a
+long learning process (or long copy times in moving data to centralised
+platforms).
 
-The institute has centralised high-performance computing cluster and associated
-storage. With an increasing number of groups doing more and more next
-generation sequencing the storage system was filling up. This meant that some
-research groups resorted to shuttling data in between the cluster storage and
-external hard-drives.
-
-In an attempt to improve this situation we configured a centrally managed 
-system with cheaper storage that could be accessed using iRODS. However, we
-found that the uptake of this system was limited. Largely because working
-with raw iRODS commands was difficult for end users. Trust was also an issue,
-having transferred the data to the less convenient storage using iRODS the
-users were worried that the data may have been lost or corrupted along the way.
-
-*We therefore needed a tool that made it easier to interact with remote storage
-systems such as iRODS and S3 object stores. Furthermore, this tool needed to
-have the ability to verify that the data transfer had been successful.*
-
-As more and more of the research groups at the institute require support from
-the Informatics team the throughput of the data we received and processed was
-increasing. We therefore wanted a means to standardise the way we organised and
-processed the data we received, to make it easier to distribute the work
-between individuals in the team.
-
-*To write these tools we wanted to have programatic access to data. In
-particular we wanted to abstract away the concepts of file paths that were
-a constant source of frustration in writing processing scritps.*
-
-*We also realised that for some processing we needed to be able to annotate
-individual data items with metadata.*
-
-*Furthermore, to help us navigate the data that we received we needed to be able
-to be able to annotate data with metadata on a per dataset level.*
-
+These are all common requirements for those managing data in heterogeneous
+research environments. Therefore any solution that meets these needs is likely
+to be valuable to a wide range of researchers and support groups, particularly
+those without existing centralised data management systems.
 
 Solution
 ========
