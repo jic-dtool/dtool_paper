@@ -203,7 +203,16 @@ knowledge of how to read and write (meta) data it delegates that responsibility
 to the backend.  This architecture makes it easy to plug-in new backends to
 Dtool on an ad-hoc basis.
 
-ADD URI PARAGRAPH
+Dtool makes use of Unique Resource Identifiers (URIs) to refer to datasets.
+This is useful as datasets can be stored in different types of backends.
+Below are examples of two URIs, the first is to a dataset stored on local
+disk, the second is to a dataset stored in an Amazon Web Service S3 bucket
+named ``test-dtool-s3-bucket``.
+
+.. code-block:: none
+
+    file:///Users/olssont/my_datasets/aphid-rna-seq-data
+    s3://test-dtool-s3-bucket/04c4e3a4-f072-4fc1-881a-602d589b089a
 
 Below is the on disk structure of a fictional dataset containing three items
 from an RNA sequencing experiment. The ``README.yml`` file is where the
