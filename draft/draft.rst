@@ -125,7 +125,7 @@ we have a mixture of different storage technologies bought at different times.
 Within this context, we need to:
 
 1. Ensure that we can meet our obligations towards our funding bodies regarding
-   data mangement and sharing.
+   data management and sharing.
 2. Help our researchers to manage their data, particularly to make cost
    effective use of our storage systems. Both in terms of fast read access
    storage for processing data and capacious long term archival storage.
@@ -226,10 +226,7 @@ human readable, in order to future proof the dataset.
 
 Datasets are created in three stages. First one creates a so called "proto
 dataset". Secondly, one adds data and metadata to the proto dataset. Finally
-one converts the proto dataset into a dataset by "freezing" it. Once a dataset
-is "frozen" it can no longer be altered. In other words the dataset fails to
-self-verify if an item has been removed or altered or if additional items have
-been added to it.
+one converts the proto dataset into a dataset by "freezing" it.
 
 A common use case with Dtool is to package raw data and copy it to remote
 storage to back it up. The first step is to create a proto dataset. The command
@@ -285,6 +282,10 @@ To convert the proto dataset into a dataset one needs to freeze it.
     Generating manifest  [####################################]  100%  rna_seq_reads_3.fq.gz
     Dataset frozen aphid-rna-seq-data
 
+Once a dataset is "frozen" it can no longer be altered. In other words the
+dataset fails to self-verify if an item has been removed or altered or if
+additional items have been added to it.
+
 In the example below we have an iRODS zone named ``/jic_archive`` to which we which to copy
 the dataset.
 
@@ -295,6 +296,10 @@ the dataset.
     Dataset copied to:
     irods:///jic_archive/1f79d594-e57a-4baa-a33a-dd724ad92cd6
 
+The command above did several things. It created a proto dataset in the iRODS
+backend and copied across all the data and metadata from the local dataset.
+Then it converted the proto dataset to a dataset by freezing it.  Finally it
+returned the URI of the dataset in iRODS.
 
 Another common scenario is to want to discover, understand and verify data. To list the
 dataset in a particular location one can use the ``dtool ls`` command.
@@ -310,7 +315,11 @@ dataset in a particular location one can use the ``dtool ls`` command.
     6847e637-a61c-4043-a9e2-bbf4ff6f6baa - my_rnaseq_data        - file:///Users/olssont/my_datasets/my_rnaseq_data
     96d82bb5-ac9a-4c00-ba0a-7a2d078a64da - swissprot             - file:///Users/olssont/my_datasets/swissprot
 
-To list the item in the ``aphid-rna-seq-data`` one can use the same ``dtool ls`` command.
+The listed dataset names can then be used to identify datasets that one would
+like to query for more information.
+
+For example to list the item in the ``aphid-rna-seq-data`` one can use the
+``dtool ls`` command again.
 
 .. code-block:: none
 
@@ -319,21 +328,11 @@ To list the item in the ``aphid-rna-seq-data`` one can use the same ``dtool ls``
     5a76ffc3622534acc7bde558c3256d4811210398 - rna_seq_reads_3.fq.gz
     5de26adb6fd52023ba48c554e4d1e6d4bfed119d - rna_seq_reads_2.fq.gz
 
-Summary information about the dataset can be retrieved using the ``dtool summary`` command.
+In the above each item identifier and relative path is listed. This information
+gives an impression of what is contained in a dataset.
 
-.. code-block:: none
-
-    $ dtool summary ~/my_datasets/aphid-rna-seq-data
-    {
-      "name": "aphid-rna-seq-data",
-      "uuid": "1f79d594-e57a-4baa-a33a-dd724ad92cd6",
-      "creator_username": "olssont",
-      "number_of_items": 3,
-      "size_in_bytes": 6,
-      "frozen_at": 1510225974.0
-    }
-
-The descriptive metadata can be displayed using the ``dtool readme show`` command.
+To get more information about a dataset one can display the descriptive
+metadata using the ``dtool readme show`` command.
 
 .. code-block:: none
 
@@ -349,18 +348,46 @@ The descriptive metadata can be displayed using the ``dtool readme show`` comman
       username: olssont
     creation_date: 2017-11-09
 
-To verify that the dataset has not been corrupted one can use the ``dtool verify`` command.
+For a more structural overview of the dataset on can run the ``dtool summary``
+command, which gives information about who created the dataset, the number of
+items it contains and the size in bytes.
+
+.. code-block:: none
+
+    $ dtool summary ~/my_datasets/aphid-rna-seq-data
+    {
+      "name": "aphid-rna-seq-data",
+      "uuid": "1f79d594-e57a-4baa-a33a-dd724ad92cd6",
+      "creator_username": "olssont",
+      "number_of_items": 3,
+      "size_in_bytes": 6,
+      "frozen_at": 1510225974.0
+    }
+
+Sometimes one wants to ensure that data has not become corrupted, for example
+one may be worried that a file may have been accidentally removed or altered.
+To verify that the dataset has not been corrupted one can use the ``dtool
+verify`` command.
 
 .. code-block:: none
 
     $ dtool verify ~/my_datasets/aphid-rna-seq-data
     All good :)
 
+The default behaviour of ``dtool verify`` is to check that the correct item
+identifiers are present in the dataset and that the items have the correct
+size. It is also possible to ensure the exact content of each item by supplying
+the ``-f/--full`` option, which forces the content of the items to be checked
+against the hashes stored in the dataset's manifest.
+
 All of the commands above have been working on the dataset stored on local file
 system.  It is worth noting that in all instances the commands would have
 worked the same if the URI for the input dataset had been changed from
 ``~/my_datasets/aphid-rna-seq-data`` to the URI of the dataset copied to iRODS
-``irods:/jic_archive/1f79d594-e57a-4baa-a33a-dd724ad92cd6``.
+``irods:/jic_archive/1f79d594-e57a-4baa-a33a-dd724ad92cd6``. This is powerful
+as the end user can use the same commands to interact with datasets stored in
+different backends, making knowledge about the Dtool command line interface
+transferable between different storage systems.
 
 A third common scenario is to want to access to data in order to be able to process it.
 It is possible to simply copy a whole dataset from one location to another.
@@ -388,6 +415,10 @@ can create a Bash script to process all the items in a dataset.
       ITEM_FPATH=`dtool item fetch $DS_URI $ITEM_ID`;
       echo $ITEM_FPATH;
     done
+
+This programmatic access to data, available both from the Dtool command line
+tool and the API, makes easy to incorporate Dtool datasets in scripts and
+automated pipelines. 
 
 
 Discussion
