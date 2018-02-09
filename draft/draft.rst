@@ -59,16 +59,17 @@ Here we describe an alternative, more lightweight approach to managing data. It
 centres around the concept of packing metadata with the data, and working with
 the two as a unified whole.
 
-This paper has two intended audiences. The first is project managers, such as
-principal investigators, that care about high level concepts of data
-management. The second is researchers, such as bioinformaticians, in need of a
-practical command line tool for managing their data. The section on "Technical
-details and example use cases" is intended for the latter audience and assumes
-some familiarity with the command line. All other sections have been written in
-a way that should be accessible to a both project managers and researchers.
+This article contains high-level concepts about data management relevant to
+both project leaders interested in ensuring that their data is understandable
+to all members of their research group as well as the larger research
+community. The article also contains practical solutions for researchers, such
+as bioinformaticians, that are challenged with managing high volumes of
+scientific data. The latter assumes that the reader has some familiarity with
+the command line. Apart from this section this article should be accessible to
+all.
 
-Problem statement
-=================
+The Data Management Problem
+===========================
 
 Data management is a broad term and means different things to different
 people. At a high level, funders and the research community as a whole
@@ -87,7 +88,7 @@ associate metadata with these data files [`Digital Data Storage REF
 sharing REF <http://vita.had.co.nz/papers/tidy-data.html>`_.
 
 Although the broad and general goals of data management such as making data Findable,
-Accessible, Interoperable and Rusable [`FAIR data REF
+Accessible, Interoperable and Reusable [`FAIR data REF
 <https://www.nature.com/articles/sdata201618>`_] are admirable, they are at this
 point in time very difficult to achieve for anyone other than organisations dedicated to
 hosting scientific data [`Effective research data REF
@@ -111,31 +112,29 @@ academic or research institutions, the JIC has a strongly decentralised
 structure and culture. Each of the 40+ research groups acts mostly as
 independent units.
 
-This poses a significant challenge to any data management processes, and
+This poses a significant challenge to any data management process, and
 renders many existing solutions, which rely on enforced compliance with
 centralised systems, difficult to use.
 
-The research funding environment is usually very unpredictable. As a result,
+The academic research funding environment is unpredictable. As a result,
 we have a mixture of different storage technologies bought at different times.
-Learning how to make use of different storage systems is not a productive use
-of time for researchers.
+Each technolgy has its own quirks that the end user needs to gain familiarity with.
+Having to juggle different storage systems is not a productive use of researcher's time.
 
 Within this context, we need to:
 
 1. Ensure that we can meet our obligations towards our funding bodies regarding
    data management and sharing.
-2. Help our researchers to manage their data, particularly to make cost
+2. Help our researchers manage their data, particularly making cost
    effective use of our storage systems.
-   Both in terms of providing appropriate solutions for different use cases,
-   fast read access storage for processing data and
-   capacious storage for long term archival of data. And also in terms of
-   the systems being easy to use.
+   Both in terms of providing appropriate solutions for different use cases
+   and in terms of the systems being easy to use.
 
 We needed a solution that would:
 
-* Provide clear immediate benefit to the front line data managers (either core
+* Provide clear, immediate benefit to the front line data managers (either core
   facility staff or bioinformaticians embedded in research groups).
-* Allow group leaders and institute management to see summaries of data.
+* Allow group leaders and institute management to get an overview of the data they have.
 * Enable use of different storage systems and technologies, without changing
   tools and pipelines.
 
@@ -148,10 +147,11 @@ research environments. Therefore any solution that meets these needs is likely
 to be valuable to a wide range of researchers and support groups, particularly
 those without existing centralised data management systems.
 
-Solution
-========
+Our Solution
+============
 
-Here we describe Dtool, a solution for lightweight data management. It is
+Our solution to our data management problem is Dtool.
+It is
 lightweight in that it has no requirements for a (central) database. It simply
 consists of a command line tool for packing and interacting with data and an
 application programming interface (API) giving programmatic access to the data. 
@@ -173,10 +173,10 @@ that this is replicate 2 (``repl_2``) is encoded in the directory structure.
 This makes it hard to move this data around without losing metadata.
 
 Another common approach is to store metadata in a database, this is the
-solution used by systems such as iRODS and openBIS. This is quite a heavyweight
+solution used by systems such as iRODS and openBIS. A database is quite a heavyweight
 solution for managing metadata and it has the disadvantage that one needs
-access to the database to be able to work with the data. This makes it
-difficult to work off site when the database is managed centrally within an
+access to the database to be able to work with the data. It makes it
+difficult to work off-site when the database is managed centrally within an
 institute. It also makes it difficult to move data into other systems.
 
 When using Dtool to create a dataset it generates both administrative metadata
@@ -209,14 +209,14 @@ Dtool makes use of Unique Resource Identifiers (URIs) to refer to datasets.
 This is useful as datasets can be stored in different types of backends.
 Below are examples of two URIs, the first is to a dataset stored on local
 disk, the second is to a dataset stored in an Amazon Web Service S3 bucket
-named ``test-dtool-s3-bucket``.
+named ``dtool-demo``.
 
 .. code-block:: none
 
     file:///Users/olssont/my_datasets/simulated-lambda-phage-reads
     s3://dtool-demo/af6727bf-29c7-43dd-b42f-a5d7ede28337
 
-Below is the on disk structure of a fictional dataset containing three items
+Below is the on disk structure of a fictional dataset containing two items
 from an RNA sequencing experiment. The ``README.yml`` file is where the
 descriptive metadata used to describe the whole dataset is stored. The items of
 the dataset are stored in the directory named data. The administrative and
