@@ -59,16 +59,17 @@ Here we describe an alternative, more lightweight approach to managing data. It
 centres around the concept of packing metadata with the data, and working with
 the two as a unified whole.
 
-This paper has two intended audiences. The first is project managers, such as
-principal investigators, that care about high level concepts of data
-management. The second is researchers, such as bioinformaticians, in need of a
-practical command line tool for managing their data. The section on "Technical
-details and example use cases" is intended for the latter audience and assumes
-some familiarity with the command line. All other sections have been written in
-a way that should be accessible to a both project managers and researchers.
+This article contains high-level concepts about data management relevant to
+both project leaders interested in ensuring that their data is understandable
+to all members of their research group as well as the larger research
+community. The article also contains practical solutions for researchers, such
+as bioinformaticians, that are challenged with managing high volumes of
+scientific data. The latter assumes that the reader has some familiarity with
+the command line. Apart from this section this article should be accessible to
+all.
 
-Problem statement
-=================
+The Data Management Problem
+===========================
 
 Data management is a broad term and means different things to different
 people. At a high level, funders and the research community as a whole
@@ -87,7 +88,7 @@ associate metadata with these data files [`Digital Data Storage REF
 sharing REF <http://vita.had.co.nz/papers/tidy-data.html>`_.
 
 Although the broad and general goals of data management such as making data Findable,
-Accessible, Interoperable and Rusable [`FAIR data REF
+Accessible, Interoperable and Reusable [`FAIR data REF
 <https://www.nature.com/articles/sdata201618>`_] are admirable, they are at this
 point in time very difficult to achieve for anyone other than organisations dedicated to
 hosting scientific data [`Effective research data REF
@@ -111,14 +112,14 @@ academic or research institutions, the JIC has a strongly decentralised
 structure and culture. Each of the 40+ research groups acts mostly as
 independent units.
 
-This poses a significant challenge to any data management processes, and
+This poses a significant challenge to any data management process, and
 renders many existing solutions, which rely on enforced compliance with
 centralised systems, difficult to use.
 
-The research funding environment is usually very unpredictable. As a result,
+The academic research funding environment is unpredictable. As a result,
 we have a mixture of different storage technologies bought at different times.
-Learning how to make use of different storage systems is not a productive use
-of time for researchers.
+Each technolgy has its own quirks that the end user needs to gain familiarity with.
+Having to juggle different storage systems is not a productive use of researcher's time.
 
 Within this context, we need to:
 
@@ -131,9 +132,9 @@ Within this context, we need to:
 
 We needed a solution that would:
 
-* Provide clear immediate benefit to the front line data managers (either core
+* Provide clear, immediate benefit to the front line data managers (either core
   facility staff or bioinformaticians embedded in research groups).
-* Allow group leaders and institute management to see summaries of data.
+* Allow group leaders and institute management to get an overview of the data they have.
 * Enable use of different storage systems and technologies, without changing
   tools and pipelines.
 
@@ -146,10 +147,11 @@ research environments. Therefore any solution that meets these needs is likely
 to be valuable to a wide range of researchers and support groups, particularly
 those without existing centralised data management systems.
 
-Solution
-========
+Our Solution
+============
 
-Here we describe Dtool, a solution for lightweight data management. It is
+Our solution to our data management problem is Dtool.
+It is
 lightweight in that it has no requirements for a (central) database. It simply
 consists of a command line tool for packing and interacting with data and an
 application programming interface (API) giving programmatic access to the data.
@@ -171,10 +173,10 @@ that this is replicate 2 (``repl_2``) is encoded in the directory structure.
 This makes it hard to move this data around without losing metadata.
 
 Another common approach is to store metadata in a database, this is the
-solution used by systems such as iRODS and openBIS. This is quite a heavyweight
+solution used by systems such as iRODS and openBIS. A database is quite a heavyweight
 solution for managing metadata and it has the disadvantage that one needs
-access to the database to be able to work with the data. This makes it
-difficult to work off site when the database is managed centrally within an
+access to the database to be able to work with the data. It makes it
+difficult to work off-site when the database is managed centrally within an
 institute. It also makes it difficult to move data into other systems.
 
 When using Dtool to create a dataset it generates both administrative metadata
@@ -207,14 +209,14 @@ Dtool makes use of Unique Resource Identifiers (URIs) to refer to datasets.
 This is useful as datasets can be stored in different types of backends.
 Below are examples of two URIs, the first is to a dataset stored on local
 disk, the second is to a dataset stored in an Amazon Web Service S3 bucket
-named ``test-dtool-s3-bucket``.
+named ``dtool-demo``.
 
 .. code-block:: none
 
-    file:///Users/olssont/my_datasets/aphid-rna-seq-data
-    s3://test-dtool-s3-bucket/04c4e3a4-f072-4fc1-881a-602d589b089a
+    file:///Users/olssont/my_datasets/simulated-lambda-phage-reads
+    s3://dtool-demo/af6727bf-29c7-43dd-b42f-a5d7ede28337
 
-Below is the on disk structure of a fictional dataset containing three items
+Below is the on disk structure of a fictional dataset containing two items
 from an RNA sequencing experiment. The ``README.yml`` file is where the
 descriptive metadata used to describe the whole dataset is stored. The items of
 the dataset are stored in the directory named data. The administrative and
@@ -224,13 +226,12 @@ human readable, in order to future proof the dataset.
 
 .. code-block:: none
 
-    $ tree ~/my_dataset
-    /Users/olssont/my_dataset
+    $ tree my_datasets/simulated-lambda-phage-reads
+    my_datasets/simulated-lambda-phage-reads
     ├── README.yml
     └── data
-        ├── rna_seq_reads_1.fq.gz
-        ├── rna_seq_reads_2.fq.gz
-        └── rna_seq_reads_3.fq.gz
+        ├── reads_1.fq.gz
+        └── reads_2.fq.gz
 
 
 Datasets are created in three stages. First one creates a so called "proto
@@ -244,36 +245,17 @@ instructions on how to finalise the dataset creation.
 
 .. code-block:: none
 
-    $ dtool create aphid-rna-seq-data
-    Created proto dataset file:///Users/olssont/my_datasets/aphid-rna-seq-data
+    $ dtool create simulated-lambda-phage-reads
+    Created proto dataset file:///Users/olssont/simulated-lambda-phage-reads
     Next steps:
-    1. Add descriptive metadata, e.g:
-       dtool readme interactive file:///Users/olssont/my_datasets/aphid-rna-seq-data
-    2. Add raw data, eg:
-       dtool add item my_file.txt file:///Users/olssont/my_datasets/aphid-rna-seq-data
+    1. Add raw data, eg:
+       dtool add item my_file.txt file:///Users/olssont/simulated-lambda-phage-reads
        Or use your system commands, e.g:
-       mv my_data_directory /Users/olssont/my_datasets/aphid-rna-seq-data/data/
+       mv my_data_directory /Users/olssont/simulated-lambda-phage-reads/data/
+    2. Add descriptive metadata, e.g:
+       dtool readme interactive file:///Users/olssont/simulated-lambda-phage-reads
     3. Convert the proto dataset into a dataset:
-       dtool freeze file:///Users/olssont/my_datasets/aphid-rna-seq-data
-
-To add descriptive metadata one could edit the ``README.yml`` file directly.
-However, the Dtool client comes with built-in functionality for prompting
-for generic descriptive metadata.
-
-.. code-block:: none
-
-    $ dtool readme interactive aphid-rna-seq-data
-    description [Dataset description]: Aphid RNA sequencing data
-    project [Project name]: Xenobiotic stress investigation
-    confidential [False]:
-    personally_identifiable_information [False]:
-    name [Your Name]: Tjelvar Olsson
-    email [olssont@nbi.ac.uk]:
-    username [olssont]:
-    creation_date [2017-11-09]:
-    Updated readme
-    To edit the readme using your default editor:
-    dtool readme edit aphid-rna-seq-data
+       dtool freeze file:///Users/olssont/simulated-lambda-phage-reads
 
 The Dtool client has commands for adding data items. However, when working on
 traditional file system it is often easier to just move the data into the data
@@ -281,15 +263,34 @@ directory.
 
 .. code-block:: none
 
-    $ mv ~/Downloads/aphid-rna-seq-download/* aphid-rna-seq-data/data
+    $ mv ~/Downloads/simulated-reads/* simulated-lambda-phage-reads/data
+
+To add descriptive metadata one could edit the ``README.yml`` file directly.
+However, the Dtool client comes with built-in functionality for prompting
+for generic descriptive metadata.
+
+.. code-block:: none
+
+    $ dtool readme interactive simulated-lambda-phage-reads
+    description [Dataset description]: Simulated lambda phage reads
+    project [Project name]: Dtool demo
+    confidential [False]:
+    personally_identifiable_information [False]:
+    name [Tjelvar Olsson]:
+    email [tjelvar.olsson@jic.ac.uk]:
+    username [olssont]:
+    creation_date [2018-02-06]:
+    Updated readme
+    To edit the readme using your default editor:
+    dtool readme edit simulated-lambda-phage-reads
 
 To convert the proto dataset into a dataset one needs to freeze it.
 
 .. code-block:: none
 
-    $ dtool freeze aphid-rna-seq-data
-    Generating manifest  [####################################]  100%  rna_seq_reads_3.fq.gz
-    Dataset frozen aphid-rna-seq-data
+    $ dtool freeze simulated-lambda-phage-reads
+    Generating manifest  [####################################]  100%  reads_2.fq.gz
+    Dataset frozen simulated-lambda-phage-reads
 
 This generates a manifest with per item metadata such as the file sizes and
 hashes.
@@ -300,10 +301,10 @@ be in a different backend.  In the example below we have an iRODS zone named
 
 .. code-block:: none
 
-    $ dtool copy aphid-rna-seq-data irods:/jic_archive
-    Generating manifest  [####################################]  100%  rna_seq_reads_1.fq.gz
+    $ dtool copy simulated-lambda-phage-reads s3://dtool-demo
+    Generating manifest  [####################################]  100%  reads_1.fq.gz
     Dataset copied to:
-    irods:///jic_archive/1f79d594-e57a-4baa-a33a-dd724ad92cd6
+    s3://dtool-demo/af6727bf-29c7-43dd-b42f-a5d7ede28337
 
 The command above did several things. It created a proto dataset in the iRODS
 backend and copied across all the data and metadata from the local dataset.
@@ -316,46 +317,45 @@ dataset in a particular location one can use the ``dtool ls`` command.
 .. code-block:: none
 
     $ dtool ls ~/my_datasets
-    53e006ee-ac6b-47bb-9020-7464dbd77cf4 - another-demo-for-adam - file:///Users/olssont/my_datasets/another-demo-for-adam
-    1f79d594-e57a-4baa-a33a-dd724ad92cd6 - aphid-rna-seq-data    - file:///Users/olssont/my_datasets/aphid-rna-seq-data
-    469ca967-4239-4eb8-880b-4741a882b2c4 - bgi-sequencing-12345  - file:///Users/olssont/my_datasets/bgi-sequencing-12345
-    c2542c2b-d149-4f73-84bc-741bf9af918f - drone-images          - file:///Users/olssont/my_datasets/drone-images
-    f416ded6-2f9a-4909-ab43-2447d0d1a0d4 - fishers-iris-data     - file:///Users/olssont/my_datasets/fishers-iris-data
-    6847e637-a61c-4043-a9e2-bbf4ff6f6baa - my_rnaseq_data        - file:///Users/olssont/my_datasets/my_rnaseq_data
-    96d82bb5-ac9a-4c00-ba0a-7a2d078a64da - swissprot             - file:///Users/olssont/my_datasets/swissprot
+    lamda-phage-genome
+      file:///Users/olssont/my_datasets/lamda-phage-genome
+    simulated-lambda-phage-reads
+      file:///Users/olssont/my_datasets/simulated-lambda-phage-reads
 
 The listed dataset names can then be used to identify datasets that one would
 like to query for more information.
 
-For example to list the items in the ``aphid-rna-seq-data`` one can use the
-``dtool ls`` command again.
+For example to list the items in the ``simulated-lambda-phage-reads`` one can
+use the ``dtool ls`` command again.
 
 .. code-block:: none
 
-    $ dtool ls ~/my_datasets/aphid-rna-seq-data
-    6ee35e352bebf61537bfd6d7875d4d9de995e413 - rna_seq_reads_1.fq.gz
-    5a76ffc3622534acc7bde558c3256d4811210398 - rna_seq_reads_3.fq.gz
-    5de26adb6fd52023ba48c554e4d1e6d4bfed119d - rna_seq_reads_2.fq.gz
+    $ dtool ls ~/my_datasets/simulated-lambda-phage-reads
+    3b70c2af09ad2fc979680a5a3c31c32ec1d2559a  reads_2.fq.gz
+    5fbf98674019f357014ed5bae073b5ac8c75862a  reads_1.fq.gz
 
 In the above each item identifier and relative path is listed. This information
 gives an impression of what is contained in a dataset.
 
-To get more information about a dataset one can display the descriptive
-metadata using the ``dtool readme show`` command.
+To get more information about a dataset one can view the descriptive
+metadata. In the example below the ``dtool readme show`` command is used to
+show the descriptive metadata packed into the ``lambda-phage-genome`` dataset.
 
 .. code-block:: none
 
-    $ dtool readme show ~/my_datasets/aphid-rna-seq-data
+    $ dtool readme show my_datasets/lamda-phage-genome
     ---
-    description: Aphid RNA sequencing data
-    project: Xenobiotic stress investigation
-    confidential: false
-    personally_identifiable_information: false
-    owners:
-    - name: Tjelvar Olsson
-      email: olssont@nbi.ac.uk
-      username: olssont
-    creation_date: 2017-11-09
+    description: Enterobacteria phage lambda, complete genome
+    creation_date: 2018-02-06
+    accession: NC_001416.1
+    link: https://www.ncbi.nlm.nih.gov/nuccore/NC_001416.1
+    reference: |
+      Nucleotide [Internet]. Bethesda (MD):
+      National Library of Medicine (US),
+      National Center for Biotechnology Information; [1988] - .
+      Accession No. NC_001416.1, Enterobacteria phage lambda, complete genome
+      [cited 2018 Feb 06]
+      Available from: https://www.ncbi.nlm.nih.gov/nuccore/NC_001416.1
 
 For a more structural overview of the dataset on can run the ``dtool summary``
 command, which gives information about who created the dataset, the number of
@@ -363,14 +363,14 @@ items it contains and the total size of all the items in the dataset.
 
 .. code-block:: none
 
-    $ dtool summary ~/my_datasets/aphid-rna-seq-data
+    $ dtool summary ~/my_datasets/simulated-lambda-phage-reads
     {
-      "name": "aphid-rna-seq-data",
-      "uuid": "1f79d594-e57a-4baa-a33a-dd724ad92cd6",
+      "name": "simulated-lambda-phage-reads",
+      "uuid": "af6727bf-29c7-43dd-b42f-a5d7ede28337",
       "creator_username": "olssont",
-      "number_of_items": 3,
-      "size_in_bytes": 6,
-      "frozen_at": 1510225974.0
+      "number_of_items": 2,
+      "size_in_bytes": 2441356,
+      "frozen_at": 1517925148.82
     }
 
 Sometimes one wants to ensure that data has not become corrupted, for example
@@ -380,7 +380,7 @@ verify`` command.
 
 .. code-block:: none
 
-    $ dtool verify ~/my_datasets/aphid-rna-seq-data
+    $ dtool verify ~/my_datasets/simulated-lambda-phage-reads
     All good :)
 
 The default behaviour of ``dtool verify`` is to check that the correct item
@@ -391,25 +391,23 @@ against the hashes stored in the dataset's manifest.
 
 All of the commands above have been working on the dataset stored on local file
 system.  It is worth noting that in all instances the commands would have
-worked the same if the URI for the input dataset had been changed from
-``~/my_datasets/aphid-rna-seq-data`` to the URI of the dataset copied to iRODS
-``irods:/jic_archive/1f79d594-e57a-4baa-a33a-dd724ad92cd6``. This is powerful
-as the end user can use the same commands to interact with datasets stored in
-different backends, making knowledge about the Dtool command line interface
-transferable between different storage systems.
+worked the same if the URI had pointed at a dataset in S3 object storage. This
+is powerful as the end user can use the same commands to interact with datasets
+stored in different backends, making knowledge about the Dtool command line
+interface transferable between different storage systems.
 
 A third common scenario is to want to access to data in order to be able to process it.
 It is possible to simply copy a whole dataset from one location to another.
 
 .. code-block:: none
 
-    $ dtool copy irods:/jic_archive/1f79d594-e57a-4baa-a33a-dd724ad92cd6 /tmp
-    Generating manifest  [####################################]  100%  rna_seq_reads_3.fq.gz
+    $ dtool copy s3://dtool-demo/af6727bf-29c7-43dd-b42f-a5d7ede28337
+    Generating manifest  [####################################]  100%  reads_2.fq.gz
     Dataset copied to:
-    file:///tmp/aphid-rna-seq-data
+    file:///tmp/simulated-lambda-phage-reads
 
 When the command above finishes the data will be available in the
-``/tmp/aphid-rna-seq-data/data`` directory.
+``/tmp/simulated-lambda-phage-reads/data`` directory.
 
 Alternatively, one can gain access to a data item on local file system using
 the ``dtool item fetch`` command which returns the absolute path to a file with
@@ -419,7 +417,7 @@ can create a Bash script to process all the items in a dataset.
 
 .. code-block:: bash
 
-    DS_URI=irods:/jic_archive/1f79d594-e57a-4baa-a33a-dd724ad92cd6
+    DS_URI=s3://dtool-demo/af6727bf-29c7-43dd-b42f-a5d7ede28337
     for ITEM_ID in `dtool identifiers $DS_URI`;
     do
       ITEM_FPATH=`dtool item fetch $DS_URI $ITEM_ID`;
@@ -428,7 +426,7 @@ can create a Bash script to process all the items in a dataset.
 
 This programmatic access to data, available both from the Dtool command line
 tool and the API, makes it easy to incorporate Dtool datasets in scripts and
-automated pipelines. 
+automated pipelines.
 
 Dtool datasets have been designed in accordance with the principles in
 [`Digital Data Storage REF
