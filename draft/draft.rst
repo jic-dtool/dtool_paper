@@ -125,11 +125,9 @@ Within this context, we need to:
 1. Ensure that we can meet our obligations towards our funding bodies regarding
    data management and sharing.
 2. Help our researchers to manage their data, particularly to make cost
-   effective use of our storage systems.
-   Both in terms of providing appropriate solutions for different use cases,
-   fast read access storage for processing data and
-   capacious storage for long term archival of data. And also in terms of
-   the systems being easy to use.
+   effective use of our storage systems. This means providing appropriate
+   solutions for different use cases; fast read access storage for processing
+   data and capacious storage for long term archival of data.
 
 We needed a solution that would:
 
@@ -154,7 +152,7 @@ Solution
 Here we describe Dtool, a solution for lightweight data management. It is
 lightweight in that it has no requirements for a (central) database. It simply
 consists of a command line tool for packing and interacting with data and an
-application programming interface (API) giving programmatic access to the data. 
+application programming interface (API) giving programmatic access to the data.
 
 The most important aspect of Dtool is that it packages data files with
 accompanying metadata into a unified whole. The packaged data and metadata is
@@ -203,7 +201,7 @@ it is structured in Amazon S3 object storage. However, the details of how the
 dataset is structured is abstracted away. The dataset in itself has no
 knowledge of how to read and write (meta) data, it delegates that responsibility
 to the backend.  This architecture makes it easy to plug-in new backends to
-Dtool on an ad-hoc basis.
+Dtool to suit local storage options.
 
 Dtool makes use of Unique Resource Identifiers (URIs) to refer to datasets.
 This is useful as datasets can be stored in different types of backends.
@@ -454,7 +452,7 @@ Discussion
 
 One of the reasons data management is difficult is that there is little
 incentive for the people generating the data, most commonly PhD students and
-post-docs, to care about it. 
+post-docs, to care about it.
 
 Our strategy for data management is therefore to provide light-weight tooling
 that solves immediate problems for the researchers generating and analysing
