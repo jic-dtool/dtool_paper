@@ -1,6 +1,31 @@
 Lightweight Data management
 ***************************
 
+Abstract
+========
+
+
+The explosion in data types and volumes has led to substantial challenges in
+data management. These challenges are often faced by front-line researchers who
+are already dealing with rapidly changing technologies and approaches and have
+limited time and patience to devote to data management.
+
+There are good high level guidelines for managing and processing scientific
+data. However, there are a lack of simple, practical tools to implement these
+guidelines. This is a particularly problem in a highly distributed research
+environment where needs differ substantially from group to group, centralised
+solutions are difficult to implement and storage technologies change rapidly.
+
+We have developed Dtool, a Python package with a command line tool and scripting
+interface to meet these challenges. The tool packages data and metadata into a
+unified whole, which we call a dataset. The dataset provides consistency
+checking and the ability to access metadata for both the whole dataset and
+individual files. The tool can store these datasets on several  different
+storage systems, particularly filesystem, object store (S3 and Azure) and iRODS.
+
+The tool has provided substantial process, cost, and peace-of-mind benefits to
+our data management practices and we hope to share these benefits.
+
 Introduction
 ============
 
@@ -112,14 +137,20 @@ academic or research institutions, the JIC has a strongly decentralised
 structure and culture. Each of the 40+ research groups acts mostly as
 independent units.
 
-This poses a significant challenge to any data management process, and
-renders many existing solutions, which rely on enforced compliance with
-centralised systems, difficult to use.
+This poses a significant challenge to any data management process, and renders
+many existing solutions, which rely on enforced compliance with centralised
+systems, difficult to use.
 
-The academic research funding environment is unpredictable. As a result,
-we have a mixture of different storage technologies bought at different times.
-Each technolgy has its own quirks that the end user needs to gain familiarity with.
-Having to juggle different storage systems is not a productive use of researcher's time.
+This tends to lead to situations where key metadata are encoded in file names
+and paths, which can easily be lost when files are moved around. Coupled with
+concern about losing data when moving files, this leads to storage systems
+becoming full and data accumulating endlessly.
+
+The academic research funding environment is unpredictable. As a result, we have
+a mixture of different storage technologies bought at different times. Each
+technolgy has its own quirks that the end user needs to gain familiarity with.
+Having to juggle different storage systems is not a productive use of
+researcher's time.
 
 Within this context, we need to:
 
@@ -151,8 +182,7 @@ Our Solution
 ============
 
 Our solution to our data management problem is Dtool.
-It is
-lightweight in that it has no requirements for a (central) database. It simply
+It is lightweight in that it has no requirements for a (central) database. It simply
 consists of a command line tool for packing and interacting with data and an
 application programming interface (API) giving programmatic access to the data.
 
@@ -448,46 +478,50 @@ further by packing the data and the metadata into a self contained whole
 Discussion
 ==========
 
-One of the reasons data management is difficult is that there is little
-incentive for the people generating the data, most commonly PhD students and
-post-docs, to care about it.
+Data management provides a set of difficult problems. Technological developments
+in scientific instruments (high throughput sequencers or super resolution
+microscopes, for example) have led to an explosion of data that must be stored,
+processed and shared. This requires both recording of appropriate metadata and
+ensuring consistency of data.
 
-Our strategy for data management is therefore to provide light-weight tooling
-that solves immediate problems for the researchers generating and analysing
-data that also results in better data management as a side-effect.
+These problems are compounded by the issue that those directly generating and
+handling data (often junior researchers) have different immediate incentives
+from funders and institutions. These front-line researchers need to be able to
+quickly receive and process their data to generate scientific insights, without
+investing substantial time learning to use complex data management systems.
 
-The people generating data do not want to lose the data they have generated.
-Data loss can arise from files being deleted or corrupted and not having a
-backup to fall back on. The ability to detect this relies on having some
-means of verifying the data in the first place. However, data loss can be
-more subtle, for example not having enough metadata to understand what the
-data means is another form of data loss.
+Long term maintenance and sharing of data is, however, critical for the long
+term success of science. This translates into requirements from research funders
+and the institutions that host research groups on how data are stored and
+shared.
 
-They people generating data also care about being able to process it to
-generate results. Often a large proportion of data analysis is spent on
-mangling file paths. In many cases file paths become hard coded in scripts,
-making it difficult to move data at a later stage from fear of breaking
-analysis pipelines.
+While there are good theoretical guidelines for data management best practices
+and protocols, there is a lack of direct tooling to support these protocols,
+particularly in the decentralised environment in which much research takes
+place.
 
-Preventing data loss and enabling effective data processing is non-trivial.
-Part of the difficulty arises from the fact that managing data as a collection
-of individual files is hard. Analysing that data will require that certain sets
-of files are present, understanding it requires suitable metadata, and copying
-or moving it while keeping its integrity is difficult.
+Our attempts to solve these challenges led us to the development of Dtool. This
+tool provides a quick and straightforward way to package a collection of related
+files together with key metadata, which we term a dataset. This dataset provides
+both consistency checking and access to both dataset and file level metadata,
+while being portable.
 
-Dtool solves these problems by packaging a collection of files and accompanying
-metadata into a self contained and unified whole: a dataset. By encapsulating
-both the data files and associated metadata in a dataset one is free to move
-the dataset around at will. The high level organisation of datasets can
-therefore evolve over time as data management processes change.
+The tool has provided substantial benefits for our internal data management
+practices. Dataset consistency checking has given our researchers peace of mind
+that the key data underpinning their scientific results are safe and secure.
 
-Dtool also solves an issue of trust. By including file hashes as metadata it is
-possible to verify the integrity of a dataset after it has been moved to a new
-location or when coming back to a dataset after a period of time.
+Encouraging capture of appropriate metadata when datasets are created has led to
+better organisation of data and ability to retrieve and understand data long
+after capture and storage.
 
-With some training we have been able to get our users that generate high
-volumes of data to start using Dtool to package their raw data and push it into
-capacious object-storage managed using iRODS. DESCRIBE BENEFITS THEY OBSERVED
+Giving the tool the ability to store data on the many different storage systems
+to which we have access has substantially reduced our storage costs, translating
+into increased capacity to store and process data with the same resources.
+
+Providing these benefits through a tool which can be used independently of
+centralised systems has improved uptake, particularly by being able to
+demonstrate immediate benefit to the researchers using the tool without concern
+for lock-in.
 
 On a higher level Dtool datasets are also a good fit with many of the ideas
 regarding the life cycle of data [`Data management plan REF
@@ -501,7 +535,7 @@ with descriptive metadata in a README file.  The life cycle of data requires
 one to present a sound data storage and preservation strategy. Dtool make it
 easy to move datasets between different types of storage solutions and the
 dataset API makes it possible to create custom tools for uploading data to
-domain specific databases.  The life-cycle of data requires one to define the
+domain specific databases. The life-cycle of data requires one to define the
 project's data policies. When populating the readme the user is interactively
 asked to specify if the data is either confidential or if it contains
 personally identifiable information, further it is easy to customise for
@@ -511,4 +545,28 @@ example if one wanted to add a field that specified the licence
 Conclusion
 ==========
 
-Write this...
+Without good data mangement, reproducible science is impossible. Our rapidly
+expanding ability to collect and process data has the potential to generate
+important insights, but presents a range of problems in handling those data.
+
+In particular, capturing and storing metadata together with data, ensuring
+consistency of data that is comprised of multiple individual files and being
+able to use heterogeneous storage systems with different capabilities and access
+methods are subtantial challenges, particularly in the highly decentralised
+environment in which much scientific research takes place.
+
+Dtool provides a lightweight and flexible way to package individual files and
+metadata into a portable whole, which we term a dataset. This dataset provides
+consistency checking, giving reseachers confidence that their data maintains
+integrity while moving it between storage systems. Storing key file- and
+dataset-level  metadata together allows the data to be understood in future. The
+ability to use different storage backends such as filesystem, iRODS, S3 or Azure
+storage allows data to be moved to the most appropriate location to balance cost
+and accessibility.
+
+The tool has provided substantial benefits to our internal data management
+practices, giving researchers peace of mind, allowing better retrieval and
+accessibility of data to comply with funder requirements, and saving
+substantially on storage costs. Our tool is available as free open source
+software under the MIT  license, and we hope that it will provide benefit to
+others.
