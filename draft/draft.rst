@@ -463,16 +463,11 @@ Dtool datasets have been designed in accordance with the principles in
 [`Digital Data Storage REF
 <http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005097>`_].
 Dtool leaves original files intact and uses mark up to add additional metadata,
-thus adhering to the principle of keeping raw data raw.  The mark up used by
-Dtool is plain text files using standard formats such as YAML and JSON, thus
-adhering to the principle of storing data in open formats. Dtool provides a
-CLI and an API for programmatic discovery and access to the items and item
-metadata in a dataset, thus adhering to the principle that data should be
-structured for analsyis. A Dtool dataset is given a UUID and each item in a
-dataset has a unique identifier, thus adhering to the principle that data
-should be uniquely identifiable. There is also a principle of providing links
-to relevant metadata, which is possible with Dtool. However, Dtool goes even
-further by packing the data and the metadata into a self contained whole
+adhering to the principle of keeping raw data raw.  The mark up used by Dtool
+is plain text files using standard formats such as YAML and JSON, in line with
+the principle of storing data in open formats.  Each Dtool dataset is given a
+UUID and each item in a dataset has a unique identifier, thus meeting the
+principle that data should be uniquely identifiable.
 
 
 
@@ -491,13 +486,13 @@ from funders and institutions. These front-line researchers need to be able to
 quickly receive and process their data to generate scientific insights, without
 investing substantial time learning to use complex data management systems.
 
-Long term maintenance and sharing of data is, however, critical for the long
+Maintenance and sharing of data is, however, critical for the long
 term success of science. This translates into requirements from research funders
 and the institutions that host research groups on how data are stored and
 shared.
 
-While there are good theoretical guidelines for data management best practices
-and protocols, there is a lack of direct tooling to support these protocols,
+While there are good theoretical guidelines for data management,
+there is a lack of direct tooling to support them,
 particularly in the decentralised environment in which much research takes
 place.
 
@@ -510,14 +505,12 @@ while being portable.
 The tool has provided substantial benefits for our internal data management
 practices. Dataset consistency checking has given our researchers peace of mind
 that the key data underpinning their scientific results are safe and secure.
-
-Encouraging capture of appropriate metadata when datasets are created has led to
+Prompts to capture of appropriate metadata when datasets are created has led to
 better organisation of data and ability to retrieve and understand data long
-after capture and storage.
-
-Giving the tool the ability to store data on the many different storage systems
-to which we have access has substantially reduced our storage costs, translating
-into increased capacity to store and process data with the same resources.
+after capture and storage. The ability of the tool to store data on the many
+different storage systems to which we have access has substantially reduced our
+storage costs, translating into increased capacity to store and process data
+with the same resources.
 
 Providing these benefits through a tool which can be used independently of
 centralised systems has improved uptake, particularly by being able to
@@ -528,19 +521,16 @@ On a higher level Dtool datasets are also a good fit with many of the ideas
 regarding the life cycle of data [`Data management plan REF
 <http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1004525>`_].
 An early step in the life cycle of data is to identify the data to be
-collected. An equivalent step is required before creating a Dtool dataset.  The
-life-cycle of data requires one to define how the data will be organised. Dtool
-provides means to organise data. The life-cycle of data requires one to explain
-how the data will be documented. Dtool provides a means to document a dataset
-with descriptive metadata in a README file.  The life cycle of data requires
-one to present a sound data storage and preservation strategy. Dtool make it
-easy to move datasets between different types of storage solutions and the
-dataset API makes it possible to create custom tools for uploading data to
-domain specific databases. The life-cycle of data requires one to define the
-project's data policies. When populating the readme the user is interactively
-asked to specify if the data is either confidential or if it contains
-personally identifiable information, further it is easy to customise for
-example if one wanted to add a field that specified the licence
+collected, an equivalent step is required before creating a Dtool dataset. An
+important aspect in the life-cycle of data is to define how the data will be
+organised, Dtool then provides means to organise data. In writing a data
+life-cycle plan it is encouraged one to explain how the data will be
+documented.  Because Dtool provides a means to document a dataset with
+descriptive metadata it could form part of this explanation.
+In writing a data life-cycle plan one should present a data storage and
+preservation strategy. Becuase Dtool make it easy to move datasets between
+different types of storage solutions it can be used to implement this aspect of
+the life-cycle plan.
 
 
 Conclusion
@@ -548,22 +538,27 @@ Conclusion
 
 Without good data mangement, reproducible science is impossible. Our rapidly
 expanding ability to collect and process data has the potential to generate
-important insights, but presents a range of problems in handling those data.
+important insights. However, this is only possible if the data is accessible
+and the person doing the analysis has enough knowledge about the observations
+in the raw data to put them into context of a research question. Making data
+accessible and understandable becomes increasingly complex as the volumes of
+data grow.
 
-In particular, capturing and storing metadata together with data, ensuring
-consistency of data that is comprised of multiple individual files and being
-able to use heterogeneous storage systems with different capabilities and access
-methods are subtantial challenges, particularly in the highly decentralised
-environment in which much scientific research takes place.
+In particular there are substantial challenges in: capturing and storing
+metadata together with data; ensuring consistency of data that is comprised of
+multiple individual files; and being able to use heterogeneous storage systems
+with different capabilities and access methods. These challenges become more
+difficult to overcome in the highly decentralised environment in which much
+scientific research takes place.
 
 Dtool provides a lightweight and flexible way to package individual files and
 metadata into a portable whole, which we term a dataset. This dataset provides
 consistency checking, giving reseachers confidence that their data maintains
 integrity while moving it between storage systems. Storing key file- and
-dataset-level  metadata together allows the data to be understood in future. The
-ability to use different storage backends such as filesystem, iRODS, S3 or Azure
-storage allows data to be moved to the most appropriate location to balance cost
-and accessibility.
+dataset-level metadata together with the data allows the data to be understood
+in future. The ability to use different storage backends such as filesystem,
+iRODS, S3 or Azure storage allows data to be moved to the most appropriate
+location to balance cost and accessibility.
 
 The tool has provided substantial benefits to our internal data management
 practices, giving researchers peace of mind, allowing better retrieval and
