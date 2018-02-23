@@ -1,5 +1,5 @@
-Lightweight Data management
-***************************
+Dtool: Lightweight Data management
+**********************************
 
 Abstract
 ========
