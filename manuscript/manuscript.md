@@ -37,15 +37,11 @@ Science is a data driven discipline and therefore requires careful data
 management. Particularly in biology, advances in our ability to capture
 and store data have resulted in a "big data explosion".
 
-A recent trend highlighting the importance of data and data management
-is the movement towards open access to data. Open access to data is
-increasingly viewed as a public good \[[Open Data and the Social
-Contract of Scientific
-Publishing](http://www.bioone.org/doi/full/10.1525/bio.2010.60.5.2)\]
-[@Vision2010], and funding organisations are enforcing this through
-requirements to provide plans for sharing data through research projects
-\[[Data management plan
-REF](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1004525)\].
+A recent trend highlighting the importance of data and data management is the
+movement towards open access to data. Open access to data is increasingly
+viewed as a public good [@Vision2010], and funding organisations are enforcing
+this through requirements to provide plans for sharing data through research
+projects [@Michener2015].
 
 Despite this need for scientific data management it remains a challenge
 and many different approaches to meeting this need have emerged.
@@ -53,10 +49,7 @@ and many different approaches to meeting this need have emerged.
 At one extreme scientific data management consists of researchers
 recording observations in laboratory notebooks. And at another extreme
 there are organisations dedicated to curating and hosting scientific
-data, examples include [The UniProt
-Consortium](https://academic.oup.com/nar/article-lookup/doi/10.1093/nar/gkw1099),
-[The CCDC](http://scripts.iucr.org/cgi-bin/paper?S2052520616003954),
-[The SRA](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3013647/).
+data, examples include [@UniProt][@Groom2016][@Leinonen2011].
 
 In-between these two extreme solutions there is a variety of systems
 aimed at making data management easier for particular types of data.
@@ -65,22 +58,21 @@ ways to manage and categorise certain types of data. Traditionally these
 were oriented towards sample management and they often rely on central
 databases. More specialised systems for managing data produced by
 certain types of instruments also exist.
-\[[OMERO](https://www.ncbi.nlm.nih.gov/pubmed/22373911)\], for example,
+OMERO [@Allan2012], for example,
 is a system aimed at managing microscopy data. These systems also tend
 to rely on central databases.
 
 More generic solutions for managing data also exist. One example is
-\[[iRODS](https://irods.org/uploads/2015/01/irods4-microservices-book-web.pdf)\],
+iRODS [@Rajasekar],
 it provides the ability to build up capacious storage solutions by
 allowing access to distributed storage assets, associating data items
 with metadata stored in a central database. Another example is
-\[[openBIS](Https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-12-468)\],
+openBIS [@Bauch2011],
 a framework for constructing information systems for managing biological
 data. OpenBIS is similar to iRODS in that it is a hybrid data repository
 with metadata stored in a database for fast querying and data as flat
 files. Bare bones systems such as these are flexible, but require effort
-to customise \[[iRODS at
-Sanger](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-12-361)\].
+to customise [@Chiang2011].
 
 Here we describe an alternative, more lightweight approach to managing
 data. It centres around the concept of packing metadata with the data,
@@ -100,28 +92,20 @@ The Data Management Problem
 
 Data management is a broad term and means different things to different
 people. At a high level, funders and the research community as a whole
-care about data being trusted, shared and reusable \[[FAIR data
-REF](https://www.nature.com/articles/sdata201618), [Effective research
-data
-REF](https://www.elsevier.com/connect/10-aspects-of-highly-effective-research-data).
+care about data being trusted, shared and reusable [@Wilkinson2016]
+[@deWaard].
 At an intermediate level, research institutes and project leaders need
-to think about the life cycle of data \[[Data management plan
-REF](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1004525)\],
+to think about the life cycle of data [@Michener2015],
 and how to get the resources they need for their data. At the ground
 level individual researchers need to think about how to structure their
 data into files, how these data files are organised and how to associate
-metadata with these data files \[[Digital Data Storage
-REF](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005097),
-[Tidy Data REF](http://vita.had.co.nz/papers/tidy-data.html), [Leek data
-sharing REF](http://vita.had.co.nz/papers/tidy-data.html).
+metadata with these data files [@Hart2016] [@Wickham2014] [@Leek].
 
 Although the broad and general goals of data management such as making
-data Findable, Accessible, Interoperable and Reusable \[[FAIR data
-REF](https://www.nature.com/articles/sdata201618)\] are admirable, they
+data Findable, Accessible, Interoperable and Reusable [@Wilkinson2016]
+are admirable, they
 are at this point in time very difficult to achieve for anyone other
-than organisations dedicated to hosting scientific data \[[Effective
-research data
-REF](https://www.elsevier.com/connect/10-aspects-of-highly-effective-research-data)\].
+than organisations dedicated to hosting scientific data [@deWaard].
 One reason for this is that there is a lack of tools even for basic data
 management at the level of research institutes, research groups and
 individual researchers.
@@ -487,8 +471,7 @@ line tool and the Python API, makes it easy to incorporate Dtool
 datasets in scripts and automated pipelines.
 
 Dtool datasets have been designed in accordance with the principles in
-\[[Digital Data Storage
-REF](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005097)\].
+[@Hart2016].
 Dtool leaves original files intact and uses mark up to add additional
 metadata, adhering to the principle of keeping raw data raw. The mark up
 used by Dtool is plain text files using standard formats such as YAML
@@ -545,8 +528,7 @@ to demonstrate immediate benefit to the researchers using the tool
 without concern for lock-in.
 
 On a higher level Dtool datasets are also a good fit with many of the
-ideas regarding the life cycle of data \[[Data management plan
-REF](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1004525)\].
+ideas regarding the life cycle of data [@Michener2015].
 An early step in the life cycle of data is to identify the data to be
 collected, an equivalent step is required before creating a Dtool
 dataset. An important aspect in the life-cycle of data is to define how
@@ -594,3 +576,6 @@ retrieval and accessibility of data to comply with funder requirements,
 and saving substantially on storage costs. Our tool is available as free
 open source software under the MIT license, and we hope that it will
 provide benefit to others.
+
+References
+==========
