@@ -1,34 +1,37 @@
 ---
-title: 'Dtool: Lightweight Data management'
-...
+title: 'Dtool: Lightweight Data Management'
+author: Tjelvar S. G. Olsson, Matthew Hartley*
+date: \today
+include-before: "John Innes Centre, Colney Lane, Norwich, Norfolk NR4 7UH, United Kingdom
+                \\newline \\newline
+		Keywords: data management, reproducibility, automation,
+                provenance"
+abstract: |
+	The explosion in data types and volumes has led to substantial
+	challenges in data management. These challenges are often faced by
+	front-line researchers who are already dealing with rapidly changing
+	technologies and approaches and have limited time and patience to devote
+	to data management.
 
-Abstract
-========
+	There are good high level guidelines for managing and processing
+	scientific data. However, there are a lack of simple, practical tools to
+	implement these guidelines. This is particularly a problem in a highly
+	distributed research environment where needs differ substantially from
+	group to group, centralised solutions are difficult to implement and
+	storage technologies change rapidly.
 
-The explosion in data types and volumes has led to substantial
-challenges in data management. These challenges are often faced by
-front-line researchers who are already dealing with rapidly changing
-technologies and approaches and have limited time and patience to devote
-to data management.
+	To meet these challenges we have developed Dtool, a command line tool
+	with a Python API. The tool packages data and metadata into a unified
+	whole, which we call a dataset. The dataset provides consistency
+	checking and the ability to access metadata for both the whole dataset
+	and individual files. The tool can store these datasets on several
+	different storage systems, including traditional filesystem, object
+	store (S3 and Azure) and iRODS.
 
-There are good high level guidelines for managing and processing
-scientific data. However, there are a lack of simple, practical tools to
-implement these guidelines. This is particularly a problem in a highly
-distributed research environment where needs differ substantially from
-group to group, centralised solutions are difficult to implement and
-storage technologies change rapidly.
-
-To meet these challenges we have developed Dtool, a command line tool
-with a Python API. The tool packages data and metadata into a unified
-whole, which we call a dataset. The dataset provides consistency
-checking and the ability to access metadata for both the whole dataset
-and individual files. The tool can store these datasets on several
-different storage systems, including traditional filesystem, object
-store (S3 and Azure) and iRODS.
-
-The tool has provided substantial process, cost, and peace-of-mind
-benefits to our data management practices and we hope to share these
-benefits.
+	The tool has provided substantial process, cost, and peace-of-mind
+	benefits to our data management practices and we hope to share these
+	benefits.
+---
 
 Introduction
 ============
