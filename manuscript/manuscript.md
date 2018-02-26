@@ -81,6 +81,8 @@ Here we describe an alternative, more lightweight approach to managing
 data. It centres around the concept of packing metadata with the data,
 and working with the two as a unified whole.
 
+![Data and metadata are packaged into a unified whole.](package_data_and_metadata_into_beautiful_box.png)
+
 This article contains high-level concepts about data management relevant
 to both project leaders and junior researchers interested in ensuring
 that their data is understandable and re-usable by their peers. The
@@ -188,6 +190,8 @@ metadata is referred to as a dataset. Having the metadata associated
 with the data means that datasets can easily be moved around and that
 the dataset contains all the information required to verify the
 integrity of the data within it.
+
+![Having the data and metadata packaged as a self contained whole makes it easy to move around and organise. Dtool work with both traditional file system as well as cloud options such as Amazon S3 and Microsoft Azure giving researchers the ability to chose the storage solution that best suits their needs.](move_and_organise_boxes_easily.png)
 
 To illustrate the benefits of packaging data and associated metadata
 into a unified whole, it is worth comparing it to other solutions. A
@@ -425,6 +429,8 @@ $ dtool verify ~/my_datasets/simulated-lambda-phage-reads
 All good :)
 ```
 
+![The packaged metadata can be used to verify the integrity of the data items in the box giving researchers peace of mind that the data underpinning their scientific results are safe and secure.](verify_items_in_box.png)
+
 The default behaviour of `dtool verify` is to check that the correct
 item identifiers are present in the dataset and that the items have the
 correct size. It is also possible to verify the content of each item by
@@ -524,6 +530,8 @@ after capture and storage. The ability of the tool to store data on the
 many different storage systems to which we have access has substantially
 reduced our storage costs, translating into increased capacity to store
 and process data with the same resources.
+
+![The packaged metadata can be used to locate a box of interest in among lots of other boxes.](find_your_box_in_a_collection_of_boxes.png)
 
 Providing these benefits through a tool which can be used independently
 of centralised systems has improved uptake, particularly by being able
