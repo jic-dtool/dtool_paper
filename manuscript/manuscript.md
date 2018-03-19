@@ -14,8 +14,8 @@ abstract: |
 	to data management.
 
 	There are good high level guidelines for managing and processing
-	scientific data. However, there are a lack of simple, practical tools to
-	implement these guidelines. This is particularly a problem in a highly
+	scientific data. However, there is a lack of simple, practical tools to
+	implement these guidelines. This is particularly problematic in a highly
 	distributed research environment where needs differ substantially from
 	group to group, centralised solutions are difficult to implement and
 	storage technologies change rapidly.
@@ -29,7 +29,7 @@ abstract: |
 	store (S3 and Azure) and iRODS.
 
 	The tool has provided substantial process, cost, and peace-of-mind
-	benefits to our data management practices and we hope to share these
+	benefits to our data management practices and we want to share these
 	benefits.
 ---
 
@@ -40,13 +40,13 @@ Science is a data driven discipline and therefore requires careful data
 management. Particularly in biology, advances in our ability to capture
 and store data have resulted in a "big data explosion".
 
-A recent trend highlighting the importance of data and data management is the
-movement towards open access to data. Open access to data is increasingly
-viewed as a public good [@Vision2010], and funding organisations are enforcing
-this through requirements to provide plans for sharing data through research
+The recent movement towards open access to data highlights the importance of
+data management.  Open access to data is increasingly viewed as a public good
+[@Vision2010]. This manifests through funding organisations requiring
+researchers to provide plans for sharing data generated during research
 projects [@Michener2015].
 
-Despite this need for scientific data management it remains a challenge
+The problem of managing scientific data remains a challenge 
 and many different approaches to meeting this need have emerged.
 
 At one extreme scientific data management consists of researchers
@@ -65,10 +65,10 @@ OMERO [@Allan2012], for example,
 is a system aimed at managing microscopy data. These systems also tend
 to rely on central databases.
 
-More generic solutions for managing data also exist. One example is
+More generic solutions for managing data exist. One example is
 iRODS [@Rajasekar],
 it provides the ability to build up capacious storage solutions by
-allowing access to distributed storage assets, associating data items
+allowing access to distributed storage assets and associating data items
 with metadata stored in a central database. Another example is
 openBIS [@Bauch2011],
 a framework for constructing information systems for managing biological
@@ -77,7 +77,7 @@ with metadata stored in a database for fast querying and data as flat
 files. Bare bones systems such as these are flexible, but require effort
 to customise [@Chiang2011].
 
-Here we describe an alternative, more lightweight approach to managing
+Here we describe an alternative, lighter approach to managing
 data. It centres around the concept of packing metadata with the data,
 and working with the two as a unified whole.
 
@@ -89,8 +89,8 @@ that their data is understandable and re-usable by their peers. The
 article also contains one section with practical solutions for
 researchers, such as bioinformaticians, that are challenged with
 managing high volumes of scientific data. This section assumes that the
-reader has some familiarity with the command line and can be ignored by
-people only interested in high level concepts.
+reader has some familiarity with the command line.
+
 
 The Data Management Problem
 ===========================
@@ -101,9 +101,9 @@ care about data being trusted, shared and reusable [@Wilkinson2016]
 [@deWaard].
 At an intermediate level, research institutes and project leaders need
 to think about the life cycle of data [@Michener2015],
-and how to get the resources they need for their data. At the ground
+and how to get the resources they need for it. At the ground
 level individual researchers need to think about how to structure their
-data into files, how these data files are organised and how to associate
+data into files, how these data files are to be organised and how to associate
 metadata with these data files [@Hart2016] [@Wickham2014] [@Leek].
 
 Although the broad and general goals of data management such as making
@@ -134,9 +134,9 @@ This poses a significant challenge to any data management process, and
 renders many existing solutions, which rely on enforced compliance with
 centralised systems, difficult to use.
 
-This tends to lead to situations where key metadata are encoded in file
-names and paths, which can easily be lost when files are moved around.
-Coupled with concern about losing data when moving files, this leads to
+This also tends to lead to situations where key metadata are encoded in file
+names and paths, metadata which can easily be lost when files are moved around.
+Coupled with concern about actual data loss/corruption when moving files, this leads to
 storage systems becoming full and data accumulating endlessly.
 
 The academic research funding environment is unpredictable. As a result,
@@ -144,16 +144,6 @@ we have a mixture of different storage technologies bought at different
 times. Each technolgy has its own quirks that the end user needs to gain
 familiarity with. Having to juggle different storage systems is not a
 productive use of researcher's time.
-
-Within this context, we need to:
-
-1.  Ensure that we can meet our obligations towards our funding bodies
-    regarding data management and sharing.
-2.  Help our researchers to manage their data, particularly to make cost
-    effective use of our storage systems. This means providing
-    appropriate solutions for different use cases; fast read access
-    storage for processing data and capacious storage for long term
-    archival of data.
 
 We needed a solution that would:
 
@@ -234,6 +224,8 @@ This section describes how Dtool can be used to manage data. It can be
 skipped by people only intereted in high level concepts of data
 management.
 
+### Terminology
+
 The structure of a dataset depends on the "backend" used to store it. In
 other words a dataset is structured differently on a traditional file
 system to how it is structured in Amazon S3 object storage. However, the
@@ -278,6 +270,9 @@ Datasets are created in three stages. First one creates a so called
 "proto dataset". Secondly, one adds data and metadata to the proto
 dataset. Finally one converts the proto dataset into a dataset by
 "freezing" it.
+
+
+### Creating and storing a dataset
 
 A common use case with Dtool is to package raw data and copy it to
 remote storage to back it up. The first step is to create a proto
@@ -353,6 +348,9 @@ The command above did several things. It created a proto dataset in the
 S3 bucket and copied across all the data and metadata from the local
 dataset. Then it converted the proto dataset to a dataset in S3 by
 freezing it. Finally it returned the URI of the dataset in S3.
+
+
+### Finding and verifying datasets
 
 Another common scenario is to want to discover, understand and verify
 data. To list the dataset in a particular location one can use the
@@ -445,9 +443,14 @@ commands to interact with datasets stored in different backends, making
 knowledge about the Dtool command line interface transferable between
 different storage systems.
 
-A third common scenario is to want access to data in order to be able to
-process it. It is possible to simply copy a whole dataset from one
-location to another.
+
+### Accessing the contents of a dataset
+
+When needing access to data stored on a remote system one can either
+get the entire dataset or specific items from within it.
+
+The command below copies an entire dataset from the ``dtool-demo`` bucket
+in Amazon S3 object storage to the ``/tmp`` directory on the local computer.
 
 ``` {.sourceCode .none}
 $ dtool copy s3://dtool-demo/af6727bf-29c7-43dd-b42f-a5d7ede28337 /tmp
@@ -506,9 +509,9 @@ generate scientific insights, without investing substantial time
 learning to use complex data management systems.
 
 Maintenance and sharing of data is, however, critical for the long term
-success of science. This translates into requirements from research
-funders and the institutions that host research groups on how data are
-stored and shared.
+success of science.
+Funding bodies therefore put requirements on grant holders to ensure
+that the data generated by projects are shared and discoverable.
 
 While there are good theoretical guidelines for data management, there
 is a lack of direct tooling to support them, particularly in the
@@ -523,7 +526,7 @@ both dataset and file level metadata, while being portable.
 The tool has provided substantial benefits for our internal data
 management practices. Dataset consistency checking has given our
 researchers peace of mind that the key data underpinning their
-scientific results are safe and secure. Prompts to capture of
+scientific results are safe and secure. Requiring entry of
 appropriate metadata when datasets are created has led to better
 organisation of data and ability to retrieve and understand data long
 after capture and storage. The ability of the tool to store data on the
@@ -544,7 +547,7 @@ An early step in the life cycle of data is to identify the data to be
 collected, an equivalent step is required before creating a Dtool
 dataset. An important aspect in the life-cycle of data is to define how
 the data will be organised, Dtool then provides means to organise data.
-In writing a data life-cycle plan it is encouraged one to explain how
+In writing a data life-cycle plan one is encouraged to explain how
 the data will be documented. Because Dtool provides a means to document
 a dataset with descriptive metadata it could form part of this
 explanation. In writing a data life-cycle plan one should present a data
@@ -567,7 +570,7 @@ In particular there are substantial challenges in: capturing and storing
 metadata together with data; ensuring consistency of data that is
 comprised of multiple individual files; and being able to use
 heterogeneous storage systems with different capabilities and access
-methods. These challenges become more difficult to overcome in the
+methods. These challenges become even more difficult to overcome in the
 highly decentralised environment in which much scientific research takes
 place.
 
