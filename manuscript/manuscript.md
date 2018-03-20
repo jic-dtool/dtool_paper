@@ -573,19 +573,14 @@ Providing these benefits through a tool which can be used independently
 of centralised systems has improved uptake, particularly by being able
 to demonstrate immediate benefit to the researchers using the tool.
 
-On a higher level dtool datasets are also a good fit with many of the
+dtool datasets are a good fit with many of the
 ideas regarding the life cycle of data [@Michener2015].
-An early step in the life cycle of data is to identify the data to be
-collected, an equivalent step is required before creating a dtool
-dataset. An important aspect in the life-cycle of data is to define how
-the data will be organised, dtool then provides means to organise data.
-In writing a data life-cycle plan one is encouraged to explain how
-the data will be documented. Because dtool provides a means to document
-a dataset with descriptive metadata it could form part of this
-explanation. In writing a data life-cycle plan one should present a data
-storage and preservation strategy. Because dtool make it easy to move
-datasets between different types of storage solutions it can be used to
-implement this aspect of the life-cycle plan.
+The life cycle of data centres around the
+concepts of defining how data will be organised, documented, stored
+and disseminated. By making it easy to move datasets around, dtool
+provides a solution for the organisation, storage and dissemination
+of data. By allowing the metadata to be packaged alongside the data
+dtool also provides a solution for documenting data.
 
 Conclusion
 ==========
