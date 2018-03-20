@@ -3,9 +3,7 @@ title: 'Lightweight data management with dtool'
 author: Tjelvar S. G. Olsson, Matthew Hartley*
 date: \today
 include-before: "John Innes Centre, Colney Lane, Norwich, Norfolk NR4 7UH, United Kingdom
-                \\newline \\newline
-		Keywords: data management, reproducibility, automation,
-                provenance"
+                \\newline \\newline"
 abstract: |
 	The explosion in volumes and types of data has led to substantial
 	challenges in data management. These challenges are often faced by
@@ -32,7 +30,8 @@ abstract: |
 
 	The tool has provided substantial process, cost, and peace-of-mind
 	benefits to our data management practices and we want to share these
-	benefits.
+	benefits. The tool is open source and available freely online at
+        [http://dtool.readthedocs.io/](http://dtool.readthedocs.io/).
 ---
 
 Introduction
@@ -82,9 +81,13 @@ to customise [@Chiang2011].
 
 Here we describe an alternative, lighter approach to managing
 data. It centres around the concept of packaging metadata with the data,
-and working with the two as a unified whole.
+and working with the two as a unified whole (Fig. 1).
 
-![Data and metadata are packaged into a unified whole.](package_data_and_metadata_into_beautiful_box.png)
+![
+Managing data as a collection of individual files is hard.
+Packaging data and metadata into a unified whole makes it easier to manage
+without the need for a central database.
+](package_data_and_metadata_into_beautiful_box.png)
 
 This article contains high-level concepts about data management relevant
 to both project leaders and junior researchers interested in ensuring
@@ -178,13 +181,18 @@ and an application programming interface (API) giving programmatic
 access to the data.
 
 The most important aspect of dtool is that it packages data files with
-accompanying metadata into a unified whole. The packaged data and
+accompanying metadata into a unified whole (Fig 1.). The packaged data and
 metadata is referred to as a dataset. Having the metadata associated
 with the data means that datasets can easily be moved around and that
 the dataset contains all the information required to verify the
-integrity of the data within it.
+integrity of the data within it (Fig 2.).
 
-![Having the data and metadata packaged as a self contained whole makes it easy to move around and organise. dtool work with both traditional file system as well as cloud options such as Amazon S3 and Microsoft Azure giving researchers the ability to chose the storage solution that best suits their needs.](move_and_organise_boxes_easily.png)
+![
+Having the data and metadata packaged as a self contained whole makes it easy
+to move around and organise. dtool works with both traditional file system as
+well as cloud options such as Amazon S3 and Microsoft Azure giving researchers
+the ability to chose the storage solution that best suits their needs.
+](move_and_organise_boxes_easily.png)
 
 To illustrate the benefits of packaging data and associated metadata
 into a unified whole, it is worth comparing it to other solutions. A
@@ -227,58 +235,17 @@ This section describes how dtool can be used to manage data. It can be
 skipped by people only interested in high level concepts of data
 management.
 
-### Terminology
+### Creating and storing a dataset
 
-The structure of a dataset depends on the "backend" used to store it. In
-other words a dataset is structured differently on a traditional file
-system to how it is structured in Amazon S3 object storage. However, the
-details of how the dataset is structured is abstracted away. The dataset
-itself has no knowledge of how to read and write (meta) data, it
-delegates that responsibility to the backend. This architecture makes it
-easy to plug-in new backends to dtool to suit local storage options.
-There are currently backend implementations for traditional file system,
-Amazon S3 object store, Microsoft Azure Storage and iRODS.
-
-dtool makes use of Unique Resource Identifiers (URIs) to refer to
-datasets. This is useful as datasets can be stored in different types of
-backends. Below are examples of two URIs, the first is to a dataset
-stored on local disk, the second is to a dataset stored in an Amazon Web
-Service S3 bucket named `dtool-demo`.
-
-``` {.sourceCode .none}
-file:///Users/olssont/my_datasets/simulated-lambda-phage-reads
-s3://dtool-demo/af6727bf-29c7-43dd-b42f-a5d7ede28337
-```
-
-Below is the on-disk structure of a fictional dataset containing two
-items from an RNA sequencing experiment. The `README.yml` file is where
-the descriptive metadata used to describe the whole dataset is stored.
-The items of the dataset are stored in the directory named `data`. The
-administrative and structural metadata is stored as JSON files in a
-hidden directory named `.dtool`. The use of human readable and open file
-formats such as YAML and JSON was a design decision aimed at
-future proofing the dataset, i.e. to make the dataset self-explanatory
-even without access to dtool.
-
-``` {.sourceCode .none}
-$ tree my_datasets/simulated-lambda-phage-reads
-my_datasets/simulated-lambda-phage-reads
-├── README.yml
-└── data
-    ├── reads_1.fq.gz
-    └── reads_2.fq.gz
-```
+A common use case with dtool is to package raw data and copy it to
+remote storage to back it up.
 
 Datasets are created in three stages. Firstly one creates an editable
 "proto dataset". Secondly, one adds data and metadata to the proto
 dataset. Finally one converts the proto dataset into a dataset by
 "freezing" it, this generates verification information. 
 
-
-### Creating and storing a dataset
-
-A common use case with dtool is to package raw data and copy it to
-remote storage to back it up. The first step is to create a proto
+The first step is to create a proto
 dataset. The command to create a proto dataset takes as input the name
 of the dataset and it returns instructions on how to finalise the
 dataset creation.
@@ -347,11 +314,54 @@ Dataset copied to:
 s3://dtool-demo/af6727bf-29c7-43dd-b42f-a5d7ede28337
 ```
 
-The command above did several things. It created a proto dataset in the
-S3 bucket and copied across all the data and metadata from the local
-dataset. Then it converted the proto dataset to a dataset in S3 by
-freezing it. Finally it returned the URI of the dataset in S3.
+The command above copied the local dataset to remote storage and
+returned a reference to the dataset in the remote storage.
 
+
+### Structure of datasets
+
+The structure of a dataset depends on the "backend" used to store it. In
+other words a dataset is structured differently on a traditional file
+system to how it is structured in Amazon S3 object storage. However, the
+details of how the dataset is structured is abstracted away. The dataset
+itself has no knowledge of how to read and write (meta) data, it
+delegates that responsibility to the backend. This architecture makes it
+easy to plug-in new backends to dtool to suit local storage options.
+There are currently backend implementations for traditional file system,
+Amazon S3 object store, Microsoft Azure Storage and iRODS.
+
+
+Below is the on-disk structure of a fictional dataset containing two
+items from an RNA sequencing experiment. The `README.yml` file is where
+the descriptive metadata used to describe the whole dataset is stored.
+The items of the dataset are stored in the directory named `data`. The
+administrative and structural metadata is stored as JSON files in a
+hidden directory named `.dtool`. The use of human readable and open file
+formats such as YAML and JSON was a design decision aimed at
+future proofing the dataset, i.e. to make the dataset self-explanatory
+even without access to dtool.
+
+``` {.sourceCode .none}
+$ tree my_datasets/simulated-lambda-phage-reads
+my_datasets/simulated-lambda-phage-reads
+├── README.yml
+└── data
+    ├── reads_1.fq.gz
+    └── reads_2.fq.gz
+```
+
+### Referring to datasets
+
+dtool makes use of Unique Resource Identifiers (URIs) to refer to
+datasets. This is useful as datasets can be stored in different types of
+backends. Below are examples of two URIs, the first is to a dataset
+stored on local disk, the second is to a dataset stored in an Amazon Web
+Service S3 bucket named `dtool-demo`.
+
+``` {.sourceCode .none}
+file:///Users/olssont/my_datasets/simulated-lambda-phage-reads
+s3://dtool-demo/af6727bf-29c7-43dd-b42f-a5d7ede28337
+```
 
 ### Finding and verifying datasets
 
@@ -430,13 +440,18 @@ $ dtool verify ~/my_datasets/simulated-lambda-phage-reads
 All good :)
 ```
 
-![The packaged metadata can be used to verify the integrity of the data items in the box giving researchers peace of mind that the data underpinning their scientific results are safe and secure.](verify_items_in_box.png)
-
 The default behaviour of `dtool verify` is to check that the correct
 item identifiers are present in the dataset and that the items have the
 correct size. It is also possible to verify the content of each item by
 supplying the `-f/--full` option, which forces the content of the items
-to be checked against the hashes stored in the dataset's manifest.
+to be checked against the hashes stored in the dataset's manifest (Fig 3.).
+
+![
+The packaged metadata can be used to verify the integrity of the data items in
+the box giving researchers peace of mind that the data underpinning their
+scientific results are safe and secure.
+](verify_items_in_box.png)
+
 
 All of the commands above have been working on the dataset stored on
 local file system. It is worth noting that in all instances the commands
@@ -457,7 +472,7 @@ in Amazon S3 object storage to the ``/tmp`` directory on the local computer.
 
 ``` {.sourceCode .none}
 $ dtool copy s3://dtool-demo/af6727bf-29c7-43dd-b42f-a5d7ede28337 /tmp
-Generating manifest  [####################################]  100%  reads_2.fq.gz
+Generating manifest  [####################################]  100%
 Dataset copied to:
 file:///tmp/simulated-lambda-phage-reads
 ```
@@ -489,7 +504,9 @@ that is pulled in from AWS object store to local disk on demand.
 
 ``` {.sourceCode .python}
 from dtoolcore import DataSet
-dataset = DataSet.from_uri("s3://dtool-demo/af6727bf-29c7-43dd-b42f-a5d7ede28337")
+dataset = DataSet.from_uri(
+	"s3://dtool-demo/af6727bf-29c7-43dd-b42f-a5d7ede28337"
+)
 
 for i in dataset.identifiers:
     process_reads_file(dataset.item_content_abspath(i))
@@ -542,12 +559,15 @@ researchers peace of mind that the key data underpinning their
 scientific results are safe and secure. Requiring entry of
 appropriate metadata when datasets are created has led to better
 organisation of data and ability to retrieve and understand data long
-after capture and storage. The ability of the tool to store data on the
+after capture and storage (Fig. 4). The ability of the tool to store data on the
 many different storage systems to which we have access has substantially
 reduced our storage costs, translating into increased capacity to store
 and process data with the same resources.
 
-![The packaged metadata can be used to locate a box of interest in among lots of other boxes.](find_your_box_in_a_collection_of_boxes.png)
+![
+The packaged metadata can be used to locate a box of interest in among lots of
+other boxes.
+](find_your_box_in_a_collection_of_boxes.png)
 
 Providing these benefits through a tool which can be used independently
 of centralised systems has improved uptake, particularly by being able
@@ -602,6 +622,14 @@ retrieval and accessibility of data to comply with funder requirements,
 and saving substantially on storage costs. Our tool is available as free
 open source software under the MIT license, and we hope that it will
 provide benefit to others.
+
+
+Acknowledgements
+================
+
+We thank Adi Kliot and Hugh Woolfenden for critical reading and feedback on the
+manuscript. We also thank the bioinformaticians at the John Innes Centre that
+have been kind enough to test and provide feedback on dtool.
 
 References
 ==========
