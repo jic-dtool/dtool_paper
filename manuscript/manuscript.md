@@ -1,6 +1,6 @@
 ---
 title: 'Lightweight data management with dtool'
-author: Tjelvar S. G. Olsson, Matthew Hartley*
+author: Tjelvar S. G. Olsson, Matthew Hartley
 date: \today
 include-before: "John Innes Centre, Colney Lane, Norwich, Norfolk NR4 7UH, United Kingdom
                 \\newline \\newline"
@@ -25,7 +25,7 @@ abstract: |
 	and individual files. The tool can store these datasets on several
 	different storage systems, including traditional filesystem, object
 	store (S3 and Azure) and iRODS. It includes an application programming
-        interface that can be used incroporate it into existing pipelines and
+        interface that can be used to incorporate it into existing pipelines and
         workflows.
 
 	The tool has provided substantial process, cost, and peace-of-mind
@@ -176,16 +176,16 @@ Our Solution
 
 Our solution to our data management problem is dtool. It is lightweight
 in that it has no requirements for a (central) database. It simply
-consists of a command line tool for packaging and interacting with data
-and an application programming interface (API) giving programmatic
-access to the data.
+consists of a command line tool and an application programming interface
+(API) for packaging and interacting with data.
 
 The most important aspect of dtool is that it packages data files with
 accompanying metadata into a unified whole (Fig 1.). The packaged data and
 metadata is referred to as a dataset. Having the metadata associated
-with the data means that datasets can easily be moved around and that
+with the data means that datasets can easily be moved around and organised (Fig 2.)
+It also means that
 the dataset contains all the information required to verify the
-integrity of the data within it (Fig 2.).
+integrity of the data within it.
 
 ![
 Having the data and metadata packaged as a self contained whole makes it easy
@@ -223,7 +223,7 @@ its size and hash recorded in a manifest, stored as part of the dataset.
 The hash of a file is a string that can be used to verify the integrity
 of the file.
 
-When creating a dataset the user is prompted to add descriptive metadata
+When creating a dataset the user is asked to add descriptive metadata
 about the dataset. The user is, for example, prompted to describe the
 dataset, state the project name and whether or not the dataset contains
 any confidential or personally identifiable information.
@@ -326,7 +326,7 @@ system to how it is structured in Amazon S3 object storage. However, the
 details of how the dataset is structured is abstracted away. The dataset
 itself has no knowledge of how to read and write (meta) data, it
 delegates that responsibility to the backend. This architecture makes it
-easy to plug-in new backends to dtool to suit local storage options.
+easy to plug-in new backends to dtool to suit new storage options.
 There are currently backend implementations for traditional file system,
 Amazon S3 object store, Microsoft Azure Storage and iRODS.
 
@@ -440,7 +440,7 @@ $ dtool verify ~/my_datasets/simulated-lambda-phage-reads
 All good :)
 ```
 
-The default behaviour of `dtool verify` is to check that the correct
+The default behaviour of `dtool verify` is to check that the expected
 item identifiers are present in the dataset and that the items have the
 correct size. It is also possible to verify the content of each item by
 supplying the `-f/--full` option, which forces the content of the items
@@ -453,7 +453,7 @@ scientific results are safe and secure.
 ](verify_items_in_box.png)
 
 
-All of the commands above have been working on the dataset stored on
+All of the commands above have been working on a dataset stored on
 local file system. It is worth noting that in all instances the commands
 would have worked the same if the URI had pointed at a dataset in S3
 object storage. This is powerful as the end user can use the same
@@ -498,9 +498,9 @@ done
 
 This programmatic access to data, available both from the dtool command
 line tool and the Python API, makes it easy to incorporate dtool
-datasets in scripts and automated pipelines. In the code example below
+datasets in scripts and automated pipelines. In the Python code example below
 we apply the function ``process_reads_file()`` to each item in the dataset
-that is pulled in from AWS object store to local disk on demand.
+that is pulled in from Amazon S3 object store to local disk.
 
 ``` {.sourceCode .python}
 from dtoolcore import DataSet
@@ -512,15 +512,15 @@ for i in dataset.identifiers:
     process_reads_file(dataset.item_content_abspath(i))
 ```
 
-dtool datasets have been designed in accordance with the principles in
-[@Hart2016].
-dtool leaves original files intact and uses mark up to add additional
-metadata, adhering to the principle of keeping raw data raw. The mark up
-used by dtool is plain text files using standard formats such as YAML
-and JSON, in line with the principle of storing data in open formats.
-Each dtool dataset is given a UUID and each item in a dataset has a
-unique identifier, thus meeting the principle that data should be
-uniquely identifiable.
+### Source code and documentation
+
+The dtool source code is freely available under the liberal MIT licence on GitHub.
+The architecture of the code is pluggable with a core available at
+[https://github.com/jic-dtool/dtoolcore](https://github.com/jic-dtool/dtoolcore).
+
+The dtool documentation is available at
+[http://dtool.readthedocs.io/](http://dtool.readthedocs.io/).
+
 
 Discussion
 ==========
@@ -547,6 +547,26 @@ While there are good theoretical guidelines for data management, there
 is a lack of tools to support them, particularly in the
 decentralised environment in which research takes place.
 
+dtool datasets have been designed in accordance with the principles for
+storing digital data outlined in
+[@Hart2016].
+dtool leaves original files intact and uses mark up to add additional
+metadata, adhering to the principle of keeping raw data raw. The mark up
+used by dtool is plain text files using standard formats such as YAML
+and JSON, in line with the principle of storing data in open formats.
+Each dtool dataset is given a UUID and each item in a dataset has a
+unique identifier, thus meeting the principle that data should be
+uniquely identifiable.
+
+dtool datasets are a good fit with many of the
+ideas regarding the life cycle of data [@Michener2015].
+The life cycle of data centres around the
+concepts of defining how data will be organised, documented, stored
+and disseminated. By making it easy to move datasets around, dtool
+provides a solution for the organisation, storage and dissemination
+of data. By allowing the metadata to be packaged alongside the data
+dtool also provides a solution for documenting data.
+
 Our attempts to solve these challenges led us to develop
 dtool. This tool provides a quick and straightforward way to package a
 collection of related files together with key metadata, which we term a
@@ -569,18 +589,6 @@ The packaged metadata can be used to locate a box of interest in among lots of
 other boxes.
 ](find_your_box_in_a_collection_of_boxes.png)
 
-Providing these benefits through a tool which can be used independently
-of centralised systems has improved uptake, particularly by being able
-to demonstrate immediate benefit to the researchers using the tool.
-
-dtool datasets are a good fit with many of the
-ideas regarding the life cycle of data [@Michener2015].
-The life cycle of data centres around the
-concepts of defining how data will be organised, documented, stored
-and disseminated. By making it easy to move datasets around, dtool
-provides a solution for the organisation, storage and dissemination
-of data. By allowing the metadata to be packaged alongside the data
-dtool also provides a solution for documenting data.
 
 Conclusion
 ==========
@@ -601,7 +609,8 @@ methods. These challenges become even more difficult to overcome in the
 highly decentralised environment in which much scientific research takes
 place.
 
-dtool provides a lightweight and flexible way to package individual
+dtool helps researchers overcome these challenges by providing
+a lightweight and flexible way to package individual
 files and metadata into a unified whole, which we term a dataset. This
 dataset provides consistency checking, giving reseachers confidence that
 their data maintains integrity while moving it between storage systems.
@@ -611,12 +620,15 @@ storage backends such as filesystem, iRODS, S3 or Azure storage allows
 data to be moved to the most appropriate location to balance cost and
 accessibility.
 
-The tool has provided substantial benefits to our internal data
-management practices, giving researchers peace of mind, allowing better
-retrieval and accessibility of data to comply with funder requirements,
-and saving substantially on storage costs. Our tool is available as free
-open source software under the MIT license, and we hope that it will
-provide benefit to others.
+dtool datasets are ideally suited for processing becuase one can access both
+the data and the metadata programatically. Further, it is possible to create
+new datasets for storing the output of processing pipelines automatically using
+both the command line tool and the Python API.  This provides a means to
+automate some aspects of data management by incorporating it into
+processing pipelines. This will be the focus of future work.
+
+Our tool is available as free open source software under the MIT license.
+We hope that it will provide benefit to others.
 
 
 Acknowledgements
