@@ -43,18 +43,19 @@ and store data have resulted in a "big data explosion". This is particularly
 true in biology.
 
 The recent movement towards open access to data highlights the importance of
-data management.  Open access to data is increasingly viewed as a public good
-[@Vision2010]. This manifests through funding organisations requiring
+data management.  Open access is increasingly viewed as a public good
+[@Vision2010]. One way that this manifests is through funding organisations requiring
 researchers to provide plans for sharing data generated during research
 projects [@Michener2015].
 
 The problem of managing scientific data remains a challenge 
 and many different approaches to meeting this need have emerged.
 
-At one extreme scientific data management consists of researchers
-recording observations in laboratory notebooks. And at another extreme
+At one extreme, scientific data management consists of researchers
+recording observations in laboratory notebooks. At another,
 there are organisations dedicated to curating and hosting scientific
-data, examples include [@UniProt][@Groom2016][@Leinonen2011].
+data, examples include UniProt[@UniProt], the Cambridge Structural Database
+[@Groom2016] and the Sequence Read Archive[@Leinonen2011].
 
 In-between these two extreme solutions there is a variety of systems
 aimed at simplifying data management for particular types of data.
@@ -69,7 +70,7 @@ to rely on central databases.
 
 More generic solutions for managing data exist. One example is
 iRODS [@Rajasekar],
-it provides the ability to build up capacious storage solutions by
+which provides the ability to build up capacious storage solutions by
 allowing access to distributed storage assets and associating data items
 with metadata stored in a central database. Another example is
 openBIS [@Bauch2011],
@@ -80,8 +81,8 @@ files. These systems are flexible, but require effort
 to customise [@Chiang2011].
 
 Here we describe an alternative, lighter approach to managing
-data. It centres around the concept of packaging metadata with the data,
-and working with the two as a unified whole (Fig. 1).
+data. It centers around the concept of packaging metadata with data,
+and working with the two as a unified, portable whole (Fig. 1).
 
 ![
 Managing data as a collection of individual files is hard.
@@ -122,7 +123,7 @@ management at the level of research institutes, research groups and
 individual researchers.
 
 Another reason data management is challenging at the ground level is that
-there is little incentive for the people generating the data, most
+there is little immediate incentive for the people generating the data, most
 commonly PhD students and post-docs, to care about data management. This
 is understandable as their career relies on them generating research
 outputs such as publications, not managing data.
@@ -132,7 +133,7 @@ Our Motivations
 
 Our data management challenges occur at the John Innes Centre (JIC), an
 independent research institute in plant and microbial sciences. Like
-many academic or research institutions, the JIC has a strongly
+many research institutions, the JIC has a strongly
 decentralised structure and culture. Each of the 40+ research groups
 acts mostly as independent units.
 
@@ -143,7 +144,7 @@ centralised systems, difficult to use.
 This also tends to lead to situations where key metadata are encoded in file
 names and paths, metadata which can easily be lost when files are moved.
 Coupled with concern about actual data loss/corruption when moving files, this leads to
-storage systems becoming full and data accumulating.
+reluctance to move or archive data. As a result, storage systems become full and data accumulates.
 
 The academic research funding environment is unpredictable. As a result,
 we have a mixture of different storage technologies bought at different
@@ -174,7 +175,7 @@ management systems.
 Our Solution
 ============
 
-Our solution to our data management problem is dtool. It is lightweight
+Our solution to this data management problem is dtool. It is lightweight
 in that it has no requirements for a (central) database. It simply
 consists of a command line tool and an application programming interface
 (API) for packaging and interacting with data.
@@ -195,7 +196,7 @@ the ability to chose the storage solution that best suits their needs.
 ](move_and_organise_boxes_easily.png)
 
 To illustrate the benefits of packaging data and associated metadata
-into a unified whole, it is worth comparing it to other solutions. A
+into a unified whole, it is worth comparing it to other alternatives. A
 common solution is to store metadata in file names and directory
 structures. For example consider a file named `col0_chitin_leaf_1.tif`
 stored in a directory named `repl_2`. The file name contains several
@@ -213,14 +214,14 @@ making it difficult to work off-site when the database is managed
 centrally within an institute. It also makes it difficult to move data
 into other systems.
 
-When using dtool to create a dataset it generates both administrative
+When dtool is used to create a dataset, it generates both administrative
 metadata and structural metadata. The administrative metadata contains
 information that helps manage the dataset and includes for example an
 automatically generated universally unique identifier (UUID). The
 structural metadata describes how the dataset is put together, for
 example each data item in the dataset has associated information about
 its size and hash recorded in a manifest, stored as part of the dataset.
-The hash of a file is a string that can be used to verify the integrity
+The hash of a file is a checksum string that can be used to verify the integrity
 of the file.
 
 When creating a dataset the user is asked to add descriptive metadata
@@ -265,7 +266,7 @@ Next steps:
 ```
 
 The dtool client has commands for adding data items. However, when
-working on traditional file system it is often easier to just move the
+working on local file system it is often easier to just move the
 data into the data directory.
 
 ``` {.sourceCode .none}
@@ -302,8 +303,8 @@ Dataset frozen simulated-lambda-phage-reads
 This generates a manifest with per item metadata such as the file sizes
 and hashes.
 
-To back up a dataset one may want to copy it to a different location,
-which can be in a different backend. In the example below we have an
+To back up a dataset, one may want to copy it to a different location,
+which can be in a different storage backend. In the example below we have an
 Amazon S3 bucket named `dtool-demo` to which we want to copy the local
 dataset.
 
@@ -323,7 +324,7 @@ returned a reference to the dataset in the remote storage.
 The structure of a dataset depends on the "backend" used to store it. In
 other words a dataset is structured differently on a traditional file
 system to how it is structured in Amazon S3 object storage. However, the
-details of how the dataset is structured is abstracted away. The dataset
+details of how the dataset is structured are abstracted away. The dataset
 itself has no knowledge of how to read and write (meta) data, it
 delegates that responsibility to the backend. This architecture makes it
 easy to plug-in new backends to dtool to suit new storage options.
@@ -331,7 +332,7 @@ There are currently backend implementations for traditional file system,
 Amazon S3 object store, Microsoft Azure Storage and iRODS.
 
 
-Below is the on-disk structure of a fictional dataset containing two
+Below is the on-disk structure of a dataset containing two
 items from an RNA sequencing experiment. The `README.yml` file is where
 the descriptive metadata used to describe the whole dataset is stored.
 The items of the dataset are stored in the directory named `data`. The
@@ -389,8 +390,8 @@ $ dtool ls ~/my_datasets/simulated-lambda-phage-reads
 5fbf98674019f357014ed5bae073b5ac8c75862a  reads_1.fq.gz
 ```
 
-In the above each item identifier and relative path is listed. This
-information gives an impression of what is contained in a dataset.
+In the above, each item identifier and relative path is listed. This
+information gives an overview of what is contained in a dataset.
 
 To get more information about a dataset one can view the descriptive
 metadata. In the example below the `dtool readme show` command is used
@@ -483,8 +484,8 @@ When the command above finishes the data will be available in the
 Alternatively, one can gain access to a data item on local file system
 using the `dtool item fetch` command which returns the absolute path to
 a file with the content of the data once it is available. By combining
-this command with `dtool identifiers`, which list the data item
-identifiers in a dataset one can create a Bash script to process all the
+this command with `dtool identifiers`, which lists the data item
+identifiers in a dataset, one can create a Bash script to process all the
 items in a dataset.
 
 ``` {.sourceCode .bash}
@@ -543,46 +544,41 @@ success of science.
 Funding bodies therefore put requirements on grant holders to ensure
 that the data generated by projects are shared and discoverable.
 
-While there are good theoretical guidelines for data management, there
-is a lack of tools to support them, particularly in the
-decentralised environment in which research takes place.
+While there are good theoretical guidelines for data management, there is a lack
+of tools to support them, particularly in the decentralised environment in which
+research takes place.
 
-dtool datasets have been designed in accordance with the principles for
-storing digital data outlined in
-[@Hart2016].
-dtool leaves original files intact and uses mark up to add additional
-metadata, adhering to the principle of keeping raw data raw. The mark up
-used by dtool is plain text files using standard formats such as YAML
-and JSON, in line with the principle of storing data in open formats.
-Each dtool dataset is given a UUID and each item in a dataset has a
-unique identifier, thus meeting the principle that data should be
-uniquely identifiable.
+Our attempts to solve these challenges led us to develop dtool. This tool
+provides a quick and straightforward way to package a collection of related
+files together with key metadata, which we term a dataset. This dataset provides
+both consistency checking and access to both dataset and file level metadata,
+while being portable.
 
-dtool datasets are a good fit with many of the
-ideas regarding the life cycle of data [@Michener2015].
-The life cycle of data centres around the
-concepts of defining how data will be organised, documented, stored
-and disseminated. By making it easy to move datasets around, dtool
-provides a solution for the organisation, storage and dissemination
-of data. By allowing the metadata to be packaged alongside the data
-dtool also provides a solution for documenting data.
+dtool datasets have been designed in accordance with the principles for storing
+digital data outlined in [@Hart2016]. dtool leaves original files intact and
+uses mark up to add additional metadata, adhering to the principle of keeping
+raw data raw. The mark up used by dtool is plain text files using standard
+formats such as YAML and JSON, in line with the principle of storing data in
+open formats. Each dtool dataset is given a UUID and each item in a dataset has
+a unique identifier, thus meeting the principle that data should be uniquely
+identifiable.
 
-Our attempts to solve these challenges led us to develop
-dtool. This tool provides a quick and straightforward way to package a
-collection of related files together with key metadata, which we term a
-dataset. This dataset provides both consistency checking and access to
-both dataset and file level metadata, while being portable.
+dtool datasets are a good fit with many of the ideas regarding the life cycle of
+data [@Michener2015]. The life cycle of data centres around the concepts of
+defining how data will be organised, documented, stored and disseminated. By
+making it easy to move datasets around, dtool provides a solution for the
+organisation, storage and dissemination of data. By allowing the metadata to be
+packaged alongside the data dtool also provides a solution for documenting data.
 
-The tool has provided substantial benefits for our internal data
-management practices. Dataset consistency checking has given our
-researchers peace of mind that the key data underpinning their
-scientific results are safe and secure. Requiring entry of
-appropriate metadata when datasets are created has led to better
-organisation of data and ability to retrieve and understand data long
+The tool has provided substantial benefits for our internal data management
+practices. Dataset consistency checking has given our researchers peace of mind
+that the key data underpinning their scientific results are safe and secure.
+Requiring entry of appropriate metadata when datasets are created has led to
+better organisation of data and the ability to retrieve and understand data long
 after capture and storage (Fig. 4). The ability of the tool to store data on the
-many different storage systems to which we have access has substantially
-reduced our storage costs, translating into increased capacity to store
-and process data with the same resources.
+many different storage systems to which we have access has substantially reduced
+our storage costs, translating into increased capacity to store and process data
+with the same resources.
 
 ![
 The packaged metadata can be used to locate a box of interest in among lots of
@@ -597,8 +593,8 @@ Without data mangement, reproducible science is impossible. Our
 rapidly expanding ability to collect and process data has the potential
 to generate important insights. However, this is only possible if the
 data is accessible and the person doing the analysis has enough
-knowledge about the observations in the raw data to put them into
-context of a research question. Making data accessible and
+knowledge about the observations in the data to put them into
+the context of a research question. Making data accessible and
 understandable becomes increasingly complex as the volumes of data grow.
 
 In particular there are substantial challenges in: capturing and storing
@@ -622,7 +618,7 @@ accessibility.
 
 dtool datasets are ideally suited for processing becuase one can access both
 the data and the metadata programatically. Further, it is possible to create
-new datasets for storing the output of processing pipelines automatically using
+new datasets for storing the output of processing pipelines programatically using
 both the command line tool and the Python API.  This provides a means to
 automate some aspects of data management by incorporating it into
 processing pipelines. This will be the focus of future work.
