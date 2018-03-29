@@ -268,7 +268,7 @@ Next steps:
 
 The dtool client has commands for adding data items. However, when working on
 local file system it is often easier to just move or download the data into the
-data directory. In the example below two simulated Lambda Phage next generation
+data directory. In the example below two simulated lambda phage next generation
 sequencing reads are downloaded from the Bowtie2[@Langmead2012] code repository
 as plain text files using ``wget``. After download the plain text files are
 compressed using ``gzip``.
@@ -276,8 +276,8 @@ compressed using ``gzip``.
 ``` {.sourceCode .none}
 $ COMMIT="80edefea19084d5b027a46f2e4feaae949d6a11c"
 $ BASE_URL="https://github.com/BenLangmead/bowtie2/tree/$COMMIT/example/reads"
-$ wget --directory-prefix=simulated-lambda-phage-reads/data $BASE_URL/reads_1.fq
-$ wget --directory-prefix=simulated-lambda-phage-reads/data $BASE_URL/reads_2.fq
+$ wget -P simulated-lambda-phage-reads/data $BASE_URL/reads_1.fq
+$ wget -P simulated-lambda-phage-reads/data $BASE_URL/reads_2.fq
 $ gzip simulated-lambda-phage-reads/data/reads_1.fq
 $ gzip simulated-lambda-phage-reads/data/reads_2.fq
 ```
@@ -300,10 +300,10 @@ To edit the readme using your default editor:
 dtool readme edit simulated-lambda-phage-reads
 ```
 
-It is also possible to edit the descriptive metadata in the `README.yml` file.
-This can be done by opening the ``README.yml`` file in a text editor, or using
-the ``dtool readme edit`` command. In this case the descriptive metadata
-updated to contain the YAML formatted text below.
+It is also possible to edit the descriptive metadata in the `README.yml` file
+directly.  This can be achieved using the ``dtool readme edit`` command, which
+opens the ``README.yml`` file using the default text editor.  In this case the
+descriptive metadata was updated to contain the YAML formatted text below.
 
 ``` {.sourceCode .yaml}
 ---
