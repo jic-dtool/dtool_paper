@@ -40,7 +40,8 @@ Introduction
 Science is an empirical discipline and therefore requires careful data
 management. Advances in our ability to capture
 and store data have resulted in a "big data explosion". This is particularly
-true in biology.
+true in biology and has resulted in data management becoming one of the
+big challenges faced by the biological sciences.
 
 The recent movement towards open access to data highlights the importance of
 data management.  Open access is increasingly viewed as a public good
