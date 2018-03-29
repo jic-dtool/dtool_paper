@@ -311,8 +311,8 @@ creation_date: "2018-02-06"
 notes: "The raw reads have been compressed using gzip"
 license: "Raw data from code repository under GNU General Public License v3.0"
 links:
-  - raw_data: "https://github.com/BenLangmead/bowtie2/tree/80edefea19084d5b027a46f2e4feaae949d6a11c/example/reads"
-  - manual: "http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#getting-started-with-bowtie-2-lambda-phage-example"
+  - raw_data: "https://bit.ly/2GGadPL"
+  - manual: "http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml"
   - bowtie2_paper: "https://dx.doi.org/10.1038/nmeth.1923"
 ```
 
