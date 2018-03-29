@@ -265,17 +265,24 @@ Next steps:
    dtool freeze file:///Users/olssont/simulated-lambda-phage-reads
 ```
 
-The dtool client has commands for adding data items. However, when
-working on local file system it is often easier to just move the
-data into the data directory.
+The dtool client has commands for adding data items. However, when working on
+local file system it is often easier to just move or download the data into the
+data directory. In the example below two simulated Lambda Phage next generation
+sequencing reads are downloaded from the Bowtie2[@Langmead2012] code repository
+as plain text files using ``wget``. After download the plain text files are
+compressed using ``gzip``.
 
 ``` {.sourceCode .none}
-$ mv ~/Downloads/simulated-reads/* simulated-lambda-phage-reads/data
+$ COMMIT="80edefea19084d5b027a46f2e4feaae949d6a11c"
+$ BASE_URL="https://github.com/BenLangmead/bowtie2/tree/$COMMIT/example/reads"
+$ wget --directory-prefix=simulated-lambda-phage-reads/data $BASE_URL/reads_1.fq
+$ wget --directory-prefix=simulated-lambda-phage-reads/data $BASE_URL/reads_2.fq
+$ gzip simulated-lambda-phage-reads/data/reads_1.fq
+$ gzip simulated-lambda-phage-reads/data/reads_2.fq
 ```
 
-To add descriptive metadata one could edit the `README.yml` file
-directly. However, the dtool client comes with built-in functionality
-for prompting for generic descriptive metadata.
+The dtool client comes with built-in functionality for prompting for generic
+descriptive metadata.
 
 ``` {.sourceCode .none}
 $ dtool readme interactive simulated-lambda-phage-reads
@@ -290,6 +297,23 @@ creation_date [2018-02-06]:
 Updated readme
 To edit the readme using your default editor:
 dtool readme edit simulated-lambda-phage-reads
+```
+
+It is also possible to edit the descriptive metadata in the `README.yml` file.
+This can be done by opening the ``README.yml`` file in a text editor, or using
+the ``dtool readme edit`` command. In this case the descriptive metadata
+updated to contain the YAML formatted text below.
+
+``` {.sourceCode .yaml}
+---
+description: "Simulated Lambda phage reads from Bowtie2 getting started example"
+creation_date: "2018-02-06"
+notes: "The raw reads have been compressed using gzip"
+license: "Raw data from code repository under GNU General Public License v3.0"
+links:
+  - raw_data: "https://github.com/BenLangmead/bowtie2/tree/80edefea19084d5b027a46f2e4feaae949d6a11c/example/reads"
+  - manual: "http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#getting-started-with-bowtie-2-lambda-phage-example"
+  - bowtie2_paper: "https://dx.doi.org/10.1038/nmeth.1923"
 ```
 
 To convert the proto dataset into a dataset one needs to freeze it.
