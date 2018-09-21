@@ -147,9 +147,54 @@ Dtool provides programmatic access to the data in a dataset. This means that
 one can use dtool to create scripts that abstract away the location of the
 data.
 
-Describe ``dtool identifiers``...
+For example to process all the items in a dataset one can use the ``dtool
+identifiers`` command to list all the identifiers. To access the content of the
+identifiers one can then use the ``dtool item fectch`` command, which returns
+the absolute path to a location from where the item can be read. For datasets
+stored in the cloud the ``dtool item fetch`` command only returns a path once
+the file has been downloaded to local disk.
 
-Describe ``dtool item fetch``...
+Below is a bash script to illustrate the use of ``dtool identifers`` and
+``dtool item fetch`` in processing data. In the example, the processing
+consists of extracting the first line from each dataset item, using ``gunzip``
+and ``head``.
+
+```
+#!/bin/bash -e
+
+# Read in the input dataset URI from the command line.
+INPUT_DS_URI=$1
+
+# Process all the items in the input dataset.
+for ITEM_ID in `dtool identifiers $INPUT_DS_URI`; do
+    echo "PROCESSING ITEM: $ITEM_ID"
+
+    # Fetch an item and process it.
+    ITEM_ABSPATH=`dtool item fetch $INPUT_DS_URI $ITEM_ID`
+    gunzip -c $ITEM_ABSPATH | head -n 1
+done
+```
+
+Runnign this ``simple_procssing.sh`` script on a dataset stored is illustrated in the example below.
+
+ local disk
+gives the same result as running it on a dataset stored in the cloud.
+
+```
+$ bash simple_processing.sh https://bit.ly/Ecoli-k12-reads
+@ERR022075.1 EAS600_70:5:1:1158:949/2
+@ERR022075.1 EAS600_70:5:1:1158:949/1
+```
+
+We can verify that this gives the same results as running the script on a
+dataset stored on local disk by copying the dataset and re-running the script
+on the local dataset.
+
+$ LOCAL_DS_URI=`dtool copy -q simple_processing.sh https://bit.ly/Ecoli-k12-reads .`
+$ bash simple_processing.sh $LOCAL_DS_URI
+@ERR022075.1 EAS600_70:5:1:1158:949/2
+@ERR022075.1 EAS600_70:5:1:1158:949/1
+```
 
 Describe script for showing first 4 lines of gzipped read files..
 
