@@ -26,6 +26,7 @@ The ability to upload and download a dataset to a cloud storage solutions also
 provides the benefit of enabling researchers to share datasets with
 collaborators.
 
+
 ## Making sense of data
 
 One of the challenges in starting work in a new lab is getting to grips with
@@ -141,7 +142,17 @@ named ``e.coli-k12-reference`` in the current working directory.
 
 ## Processing data
 
-- See the supplementary material to find the scripts used to create the reference genome dataset
+Dtool provides programmatic access to both the data in a dataset. This means
+that one can use dtool to create scripts that abstract away the location of the
+data.
+
+Describe ``dtool identifiers``...
+
+Describe ``dtool item fetch``...
+
+Describe script for showing first 4 lines of gzipped read files..
+
+Describe more complex bowtie2 example...
 
 
 ## Sharing data
