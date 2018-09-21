@@ -113,3 +113,72 @@ the identifier and the relative path of each item.
 
 In summary the commands ``dtool readme show``, ``dtool summary`` and ``dtool
 ls`` gives a clear overview of the context and content of a dataset.
+
+
+## Backing up raw data and archiving old data
+
+At the John Innes Centre we have several storage solutions for storing
+different types of data. Traditional relatively expensive file system storage
+is used for processing data. S3 object storage with two replicas on site and
+one off-site is used for storing raw data. A capacious storage system
+front-ended by iRODS is used for archiving historical data. Because Dtool
+abstracts away the underlaying storage solution the end users can use the same
+commands for copying data to and from these different storage systems. This can
+be illustrated by copying a dataset hosted in the cloud to local disk.
+
+```
+$ dtool cp -q http://bit.ly/Ecoli-k12-reference .
+file:///Users/olssont/e.coli-k12-reference
+```
+
+In the above the ``-q/--quiet`` flag is used to only return the URI specifying
+the location that the dataset has been copied to, in this case a directory
+named ``e.coli-k12-reference`` in the current working directory.
+
+- Create a dataset?
+- Create dataset using ``--symlink-path`` flag?
+
+
+## Processing data
+
+- See the supplementary material to find the scripts used to create the reference genome dataset
+
+
+## Sharing data
+
+It is possible to share datasets hosted in cloud storage such as Amazon S3
+and Microsoft Azure storage.
+
+Take for example the dataset represented by the URI
+s3://dtool-demo/af6727bf-29c7-43dd-b42f-a5d7ede28337. This is a dataset with
+some simulated lambda phage reads.
+
+```
+$ dtool name s3://dtool-demo/af6727bf-29c7-43dd-b42f-a5d7ede28337
+simulated-lambda-phage-reads
+```
+
+This URI can only be used by people that have been authorised to interact with
+the ``dtool-demo`` Amazon S3 bucket. To make this dataset accessible in the
+public domain one can use the ``dtool_publish_dataset`` command line utility.
+
+```
+$ dtool_publish_dataset s3://dtool-demo/af6727bf-29c7-43dd-b42f-a5d7ede28337
+Dataset accessible at: https://dtool-demo.s3.amazonaws.com/af6727bf-29c7-43dd-b42f-a5d7ede28337
+```
+
+It is now possible for anyone in the world to interact with this dataset using
+the returned HTTPS URI.
+
+```
+$ dtool name https://dtool-demo.s3.amazonaws.com/af6727bf-29c7-43dd-b42f-a5d7ede28337
+simulated-lambda-phage-reads
+```
+
+To make life easier one can use a URL shortner like [Bit.ly](https://bitly.com)
+to create a more user friendly URI. The example below refers to the same dataset as above. 
+
+```
+dtool name http://bit.ly/simulated-lambda-phage-reads
+simulated-lambda-phage-reads
+```
