@@ -1,5 +1,8 @@
 #!/usr/bash
 
+# Usage  : ./create_reference_genome_dataset.sh <ACCESSION_ID>
+# Example: ./create_reference_genome_dataset.sh U00096.3
+
 # Exit immediately on failure of a command.
 set -e
 
