@@ -1,3 +1,7 @@
+#!/bin/bash
+
+set -e 
+
 READS_URI=$1
 REF_GENOME_URI=$2
 OUTPUT_BASE_URI=$3
