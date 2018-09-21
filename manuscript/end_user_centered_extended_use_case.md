@@ -15,14 +15,14 @@ Dtool also makes it easy to:
 
 Both of the above are achieved by abstracting away file paths and the storage
 technology from the end user. In other words interacting with a dataset stored
-on local disk feels the same as interacting with a dataset stored in the cloud.
+in the cloud feels the same as interacting with a dataset stored on local disk.
 
 The abstraction of file paths and storage technology also provides a more
 subtle benefit. It enables end users to write processing scripts that are
 agnostic of where the data lives, making the processing scripts more portable
 and re-usable.
 
-The ability to upload and download a dataset to a cloud storage solutions also
+The ability to upload and download datasets to cloud storage solutions also
 provides the benefit of enabling researchers to share datasets with
 collaborators.
 
@@ -30,14 +30,14 @@ collaborators.
 ## Making sense of data
 
 One of the challenges in starting work in a new lab is getting to grips with
-old lab member's data. The person who generated the data is often no longer
+old lab members' data. The person who generated the data is often no longer
 around and substantial effort is often spent trying to understand the context
 of the data and the way it has been structured.
 
-Dtool makes it easy to understand the context and content of a dataset making
-it possible to quickly got from a URI specifying the location of a dataset
-to an overview of the dataset. Below is a shortened URL that redirects to a
-dataset hosted in Amazon S3 storage.
+Dtool makes it easy to understand the context and content of a dataset by
+packing the metadata with the data.  In other words one can quickly get from a
+URI specifying the location of a dataset to an overview of the dataset.
+The URL below represents a dataset hosted in Amazon S3 storage.
 
 ```
 http://bit.ly/Ecoli-k12-reads
@@ -50,8 +50,8 @@ $ dtool name http://bit.ly/Ecoli-k12-reads
 e.coli-k12-reads
 ```
 
-In the example above Dtool follows the redirection and pulls out the name of
-the dataset from its administrative metadata and prints it to the terminal.
+In the example above Dtool pulls out the name of the dataset from the
+administrative metadata and prints it to the terminal.
 
 To get more information about this dataset one can use the ``dtool readme
 show`` command.
@@ -118,14 +118,15 @@ ls`` gives a clear overview of the context and content of a dataset.
 
 ## Backing up raw data and archiving old data
 
-At the John Innes Centre we have several storage solutions for storing
-different types of data. Traditional relatively expensive file system storage
-is used for processing data. S3 object storage with two replicas on site and
-one off-site is used for storing raw data. A capacious storage system
-front-ended by iRODS is used for archiving historical data. Because Dtool
-abstracts away the underlaying storage solution the end users can use the same
-commands for copying data to and from these different storage systems. This can
-be illustrated by copying a dataset hosted in the cloud to local disk.
+At the John Innes Centre we have several storage solutions, each one serving a
+specific purpose.  Traditional relatively expensive file system storage is used
+for processing data. S3 object storage with off-site backups is used for
+storing raw data. A capacious storage system front-ended by iRODS is used for
+archiving long term intermediate data. Because Dtool abstracts away the
+underlaying storage solution the end users can use the same commands for
+copying data to and from these different storage systems. The ease of moving
+data around can be illustrated by copying a dataset hosted in the cloud to
+local disk.
 
 ```
 $ dtool cp -q http://bit.ly/Ecoli-k12-reference .
@@ -142,8 +143,8 @@ named ``e.coli-k12-reference`` in the current working directory.
 
 ## Processing data
 
-Dtool provides programmatic access to both the data in a dataset. This means
-that one can use dtool to create scripts that abstract away the location of the
+Dtool provides programmatic access to the data in a dataset. This means that
+one can use dtool to create scripts that abstract away the location of the
 data.
 
 Describe ``dtool identifiers``...
@@ -170,8 +171,8 @@ simulated-lambda-phage-reads
 ```
 
 This URI can only be used by people that have been authorised to interact with
-the ``dtool-demo`` Amazon S3 bucket. To make this dataset accessible in the
-public domain one can use the ``dtool_publish_dataset`` command line utility.
+the ``dtool-demo`` Amazon S3 bucket. To make this dataset accessible to the
+public one can use the ``dtool_publish_dataset`` command line utility.
 
 ```
 $ dtool_publish_dataset s3://dtool-demo/af6727bf-29c7-43dd-b42f-a5d7ede28337
