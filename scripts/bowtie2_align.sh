@@ -14,7 +14,7 @@ REF_DATA_PREFIX=$REF_DIR/data/reference
 
 if [ ! -d $REF_DIR ]; then
     # The dataset has not been copied yet.
-    dtool copy $REF_GENOME_URI .
+    dtool cp $REF_GENOME_URI .
 fi
 
 # Specify the name of the output dataset and create it.

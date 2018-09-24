@@ -197,10 +197,45 @@ $ bash simple_processing.sh $LOCAL_DS_URI
 
 It is possible to go even further and implement Bash scripts that implement
 dataset to dataset processing. This is powerful as it allows us to automate
-some aspects of data management. Below is a script that performs a Bowtie2
-alignment. It takes as input a dataset with paired RNA sequence reads, a
-dataset with a reference genome and base URI specifying where the output
-dataset should be written to.
+some aspects of data management. In the supplementary material there is a
+script that performs a Bowtie2 alignment. It takes as input a dataset with
+paired RNA sequence reads, a dataset with a reference genome and base URI
+specifying where the output dataset should be written to.
+
+```
+$ bash bowtie2_align.sh  \
+  http://bit.ly/Ecoli-k12-reads-minified  \
+  http://bit.ly/Ecoli-k12-reference .
+```
+
+The command above shows the usage of this Bowtie2 dataset to dataset script.
+It takes as input read and reference data from two datasets hosted in the cloud
+and writes the output to a dataset named
+``e.coli-k12-reads-minified-bowtie2-align`` to the current working dirctory.
+
+The content of this dataset is a SAM file.
+
+```
+$ dtool ls e.coli-k12-reads-minified-bowtie2-align
+eaf15fc1f12417aadddb9617fb048e39509e  ERR022075.sam
+```
+
+The descriptive metadata gives informaiton about how this SAM file was derived.
+
+```
+$ dtool readme show e.coli-k12-reads-minified-bowtie2-align
+---
+description: bowtie2 alignment
+input_reads_uri: http://bit.ly/Ecoli-k12-reads-minified
+ref_genome_uri: http://bit.ly/Ecoli-k12-reference
+bowtie_version: bowtie2-align-s version 2.3.3
+```
+
+In summary Dtool provides a means to write processing scripts that are agnostic
+as to where the input data is stored, whether it be on local disk or in some object
+storage system in the cloud. Furthemore, using Dtool to store the data
+generated from processing scripts allow researchers to automate parts of their
+data management tasks.
 
 
 ## Sharing data
