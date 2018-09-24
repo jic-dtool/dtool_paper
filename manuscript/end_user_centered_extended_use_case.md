@@ -141,6 +141,21 @@ named ``e.coli-k12-reference`` in the current working directory.
 - Create dataset using ``--symlink-path`` flag?
 
 
+## Generating inventories of datasets
+
+- dtool ls
+- dtool inventory
+
+In summary the ``dtool ls`` command can be used to find data in a base URI and
+``dtool inventory`` can be used to generate reports and web pages to make
+datasets findable.
+
+
+## Verifying the integrity of old data
+
+- dtool verify
+
+
 ## Processing data
 
 Dtool provides programmatic access to the data in a dataset. This means that
@@ -149,10 +164,11 @@ data.
 
 For example to process all the items in a dataset one can use the ``dtool
 identifiers`` command to list all the identifiers. To access the content of the
-identifiers one can then use the ``dtool item fectch`` command, which returns
+items one can then use the ``dtool item fectch`` command, which returns
 the absolute path to a location from where the item can be read. For datasets
-stored in the cloud the ``dtool item fetch`` command only returns a path once
-the file has been downloaded to local disk.
+stored in the cloud the ``dtool item fetch`` includes a step to download the
+item to local disk to ensure it can be read from the absolute path returned
+by the command.
 
 Below is a bash script to illustrate the use of ``dtool identifers`` and
 ``dtool item fetch`` in processing data. In the example, the processing
@@ -196,11 +212,12 @@ $ bash simple_processing.sh $LOCAL_DS_URI
 ```
 
 It is possible to go even further and implement Bash scripts that implement
-dataset to dataset processing. This is powerful as it allows us to automate
-some aspects of data management. In the supplementary material there is a
+dataset to dataset processing. This is powerful as it allows the automation
+of some aspects of data management. In the supplementary material there is a
 script that performs a Bowtie2 alignment. It takes as input a dataset with
-paired RNA sequence reads, a dataset with a reference genome and base URI
+paired RNA sequence reads, a dataset with a reference genome and a base URI
 specifying where the output dataset should be written to.
+The command below shows the usage of this Bowtie2 dataset to dataset script.
 
 ```
 $ bash bowtie2_align.sh  \
@@ -208,10 +225,8 @@ $ bash bowtie2_align.sh  \
   http://bit.ly/Ecoli-k12-reference .
 ```
 
-The command above shows the usage of this Bowtie2 dataset to dataset script.
-It takes as input read and reference data from two datasets hosted in the cloud
-and writes the output to a dataset named
-``e.coli-k12-reads-minified-bowtie2-align`` to the current working dirctory.
+Running this command creates a dataset named
+``e.coli-k12-reads-minified-bowtie2-align`` in the current working dirctory.
 
 The content of this dataset is a SAM file.
 
@@ -231,6 +246,9 @@ ref_genome_uri: http://bit.ly/Ecoli-k12-reference
 bowtie_version: bowtie2-align-s version 2.3.3
 ```
 
+It is important to note that the metadata above was generated automaticaly by
+the ``bowtie2_align.sh`` script.
+
 In summary Dtool provides a means to write processing scripts that are agnostic
 as to where the input data is stored, whether it be on local disk or in some object
 storage system in the cloud. Furthemore, using Dtool to store the data
@@ -242,6 +260,8 @@ data management tasks.
 
 It is possible to share datasets hosted in cloud storage such as Amazon S3
 and Microsoft Azure storage.
+
+**Replace this dataset with ``Ecoli-k12-reads``**
 
 Take for example the dataset represented by the URI
 s3://dtool-demo/af6727bf-29c7-43dd-b42f-a5d7ede28337. This is a dataset with
@@ -257,8 +277,8 @@ the ``dtool-demo`` Amazon S3 bucket. To make this dataset accessible to the
 public one can use the ``dtool_publish_dataset`` command line utility.
 
 ```
-$ dtool_publish_dataset s3://dtool-demo/af6727bf-29c7-43dd-b42f-a5d7ede28337
-Dataset accessible at: https://dtool-demo.s3.amazonaws.com/af6727bf-29c7-43dd-b42f-a5d7ede28337
+$ dtool_publish_dataset -q s3://dtool-demo/af6727bf-29c7-43dd-b42f-a5d7ede28337
+https://dtool-demo.s3.amazonaws.com/af6727bf-29c7-43dd-b42f-a5d7ede28337
 ```
 
 It is now possible for anyone in the world to interact with this dataset using
@@ -276,3 +296,6 @@ to create a more user friendly URI. The example below refers to the same dataset
 dtool name http://bit.ly/simulated-lambda-phage-reads
 simulated-lambda-phage-reads
 ```
+
+In summary dtool makes it easy to share datasets with collaborators and to make
+dataset  accessible to the research community.
