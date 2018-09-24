@@ -175,10 +175,8 @@ for ITEM_ID in `dtool identifiers $INPUT_DS_URI`; do
 done
 ```
 
-Runnign this ``simple_procssing.sh`` script on a dataset stored is illustrated in the example below.
-
- local disk
-gives the same result as running it on a dataset stored in the cloud.
+Running this ``simple_procssing.sh`` script on a dataset stored in the cloud is
+illustrated in the example below.
 
 ```
 $ bash simple_processing.sh https://bit.ly/Ecoli-k12-reads
@@ -190,15 +188,19 @@ We can verify that this gives the same results as running the script on a
 dataset stored on local disk by copying the dataset and re-running the script
 on the local dataset.
 
-$ LOCAL_DS_URI=`dtool copy -q simple_processing.sh https://bit.ly/Ecoli-k12-reads .`
+```
+$ LOCAL_DS_URI=`dtool copy -q https://bit.ly/Ecoli-k12-reads .`
 $ bash simple_processing.sh $LOCAL_DS_URI
 @ERR022075.1 EAS600_70:5:1:1158:949/2
 @ERR022075.1 EAS600_70:5:1:1158:949/1
 ```
 
-Describe script for showing first 4 lines of gzipped read files..
-
-Describe more complex bowtie2 example...
+It is possible to go even further and implement Bash scripts that implement
+dataset to dataset processing. This is powerful as it allows us to automate
+some aspects of data management. Below is a script that performs a Bowtie2
+alignment. It takes as input a dataset with paired RNA sequence reads, a
+dataset with a reference genome and base URI specifying where the output
+dataset should be written to.
 
 
 ## Sharing data
