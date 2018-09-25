@@ -1,4 +1,7 @@
-#!/bin/bash -e 
+#!/bin/bash
+
+# Exit immediately on failure of a command.
+set -e
 
 # Specify the dataset name and data directory.
 DS_NAME=Escherichia-coli-reads-ERR022075

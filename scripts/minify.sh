@@ -1,5 +1,6 @@
 #!/bin/bash 
 
+# Exit immediately on failure of a command.
 set -e
 
 # Read in the input from the command line.

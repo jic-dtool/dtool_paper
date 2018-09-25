@@ -24,7 +24,7 @@ ORGANISM=`curl $TEXT_URL | grep '^OS' | sed s'/^OS   //'`
 # Create the proto dataset.
 DS_NAME=`echo $ORGANISM | cut -d" " -f1 -f2 | sed s'/ /-/'`-ref-genome
 echo $DS_NAME
-DS_URI=`dtool create -q $DS_NAME`
+dtool create -q $DS_NAME
 
 # Move into the data directory.
 cd $DS_NAME/data
