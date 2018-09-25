@@ -143,8 +143,48 @@ named ``e.coli-k12-reference`` in the current working directory.
 
 ## Generating inventories of datasets
 
-- dtool ls
-- dtool inventory
+One of the challenges of a running a research group is keeping track of all the
+data being generated. As such it is useful to be able to list datasets and to
+generate inventories of datasets. This can be achieved using the commands
+``dtool ls`` and ``dtool inventory``.
+
+The purpose of ``dtool ls`` is to provide an easy way to list names an URIs of
+datasets. Below is an example of the ``dtool ls`` command listing three datasets stored in a directory named ``my_datasets``.
+
+```
+$ dtool ls my_datasets
+Escherichia-coli-reads-ERR022075
+  file:///Users/olssont/my_datasets/Escherichia-coli-reads-ERR022075
+Escherichia-coli-reads-ERR022075-minified
+  file:///Users/olssont/my_datasets/Escherichia-coli-reads-ERR022075-minified
+Escherichia-coli-ref-genome
+  file:///Users/olssont/my_datasets/Escherichia-coli-ref-genome
+```
+
+The need for this command becomes more apparent when working with datasets
+stored in the cloud. The command below lists the datasets in the Amazon S3
+bucket ``dtool-demo``. Note that the command below requires the user to have
+permissions to read the bucket and as such will not work for the readers of the
+paper, but is included for illustrative purposes.
+
+```
+$ dtool ls s3://dtool-demo/
+e.coli-k12-reference
+  s3://dtool-demo/0860eec7-50f0-4bb7-b251-a12626c44b4d
+e.coli-k12-reads-minified
+  s3://dtool-demo/418a6437-afc7-4bb8-8885-686a20174e54
+e.coli-k12-reads
+  s3://dtool-demo/e3dd30c7-f4aa-4656-a68e-726e8b7706a1
+```
+
+The ``dtool inventory`` command is intented to be able to provide reports of
+datasets. The command below creates a report (``my_datasets.html``) listing all
+the datasets in the ``my_datasets`` directory as a single HTML file that can be
+shared with colleages via email.
+
+```
+$ dtool inventory --format=html my_datasets > my_datasets.html
+```
 
 In summary the ``dtool ls`` command can be used to find data in a base URI and
 ``dtool inventory`` can be used to generate reports and web pages to make
