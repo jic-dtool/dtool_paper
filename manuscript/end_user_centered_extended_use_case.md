@@ -1,14 +1,14 @@
-# Dtool from the end users point of view
+# dtool from the end users point of view
 
 From an end users point of view there are some clear benefits to making use of
-Dtool.
+dtool.
 
 - It provides a means to make data understandable in the future
 
 This is achieved by providing a standardised way to annotate a dataset with
 descriptive metadata.
 
-Dtool also makes it easy to:
+dtool also makes it easy to:
 
 - Back up raw data and archive old data
 - Move data from expensive to more cost effective storage solutions
@@ -34,7 +34,7 @@ old lab members' data. The person who generated the data is often no longer
 around and substantial effort is often spent trying to understand the context
 of the data and the way it has been structured.
 
-Dtool makes it easy to understand the context and content of a dataset by
+dtool makes it easy to understand the context and content of a dataset by
 packing the metadata with the data.  In other words one can quickly get from a
 URI specifying the location of a dataset to an overview of the dataset.
 The URL below represents a dataset hosted in Amazon S3 storage.
@@ -50,7 +50,7 @@ $ dtool name http://bit.ly/Ecoli-k12-reads
 e.coli-k12-reads
 ```
 
-In the example above Dtool pulls out the name of the dataset from the
+In the example above dtool pulls out the name of the dataset from the
 administrative metadata and prints it to the terminal.
 
 To get more information about this dataset one can use the ``dtool readme
@@ -122,7 +122,7 @@ At the John Innes Centre we have several storage solutions, each one serving a
 specific purpose.  Traditional relatively expensive file system storage is used
 for processing data. S3 object storage with off-site backups is used for
 storing raw data. A capacious storage system front-ended by iRODS is used for
-archiving long term intermediate data. Because Dtool abstracts away the
+archiving long term intermediate data. Because dtool abstracts away the
 underlaying storage solution the end users can use the same commands for
 copying data to and from these different storage systems. The ease of moving
 data around can be illustrated by copying a dataset hosted in the cloud to
@@ -193,12 +193,32 @@ datasets findable.
 
 ## Verifying the integrity of old data
 
-- dtool verify
+In trying to reproduce the result of a computational workflow one can run into
+the situations where the newly generated results don't match up with those
+generated previously. One reason this may occur is if the input data has
+become corrupted.
 
+In order to be able to check whether or not this is the case dtool provides a means to verify the integrity of a dataset.
+
+```
+$ dtool verify Escherichia-coli-ref-genome
+All good :)
+```
+
+The command above shows that the dataset contains the expected content. To illustrate what happens if a dataset becomes corrupted we can move a file out of the dataset.
+
+```
+$ mv Escherichia-coli-ref-genome/data/U00096.3.fasta .
+$ dtool verify Escherichia-coli-ref-genome
+Missing item: b445ff5a1e468ab48628a00a944cac2e007fb9bc U00096.3.fasta
+```
+
+In summary dtool provides a means to get clarity with regards to the integrity
+of a dataset.
 
 ## Processing data
 
-Dtool provides programmatic access to the data in a dataset. This means that
+dtool provides programmatic access to the data in a dataset. This means that
 one can use dtool to create scripts that abstract away the location of the
 data.
 
@@ -289,9 +309,9 @@ bowtie_version: bowtie2-align-s version 2.3.3
 It is important to note that the metadata above was generated automaticaly by
 the ``bowtie2_align.sh`` script.
 
-In summary Dtool provides a means to write processing scripts that are agnostic
+In summary dtool provides a means to write processing scripts that are agnostic
 as to where the input data is stored, whether it be on local disk or in some object
-storage system in the cloud. Furthemore, using Dtool to store the data
+storage system in the cloud. Furthemore, using dtool to store the data
 generated from processing scripts allow researchers to automate parts of their
 data management tasks.
 
