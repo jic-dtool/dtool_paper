@@ -14,10 +14,10 @@ dtool also makes it easy to:
 - Move data from expensive to more cost effective storage solutions
 
 Both of the above are achieved by abstracting away file paths and the storage
-technology from the end user. In other words interacting with a dataset stored
+technologies from the end user. In other words interacting with a dataset stored
 in the cloud feels the same as interacting with a dataset stored on local disk.
 
-The abstraction of file paths and storage technology also provides a more
+The abstraction of file paths and storage technologies also provides a more
 subtle benefit. It enables end users to write processing scripts that are
 agnostic of where the data lives, making the processing scripts more portable
 and re-usable.
@@ -137,9 +137,9 @@ In the above the ``-q/--quiet`` flag is used to only return the URI specifying
 the location that the dataset has been copied to, in this case a directory
 named ``e.coli-k12-reference`` in the current working directory.
 
-- Create a dataset?
-- Create dataset using ``--symlink-path`` flag?
-
+dtool makes it easy to copy a datasets between different storage solutions. It
+therefore becomes easy to copy data to storage solutions setup for backing up
+and archiving data.
 
 ## Generating inventories of datasets
 
@@ -149,7 +149,7 @@ generate inventories of datasets. This can be achieved using the commands
 ``dtool ls`` and ``dtool inventory``.
 
 The purpose of ``dtool ls`` is to provide an easy way to list names an URIs of
-datasets. Below is an example of the ``dtool ls`` command listing three datasets stored in a directory named ``my_datasets``.
+datasets. Below is an example of the ``dtool ls`` command listing three datasets stored in a directory named ``my_datasets`` (see the supplementary material for details on how to setup this directory).
 
 ```
 $ dtool ls my_datasets
@@ -271,13 +271,83 @@ $ bash simple_processing.sh $LOCAL_DS_URI
 @ERR022075.1 EAS600_70:5:1:1158:949/1
 ```
 
-It is possible to go even further and implement Bash scripts that implement
-dataset to dataset processing. This is powerful as it allows the automation
-of some aspects of data management. In the supplementary material there is a
-script that performs a Bowtie2 alignment. It takes as input a dataset with
-paired RNA sequence reads, a dataset with a reference genome and a base URI
-specifying where the output dataset should be written to.
-The command below shows the usage of this Bowtie2 dataset to dataset script.
+It is also possible to use dtool to store the output of processing scripts,
+both in terms of data and metadata. In other words, it is possible to
+implement Bash scripts that implement dataset to dataset processing. This is
+powerful as it allows the automation of some aspects of data management.
+
+The script below, called ``minfiy.sh``, uses this concept of dataset to dataset processing. It is worth noting that the script:
+
+- Creates a name for the output dataset based on the input dataset name
+- Creates an output dataset
+- Processes all the items from the input dataset and adds the results to the
+  output dataset
+- Extracts the descriptive metadata from the input dataset as a base for the
+  descriptive metadata of the output dataset
+- Adds a reference to the input dataset and a description of how it was
+  processed to the descriptive metadata of the output dataset
+
+```
+#!/bin/bash 
+
+# Exit immediately on failure of a command.
+set -e
+
+# Read in the input from the command line.
+INPUT_URI=$1
+OUTPUT_BASE_URI=$2
+NUM_LINES=4000
+
+# Create a name for the output dataset based on the input dataset.
+OUTPUT_NAME=`dtool name $INPUT_URI`-minified
+
+# Create an open proto dataset.
+OUTPUT_URI=`dtool create -q $OUTPUT_NAME $OUTPUT_BASE_URI`
+
+# Process all the items in the input dataset and
+# add the results to the output dataset.
+for ITEM_ID in `dtool identifiers $INPUT_URI`; do
+
+  # Fetch the item from the dataset and get an absolute path
+  # from where its content can be accessed.
+  ITEM_ABSPATH=`dtool item fetch $INPUT_URI $ITEM_ID`
+
+  # Write the minified version of the item to a temporary file.
+  TMP_MINIFIED=$(mktemp /tmp/minfied.XXXXXX)
+  gunzip -c $ITEM_ABSPATH | head -n $NUM_LINES | gzip > $TMP_MINIFIED
+
+  # Add the temporary file to the output dataset giving it the relpath
+  # of the item from the input dataset.
+  RELPATH=`dtool item relpath $INPUT_URI $ITEM_ID`
+  dtool add item $TMP_MINIFIED $OUTPUT_URI $RELPATH
+
+  # Cleanup.
+  rm $TMP_MINIFIED
+done
+
+# Create descriptive metadata for the output dataset.
+TMP_README=$(mktemp /tmp/dtool-readme.XXXXXX)
+dtool readme show $INPUT_URI > $TMP_README
+echo "minified:" >> $TMP_README
+echo "  from_UUID: `dtool uuid $INPUT_URI`" >> $TMP_README
+echo "  from_URI: $INPUT_URI" >> $TMP_README
+echo "  content: first $NUM_LINES per item" >> $TMP_README
+
+# Add the descriptive metadata to the output dataset.
+dtool readme write $OUTPUT_URI $TMP_README
+
+# Cleanup.
+rm $TMP_README
+
+# Finalise the output dataset.
+dtool freeze $OUTPUT_URI
+```
+
+In the supplementary material there is a script that performs a Bowtie2
+alignment. It takes as input a dataset with paired RNA sequence reads, a
+dataset with a reference genome and a base URI specifying where the output
+dataset should be written to.  The command below shows the usage of this
+Bowtie2 dataset to dataset script.
 
 ```
 $ bash bowtie2_align.sh  \
@@ -286,7 +356,7 @@ $ bash bowtie2_align.sh  \
 ```
 
 Running this command creates a dataset named
-``e.coli-k12-reads-minified-bowtie2-align`` in the current working dirctory.
+``e.coli-k12-reads-minified-bowtie2-align`` in the current working diretory.
 
 The content of this dataset is a SAM file.
 
@@ -295,7 +365,7 @@ $ dtool ls e.coli-k12-reads-minified-bowtie2-align
 eaf15fc1f12417aadddb9617fb048e39509e  ERR022075.sam
 ```
 
-The descriptive metadata gives informaiton about how this SAM file was derived.
+The descriptive metadata gives information about how this SAM file was derived.
 
 ```
 $ dtool readme show e.coli-k12-reads-minified-bowtie2-align
@@ -310,8 +380,8 @@ It is important to note that the metadata above was generated automaticaly by
 the ``bowtie2_align.sh`` script.
 
 In summary dtool provides a means to write processing scripts that are agnostic
-as to where the input data is stored, whether it be on local disk or in some object
-storage system in the cloud. Furthemore, using dtool to store the data
+as to where the input data is stored, whether it be on local disk or in some
+object storage system in the cloud. Furthemore, using dtool to store the data
 generated from processing scripts allow researchers to automate parts of their
 data management tasks.
 
