@@ -4,6 +4,10 @@
 
 This paper makes use of three datasets hosted in Amazon S3.
 
+- http://bit.ly/Ecoli-ref-genome
+- http://bit.ly/Ecoli-reads
+- http://bit.ly/Ecoli-reads-minified
+
 ### Escherichia-coli-ref-genome
 
 Create script (``create_reference_genome_dataset.sh``) for generating a reference genome dataset.
@@ -81,7 +85,8 @@ s3://dtool-demo/8ecd8e05-558a-48e2-b563-0c9ea273e71e
 Publish the dataset to make it world readable via HTTP.
 
 ```
-$ dtool_publish_dataset -q s3://dtool-demo/8ecd8e05-558a-48e2-b563-0c9ea273e71e
+$ dtool_publish_dataset -q  \
+   s3://dtool-demo/8ecd8e05-558a-48e2-b563-0c9ea273e71e
 https://dtool-demo.s3.amazonaws.com/8ecd8e05-558a-48e2-b563-0c9ea273e71e
 ```
 
@@ -130,8 +135,10 @@ links:
 EOF
 
 # Add data to to proto dataset.
-wget --directory-prefix $DATA_DIR ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR022/ERR022075/ERR022075_1.fastq.gz
-wget --directory-prefix $DATA_DIR ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR022/ERR022075/ERR022075_2.fastq.gz 
+wget --directory-prefix $DATA_DIR  \
+   ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR022/ERR022075/ERR022075_1.fastq.gz
+wget --directory-prefix $DATA_DIR  \
+   ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR022/ERR022075/ERR022075_2.fastq.gz 
 
 # Convert the proto dataset into a dataset by freezing it.
 dtool freeze $DS_NAME
@@ -154,7 +161,8 @@ s3://dtool-demo/faa44606-cb86-4877-b9ea-643a3777e021
 Publish the dataset to make it world readable via HTTP.
 
 ```
-$ dtool_publish_dataset -q s3://dtool-demo/faa44606-cb86-4877-b9ea-643a3777e021
+$ dtool_publish_dataset -q  \
+   s3://dtool-demo/faa44606-cb86-4877-b9ea-643a3777e021
 https://dtool-demo.s3.amazonaws.com/faa44606-cb86-4877-b9ea-643a3777e021
 ```
 
@@ -226,17 +234,20 @@ dtool freeze $OUTPUT_URI
 Run script to create the minified *E. coli* reads dataset.
 
 ```
-$ bash minify.sh http://bit.ly/Ecoli-reads s3://dtool-demo
+$ bash minify.sh s3://dtool-demo/faa44606-cb86-4877-b9ea-643a3777e021  \
+   s3://dtool-demo
+Dataset frozen s3://dtool-demo/907e1b52-d649-476a-b0bc-643ef769a7d9
 ```
 
 Publish the dataset to make it world readable via HTTP.
 
 ```
-$ dtool_publish_dataset -q s3://dtool-demo/
-https://dtool-demo.s3.amazonaws.com/
+$ dtool_publish_dataset -q  \
+   s3://dtool-demo/907e1b52-d649-476a-b0bc-643ef769a7d9
+https://dtool-demo.s3.amazonaws.com/907e1b52-d649-476a-b0bc-643ef769a7d9
 ```
 
-Create shortened URL for accessing the dataset:  http://bit.ly/Ecoli-reads-minified
+Create shortened URL for accessing the dataset: http://bit.ly/Ecoli-reads-minified
 
 
 ## Creating a directory with the sample datasets
@@ -387,23 +398,37 @@ This script was applied to the Escherichia-coli-reads-ERR022075 and
 Escherichia-coli-reads-ERR022075-minified datasets.
 
 ```
-$ python create_paired_read_overlays_from_fname.py s3://dtool-demo/faa44606-cb86-4877-b9ea-643a3777e021
-$ python create_paired_read_overlays_from_fname.py
+$ python create_paired_read_overlays_from_fname.py  \
+   s3://dtool-demo/faa44606-cb86-4877-b9ea-643a3777e021
+$ python create_paired_read_overlays_from_fname.py  \
+   s3://dtool-demo/907e1b52-d649-476a-b0bc-643ef769a7d9
 ```
 
 It is possible to list and view overlays using the ``dtool overlay ls`` and
 ``dtool overlay show`` commands.
 
 ```
+$ dtool overlay ls http://bit.ly/Ecoli-reads
+pair_id
+is_read1
+useful_name
+$ dtool overlay show http://bit.ly/Ecoli-reads is_read1
+{
+  "9760280dc6313d3bb598fa03c5931a7f037d7ffc": true, 
+  "8bda245a8cd526673aab775f90206c8b67d196af": false
+}
 ```
 
 It is also possible to retrieve the value of an overlay for a specific item
 using the ``dtool item overlay`` command.
 
 ```
+$ dtool item overlay pair_id http://bit.ly/Ecoli-reads  \
+   9760280dc6313d3bb598fa03c5931a7f037d7ffc
+8bda245a8cd526673aab775f90206c8b67d196af
 ```
 
-The script below (``bowtie2_align.sh``) can be uses a dataset to dataset
+The script below (``bowtie2_align.sh``) uses dataset to dataset
 processing to align reads to a reference genome.
 
 ```
