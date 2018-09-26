@@ -213,9 +213,7 @@ information that helps manage the dataset and includes for example an
 automatically generated universally unique identifier (UUID). The
 structural metadata describes how the dataset is put together, for
 example each data item in the dataset has associated information about
-its size and hash recorded in a manifest, stored as part of the dataset.
-The hash of a file is a checksum string that can be used to verify the integrity
-of the file.
+its size in a manifest, stored as part of the dataset.
 
 When creating a dataset the user is asked to add descriptive metadata
 about the dataset. The user is, for example, prompted to describe the
@@ -245,7 +243,7 @@ in the cloud feels the same as interacting with a dataset stored on local disk.
 
 The abstraction of file paths and storage technologies also provides a more
 subtle benefit. It enables end users to write processing scripts that are
-agnostic of where the data lives, making processing scripts more portable
+agnostic to the data location, making processing scripts more portable
 and re-usable.
 
 The ability to upload and download datasets to cloud storage solutions also
@@ -257,13 +255,14 @@ collaborators.
 
 One of the challenges in starting work in a new lab is getting to grips with
 old lab members' data. The person who generated the data is often no longer
-around and substantial effort is often spent trying to understand the context
+around and substantial effort can be spent trying to understand the context
 of the data and the way it has been structured.
 
 dtool makes it easy to understand the context and content of a dataset by
-packing the metadata with the data.  In other words one can quickly get from a
+packaging the metadata with the data.  In other words one can quickly get from a
 URI specifying the location of a dataset to an overview of the dataset.
-The URL below represents a dataset hosted in Amazon S3 storage.
+The URL below represents a publically accessible dataset hosted in Amazon S3
+object storage.
 
 ```
 http://bit.ly/Ecoli-reads
@@ -344,7 +343,7 @@ ls`` gives a clear overview of the context and content of a dataset.
 
 ### Backing up raw data and archiving old data
 
-At the John Innes Centre we have several storage solutions, each one serving a
+At the JIC we have several storage solutions, each one serving a
 specific purpose.  Traditional relatively expensive file system storage is used
 for processing data. S3 object storage with off-site backups is used for
 storing raw data. A capacious storage system front-ended by iRODS is used for
@@ -369,13 +368,15 @@ and archiving data.
 
 ### Generating inventories of datasets
 
-One of the challenges of a running a research group is keeping track of all the
+One of the challenges of running a research group is keeping track of all the
 data being generated. As such it is useful to be able to list datasets and to
 generate inventories of datasets. This can be achieved using the commands
 ``dtool ls`` and ``dtool inventory``.
 
-The purpose of ``dtool ls`` is to provide an easy way to list names an URIs of
-datasets. Below is an example of the ``dtool ls`` command listing three datasets stored in a directory named ``my_datasets`` (see the supplementary material for details on how to setup this directory).
+The purpose of ``dtool ls`` is to provide an easy way to list names and URIs of
+datasets. Below is an example of the ``dtool ls`` command listing three
+datasets stored in a directory named ``my_datasets`` (see the supplementary
+material for details on how to setup this directory).
 
 ```
 $ dtool ls my_datasets
@@ -395,18 +396,18 @@ paper, but is included for illustrative purposes.
 
 ```
 $ dtool ls s3://dtool-demo/
-e.coli-k12-reference
-  s3://dtool-demo/0860eec7-50f0-4bb7-b251-a12626c44b4d
-e.coli-k12-reads-minified
-  s3://dtool-demo/418a6437-afc7-4bb8-8885-686a20174e54
-e.coli-k12-reads
-  s3://dtool-demo/e3dd30c7-f4aa-4656-a68e-726e8b7706a1
+Escherichia-coli-ref-genome
+  s3://dtool-demo/8ecd8e05-558a-48e2-b563-0c9ea273e71e
+Escherichia-coli-reads-ERR022075-minified
+  s3://dtool-demo/907e1b52-d649-476a-b0bc-643ef769a7d9
+Escherichia-coli-reads-ERR022075
+  s3://dtool-demo/faa44606-cb86-4877-b9ea-643a3777e021
 ```
 
-The ``dtool inventory`` command is intented to be able to provide reports of
+The ``dtool inventory`` command is intended to be able to generate reports of
 datasets. The command below creates a report (``my_datasets.html``) listing all
 the datasets in the ``my_datasets`` directory as a single HTML file that can be
-shared with colleagues via email.
+shared with colleagues.
 
 ```
 $ dtool inventory --format=html my_datasets > my_datasets.html
@@ -464,7 +465,7 @@ item to local disk to ensure it can be read from the absolute path returned
 by the command.
 
 Below is a Bash script (``simple_processing.sh``) to illustrate this.  The
-processing example extracts the first line from each dataset item, using
+script extracts the first line from each dataset item, using
 ``gunzip`` and ``head``.
 
 ```
@@ -576,7 +577,7 @@ rm $TMP_README
 dtool freeze $OUTPUT_URI
 ```
 
-In the supplementary material there is a script that performs a Bowtie2
+In the supplementary material there is a script that performs a Bowtie2 [@Langmead2012]
 alignment. It takes as input a dataset with paired RNA sequencing reads, a
 dataset with a reference genome and a base URI specifying where the output
 dataset should be written to.  The command below shows the usage of this
@@ -647,7 +648,8 @@ the ``dtool-demo`` Amazon S3 bucket. To make this dataset accessible to the
 public one can use the ``dtool_publish_dataset`` command line utility.
 
 ```
-$ dtool_publish_dataset -q s3://dtool-demo/8ecd8e05-558a-48e2-b563-0c9ea273e71e
+$ dtool_publish_dataset -q  \
+  s3://dtool-demo/8ecd8e05-558a-48e2-b563-0c9ea273e71e
 https://dtool-demo.s3.amazonaws.com/8ecd8e05-558a-48e2-b563-0c9ea273e71e
 ```
 
@@ -656,7 +658,7 @@ the HTTPS URI returned by the ``dtool_publish_dataset`` command.
 
 ```
 $ dtool name  \
-   https://dtool-demo.s3.amazonaws.com/8ecd8e05-558a-48e2-b563-0c9ea273e71e
+  https://dtool-demo.s3.amazonaws.com/8ecd8e05-558a-48e2-b563-0c9ea273e71e
 Escherichia-coli-ref-genome
 ```
 
@@ -731,10 +733,10 @@ packaged alongside the data dtool also provides a solution for documenting data.
 dtool also provides a means for individual researchers and research groups to
 share their data using cloud hosting solutions in a manner that makes the
 data adhere closely to the FAIR principles [@Wilkinson2016]. This is something
-that is very difficult in cases where there are no public databases dedicated
+that is otherwise very difficult in cases where there are no public databases dedicated
 to hosting the specific data type generated by the reseachers.
 
-The tool has provided substantial benefits for our internal data management
+dtool has provided substantial benefits for our internal data management
 practices. Dataset consistency checking has given our researchers peace of mind
 that the key data underpinning their scientific results are safe and secure.
 Requiring entry of appropriate metadata when datasets are created has led to
@@ -784,7 +786,7 @@ dtool datasets are ideally suited for processing becuase one can access both
 the data and the metadata programatically. Further, it is possible to create
 new datasets for storing the output of processing pipelines programatically using
 both the command line tool and the Python API.  This provides a means to
-automate some aspects of data management by incorporating it into
+automate aspects of data management by incorporating it into
 processing pipelines.
 
 Our tool is available as free open source software under the MIT license.
