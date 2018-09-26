@@ -424,7 +424,14 @@ the situations where the newly generated results don't match up with those
 generated previously. One reason this may occur is if the input data has
 become corrupted.
 
-In order to be able to check whether or not this is the case dtool provides a means to verify the integrity of a dataset.
+In order to be able to check whether or not this is the case dtool provides a
+means to verify the integrity of a dataset (Fig 3.).
+
+![
+The packaged metadata can be used to verify the integrity of the data items in
+the box giving researchers peace of mind that the data underpinning their
+scientific results are safe and secure.
+](verify_items_in_box.png)
 
 ```
 $ dtool verify Escherichia-coli-ref-genome
@@ -581,8 +588,9 @@ $ bash bowtie2_align.sh  \
   http://bit.ly/Ecoli-ref-genome .
 ```
 
-Running this command creates a dataset named
-``Escherichia-coli-reads-ERR022075-minified-bowtie2-align`` in the current working diretory.
+Running this command creates a dataset in the current working directory.  Below
+is a command to create an environment variable as a simple alias to this
+directory.
 
 ```
 $ DS_URI=Escherichia-coli-reads-ERR022075-minified-bowtie2-align
@@ -777,7 +785,7 @@ the data and the metadata programatically. Further, it is possible to create
 new datasets for storing the output of processing pipelines programatically using
 both the command line tool and the Python API.  This provides a means to
 automate some aspects of data management by incorporating it into
-processing pipelines. This will be the focus of future work.
+processing pipelines.
 
 Our tool is available as free open source software under the MIT license.
 We hope that it will provide benefit to others.
