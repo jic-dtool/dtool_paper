@@ -19,7 +19,7 @@ in the cloud feels the same as interacting with a dataset stored on local disk.
 
 The abstraction of file paths and storage technologies also provides a more
 subtle benefit. It enables end users to write processing scripts that are
-agnostic of where the data lives, making the processing scripts more portable
+agnostic of where the data lives, making processing scripts more portable
 and re-usable.
 
 The ability to upload and download datasets to cloud storage solutions also
@@ -40,14 +40,14 @@ URI specifying the location of a dataset to an overview of the dataset.
 The URL below represents a dataset hosted in Amazon S3 storage.
 
 ```
-http://bit.ly/Ecoli-k12-reads
+http://bit.ly/Ecoli-reads
 ```
 
 To find out the name of this dataset one can use the ``dtool name`` command.
 
 ```
-$ dtool name http://bit.ly/Ecoli-k12-reads
-e.coli-k12-reads
+$ dtool name http://bit.ly/Ecoli-reads
+Escherichia-coli-reads-ERR022075
 ```
 
 In the example above dtool pulls out the name of the dataset from the
@@ -57,7 +57,7 @@ To get more information about this dataset one can use the ``dtool readme
 show`` command.
 
 ```
-$ dtool readme show http://bit.ly/Ecoli-k12-reads
+$ dtool readme show http://bit.ly/Ecoli-reads
 ---
 description: Whole Genome Sequencing of Escherichia coli str. K-12 MG1655
 design: Paired-end sequencing (2x100 base) of E. coli library
@@ -89,14 +89,14 @@ for E. coli K-12 strain MG1655.
 To get an idea of the size of the dataset one can use the ``dtool summary`` command.
 
 ```
-$ dtool summary http://bit.ly/Ecoli-k12-reads
+$ dtool summary http://bit.ly/Ecoli-reads
 {
-  "name": "e.coli-k12-reads",
-  "uuid": "e3dd30c7-f4aa-4656-a68e-726e8b7706a1",
+  "name": "Escherichia-coli-reads-ERR022075",
+  "uuid": "faa44606-cb86-4877-b9ea-643a3777e021",
   "creator_username": "olssont",
   "number_of_items": 2,
   "size_in_bytes": 3858445043,
-  "frozen_at": 1536667714.548652
+  "frozen_at": 1537950392.95
 }
 ```
 
@@ -104,7 +104,7 @@ This reveals that the dataset contains two items and is just short of 4GB in
 size. The items in the dataset can be listed using the ``dtool ls`` command.
 
 ```
-dtool ls --verbose http://bit.ly/Ecoli-k12-reads
+$ dtool ls --verbose http://bit.ly/Ecoli-reads
 8bda245a8cd526673aab775f90206c8b67d196af   1.8GiB  ERR022075_2.fastq.gz
 9760280dc6313d3bb598fa03c5931a7f037d7ffc   1.7GiB  ERR022075_1.fastq.gz
 ```
@@ -123,19 +123,19 @@ specific purpose.  Traditional relatively expensive file system storage is used
 for processing data. S3 object storage with off-site backups is used for
 storing raw data. A capacious storage system front-ended by iRODS is used for
 archiving long term intermediate data. Because dtool abstracts away the
-underlaying storage solution the end users can use the same commands for
-copying data to and from these different storage systems. The ease of moving
+underlying storage solution the end users can use the same commands for
+copying data to and from these differing storage systems. The ease of moving
 data around can be illustrated by copying a dataset hosted in the cloud to
 local disk.
 
 ```
-$ dtool cp -q http://bit.ly/Ecoli-k12-reference .
-file:///Users/olssont/e.coli-k12-reference
+$ dtool cp -q http://bit.ly/Ecoli-ref-genome .
+file:///Users/olssont/Escherichia-coli-ref-genome
 ```
 
 In the above the ``-q/--quiet`` flag is used to only return the URI specifying
 the location that the dataset has been copied to, in this case a directory
-named ``e.coli-k12-reference`` in the current working directory.
+named ``Escherichia-coli-ref-genome`` in the current working directory.
 
 dtool makes it easy to copy a datasets between different storage solutions. It
 therefore becomes easy to copy data to storage solutions setup for backing up
@@ -162,7 +162,7 @@ Escherichia-coli-ref-genome
 ```
 
 The need for this command becomes more apparent when working with datasets
-stored in the cloud. The command below lists the datasets in the Amazon S3
+stored in the cloud. The command below lists datasets in the Amazon S3
 bucket ``dtool-demo``. Note that the command below requires the user to have
 permissions to read the bucket and as such will not work for the readers of the
 paper, but is included for illustrative purposes.
@@ -180,7 +180,7 @@ e.coli-k12-reads
 The ``dtool inventory`` command is intented to be able to provide reports of
 datasets. The command below creates a report (``my_datasets.html``) listing all
 the datasets in the ``my_datasets`` directory as a single HTML file that can be
-shared with colleages via email.
+shared with colleagues via email.
 
 ```
 $ dtool inventory --format=html my_datasets > my_datasets.html
@@ -230,13 +230,12 @@ stored in the cloud the ``dtool item fetch`` includes a step to download the
 item to local disk to ensure it can be read from the absolute path returned
 by the command.
 
-Below is a bash script to illustrate the use of ``dtool identifers`` and
-``dtool item fetch`` in processing data. In the example, the processing
-consists of extracting the first line from each dataset item, using ``gunzip``
-and ``head``.
+Below is a Bash script (``simple_processing.sh``) to illustrate this.  The
+processing example extracts the first line from each dataset item, using
+``gunzip`` and ``head``.
 
 ```
-#!/bin/bash -e
+#!/bin/bash
 
 # Read in the input dataset URI from the command line.
 INPUT_DS_URI=$1
@@ -252,10 +251,10 @@ done
 ```
 
 Running this ``simple_procssing.sh`` script on a dataset stored in the cloud is
-illustrated in the example below.
+illustrated below.
 
 ```
-$ bash simple_processing.sh https://bit.ly/Ecoli-k12-reads
+$ bash simple_processing.sh https://bit.ly/Ecoli-reads-minified
 @ERR022075.1 EAS600_70:5:1:1158:949/2
 @ERR022075.1 EAS600_70:5:1:1158:949/1
 ```
@@ -265,7 +264,7 @@ dataset stored on local disk by copying the dataset and re-running the script
 on the local dataset.
 
 ```
-$ LOCAL_DS_URI=`dtool copy -q https://bit.ly/Ecoli-k12-reads .`
+$ LOCAL_DS_URI=`dtool cp -q https://bit.ly/Ecoli-reads-minified .`
 $ bash simple_processing.sh $LOCAL_DS_URI
 @ERR022075.1 EAS600_70:5:1:1158:949/2
 @ERR022075.1 EAS600_70:5:1:1158:949/1
@@ -273,8 +272,8 @@ $ bash simple_processing.sh $LOCAL_DS_URI
 
 It is also possible to use dtool to store the output of processing scripts,
 both in terms of data and metadata. In other words, it is possible to
-implement Bash scripts that implement dataset to dataset processing. This is
-powerful as it allows the automation of some aspects of data management.
+implement scripts that implement dataset to dataset processing. This is
+powerful as it allows the automation of aspects of data management.
 
 The script below, called ``minfiy.sh``, uses this concept of dataset to dataset processing. It is worth noting that the script:
 
@@ -344,46 +343,50 @@ dtool freeze $OUTPUT_URI
 ```
 
 In the supplementary material there is a script that performs a Bowtie2
-alignment. It takes as input a dataset with paired RNA sequence reads, a
+alignment. It takes as input a dataset with paired RNA sequencing reads, a
 dataset with a reference genome and a base URI specifying where the output
 dataset should be written to.  The command below shows the usage of this
-Bowtie2 dataset to dataset script.
+script.
 
 ```
 $ bash bowtie2_align.sh  \
-  http://bit.ly/Ecoli-k12-reads-minified  \
-  http://bit.ly/Ecoli-k12-reference .
+  http://bit.ly/Ecoli-reads-minified  \
+  http://bit.ly/Ecoli-ref-genome .
 ```
 
 Running this command creates a dataset named
-``e.coli-k12-reads-minified-bowtie2-align`` in the current working diretory.
+``Escherichia-coli-reads-ERR022075-minified-bowtie2-align`` in the current working diretory.
+
+```
+$ DS_URI=Escherichia-coli-reads-ERR022075-minified-bowtie2-align
+```
 
 The content of this dataset is a SAM file.
 
 ```
-$ dtool ls e.coli-k12-reads-minified-bowtie2-align
-eaf15fc1f12417aadddb9617fb048e39509e  ERR022075.sam
+$ dtool ls $DS_URI
+3ffaeaf15fc1f12417aadddb9617fb048e39509e  ERR022075.sam
 ```
 
 The descriptive metadata gives information about how this SAM file was derived.
 
 ```
-$ dtool readme show e.coli-k12-reads-minified-bowtie2-align
+$ dtool readme show $DS_URI
 ---
 description: bowtie2 alignment
-input_reads_uri: http://bit.ly/Ecoli-k12-reads-minified
-ref_genome_uri: http://bit.ly/Ecoli-k12-reference
+input_reads_uri: http://bit.ly/Ecoli-reads-minified
+ref_genome_uri: http://bit.ly/Ecoli-ref-genome
 bowtie_version: bowtie2-align-s version 2.3.3
 ```
 
-It is important to note that the metadata above was generated automaticaly by
+It is important to note that the metadata above was generated automatically by
 the ``bowtie2_align.sh`` script.
 
 In summary dtool provides a means to write processing scripts that are agnostic
-as to where the input data is stored, whether it be on local disk or in some
+to where the input data is stored, whether it be on local disk or in some
 object storage system in the cloud. Furthemore, using dtool to store the data
 generated from processing scripts allow researchers to automate parts of their
-data management tasks.
+data management.
 
 
 ## Sharing data
@@ -391,15 +394,17 @@ data management tasks.
 It is possible to share datasets hosted in cloud storage such as Amazon S3
 and Microsoft Azure storage.
 
-**Replace this dataset with ``Ecoli-k12-reads``**
-
-Take for example the dataset represented by the URI
-s3://dtool-demo/af6727bf-29c7-43dd-b42f-a5d7ede28337. This is a dataset with
-some simulated lambda phage reads.
+Take for example the dataset represented by the URI below.
 
 ```
-$ dtool name s3://dtool-demo/af6727bf-29c7-43dd-b42f-a5d7ede28337
-simulated-lambda-phage-reads
+s3://dtool-demo/8ecd8e05-558a-48e2-b563-0c9ea273e71e
+```
+
+This is the dataset with the *E. coli* reference genome data.
+
+```
+$ dtool name s3://dtool-demo/8ecd8e05-558a-48e2-b563-0c9ea273e71e
+Escherichia-coli-ref-genome
 ```
 
 This URI can only be used by people that have been authorised to interact with
@@ -407,24 +412,25 @@ the ``dtool-demo`` Amazon S3 bucket. To make this dataset accessible to the
 public one can use the ``dtool_publish_dataset`` command line utility.
 
 ```
-$ dtool_publish_dataset -q s3://dtool-demo/af6727bf-29c7-43dd-b42f-a5d7ede28337
-https://dtool-demo.s3.amazonaws.com/af6727bf-29c7-43dd-b42f-a5d7ede28337
+$ dtool_publish_dataset -q s3://dtool-demo/8ecd8e05-558a-48e2-b563-0c9ea273e71e
+https://dtool-demo.s3.amazonaws.com/8ecd8e05-558a-48e2-b563-0c9ea273e71e
 ```
 
 It is now possible for anyone in the world to interact with this dataset using
-the returned HTTPS URI.
+the HTTPS URI returned by the ``dtool_publish_dataset`` command.
 
 ```
-$ dtool name https://dtool-demo.s3.amazonaws.com/af6727bf-29c7-43dd-b42f-a5d7ede28337
-simulated-lambda-phage-reads
+$ dtool name  \
+   https://dtool-demo.s3.amazonaws.com/8ecd8e05-558a-48e2-b563-0c9ea273e71e
+Escherichia-coli-ref-genome
 ```
 
 To make life easier one can use a URL shortner like [Bit.ly](https://bitly.com)
 to create a more user friendly URI. The example below refers to the same dataset as above. 
 
 ```
-dtool name http://bit.ly/simulated-lambda-phage-reads
-simulated-lambda-phage-reads
+dtool name http://bit.ly/Ecoli-ref-genome
+Escherichia-coli-ref-genome
 ```
 
 In summary dtool makes it easy to share datasets with collaborators and to make
