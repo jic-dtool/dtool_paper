@@ -99,7 +99,7 @@ Data management is a broad term and means different things to different
 people. At a high level, funders and the research community
 care about data being trusted, shared and reusable [@Wilkinson2016]
 [@deWaard].
-At an intermediate level, research institutes and project leaders need
+At an intermediate level, research institutes and principal investigators need
 to think about the life cycle of data [@Michener2015],
 and how to get the resources they need for it. At the ground
 level individual researchers need to think about how to structure their
@@ -116,7 +116,7 @@ management at the level of research institutes, research groups and
 individual researchers.
 
 Another reason data management is challenging at the ground level is that
-there is little immediate incentive for the people generating the data, most
+there is limited immediate incentive for the people generating the data, most
 commonly PhD students and post-docs, to care about data management. This
 is understandable as their career relies on them generating research
 outputs such as publications, not managing data.
@@ -224,10 +224,8 @@ any confidential or personally identifiable information.
 Extended use cases
 ------------------
 
-From an end users point of view there are some clear benefits to making use of
-dtool.
-
-- It provides a means to make data understandable in the future
+From an end users' point of view there are some clear benefits to making use of
+dtool. First and foremost it provides a means to make data understandable in the future.
 
 This is achieved by providing a standardised way to annotate a dataset with
 descriptive metadata.
@@ -235,9 +233,9 @@ descriptive metadata.
 dtool also makes it easy to:
 
 - Back up raw data and archive old data
-- Move data from expensive to more cost effective storage solutions
+- Safely move data from expensive to more cost effective storage solutions
 
-Both of the above are achieved by abstracting away file paths and the storage
+Both of the above are achieved by abstracting away file paths and storage
 technologies from the end user. In other words interacting with a dataset stored
 in the cloud feels the same as interacting with a dataset stored on local disk.
 
@@ -275,8 +273,8 @@ $ dtool name http://bit.ly/Ecoli-reads
 Escherichia-coli-reads-ERR022075
 ```
 
-In the example above dtool pulls out the name of the dataset from the
-administrative metadata and prints it to the terminal.
+In the example above dtool pulls out the name of the dataset
+and prints it to the terminal.
 
 To get more information about this dataset one can use the ``dtool readme
 show`` command.
@@ -311,7 +309,7 @@ prints it to the terminal. In this case the descriptive metadata tells us,
 amongst other things, that this dataset contains paired-end sequencing data
 for E. coli K-12 strain MG1655.
 
-To get an idea of the size of the dataset one can use the ``dtool summary`` command.
+To see the size of the dataset one can use the ``dtool summary`` command.
 
 ```
 $ dtool summary http://bit.ly/Ecoli-reads
@@ -338,14 +336,16 @@ In the above the ``-v/--verbose`` flag is used to return the size as well as
 the identifier and the relative path of each item.
 
 In summary the commands ``dtool readme show``, ``dtool summary`` and ``dtool
-ls`` gives a clear overview of the context and content of a dataset.
+ls`` give a clear overview of the context and content of a dataset.
 
 
 ### Backing up raw data and archiving old data
 
 At the JIC we have several storage solutions, each one serving a
-specific purpose.  Traditional relatively expensive file system storage is used
-for processing data. S3 object storage with off-site backups is used for
+specific purpose.  Relatively expensive file system storage is used
+for processing data. Object storage accessible via the
+[S3 protocol](https://docs.aws.amazon.com/s3/index.html),
+with off-site backups is used for
 storing raw data. A capacious storage system front-ended by iRODS is used for
 archiving long term intermediate data. Because dtool abstracts away the
 underlying storage solution the end users can use the same commands for
@@ -363,7 +363,7 @@ the location that the dataset has been copied to, in this case a directory
 named ``Escherichia-coli-ref-genome`` in the current working directory.
 
 dtool makes it easy to copy a datasets between different storage solutions. It
-therefore becomes easy to copy data to storage solutions setup for backing up
+therefore becomes easy to copy data to storage solutions designed for backing up
 and archiving data.
 
 ### Generating inventories of datasets
@@ -420,10 +420,8 @@ datasets findable.
 
 ### Verifying the integrity of old data
 
-In trying to reproduce the result of a computational workflow one can run into
-the situations where the newly generated results don't match up with those
-generated previously. One reason this may occur is if the input data has
-become corrupted.
+It is useful for researchers to be able to reassure themselves that their
+research data is intact.
 
 In order to be able to check whether or not this is the case dtool provides a
 means to verify the integrity of a dataset (Fig 3.).
@@ -458,9 +456,9 @@ data.
 
 For example to process all the items in a dataset one can use the ``dtool
 identifiers`` command to list all the identifiers. To access the content of the
-items one can then use the ``dtool item fectch`` command, which returns
-the absolute path to a location from where the item can be read. For datasets
-stored in the cloud the ``dtool item fetch`` includes a step to download the
+items one can then use the ``dtool item fetch`` command, which returns
+the absolute path to a location where the item can be read. For datasets
+stored in the cloud, the ``dtool item fetch`` implicitly includes a step to download the
 item to local disk to ensure it can be read from the absolute path returned
 by the command.
 
@@ -597,7 +595,7 @@ directory.
 $ DS_URI=Escherichia-coli-reads-ERR022075-minified-bowtie2-align
 ```
 
-The content of this dataset is a SAM file.
+The content of this dataset is a SAM (Sequence Alignment Map) file.
 
 ```
 $ dtool ls $DS_URI
@@ -618,7 +616,7 @@ bowtie_version: bowtie2-align-s version 2.3.3
 It is important to note that the metadata above was generated automatically by
 the ``bowtie2_align.sh`` script.
 
-In summary dtool provides a means to write processing scripts that are agnostic
+In summary, dtool provides a means to write processing scripts that are agnostic
 to where the input data is stored, whether it be on local disk or in some
 object storage system in the cloud. Furthemore, using dtool to store the data
 generated from processing scripts allow researchers to automate parts of their
