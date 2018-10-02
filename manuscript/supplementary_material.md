@@ -8,7 +8,10 @@ This paper makes use of three datasets hosted in Amazon S3.
 - http://bit.ly/Ecoli-reads
 - http://bit.ly/Ecoli-reads-minified
 
+Here are extended examples of how to create these datasets.
+
 ### Escherichia-coli-ref-genome
+
 
 Create script (``create_reference_genome_dataset.sh``) for generating a reference genome dataset.
 
