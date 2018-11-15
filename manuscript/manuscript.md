@@ -57,7 +57,7 @@ data into files, how these data files are to be organised and how to associate
 metadata with these data files [@Hart2016] [@Wickham2014] [@Leek].
 
 The problem of managing scientific data remains a challenge 
-and many different approaches to meeting this need have emerged.
+and many different approaches to meeting this have emerged.
 
 Traditional scientific data management consists of individual researchers
 recording observations in laboratory notebooks. At another end of the spectrum,
