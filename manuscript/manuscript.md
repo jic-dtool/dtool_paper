@@ -43,22 +43,29 @@ and store data have resulted in a "big data explosion". This is particularly
 true in biology and has resulted in data management becoming one of the
 big challenges faced by the biological sciences.
 
-The recent movement towards open access to data highlights the importance of
-data management.  Open access is increasingly viewed as a public good
-[@Vision2010]. One way that this manifests is through funding organisations requiring
-researchers to provide plans for sharing data generated during research
-projects [@Michener2015].
+ADD REFERENCES...
+
+Data management is a broad term and means different things to different
+people. At a high level, funders and the research community
+care about data being trusted, shared and reusable [@Vision2010] [@Wilkinson2016]
+[@deWaard].
+At an intermediate level, research institutes and principal investigators need
+to think about the life cycle of data [@Michener2015],
+and how to get the resources they need for it. At the ground
+level individual researchers need to think about how to structure their
+data into files, how these data files are to be organised and how to associate
+metadata with these data files [@Hart2016] [@Wickham2014] [@Leek].
 
 The problem of managing scientific data remains a challenge 
 and many different approaches to meeting this need have emerged.
 
-At one extreme, scientific data management consists of researchers
-recording observations in laboratory notebooks. At another,
+Traditional scientific data management consists of individual researchers
+recording observations in laboratory notebooks. At another end of the spectrum,
 there are organisations dedicated to curating and hosting scientific
 data, examples include UniProt[@UniProt], the Cambridge Structural Database
 [@Groom2016] and the Sequence Read Archive[@Leinonen2011].
 
-In-between these two extreme solutions there is a variety of systems
+In-between these two solutions there is a variety of systems
 aimed at simplifying data management for particular types of data.
 Laboratory Information Management Systems provide
 ways to manage and categorise certain types of data. Traditionally these
@@ -81,48 +88,14 @@ with metadata stored in a database for fast querying and data as flat
 files. These systems are flexible, but require effort
 to customise [@Chiang2011].
 
-Here we describe an alternative, lighter approach to managing
-data. It centers around the concept of packaging metadata with data,
-and working with the two as a unified, portable whole (Fig. 1).
+ADD SECTION ON BAGIT HERE...
 
-![
-Managing data as a collection of individual files is hard.
-Packaging data and metadata into a unified whole makes it easier to manage
-without the need for a central database.
-](package_data_and_metadata_into_beautiful_box.png)
-
-
-The Data Management Problem
-===========================
-
-Data management is a broad term and means different things to different
-people. At a high level, funders and the research community
-care about data being trusted, shared and reusable [@Wilkinson2016]
-[@deWaard].
-At an intermediate level, research institutes and principal investigators need
-to think about the life cycle of data [@Michener2015],
-and how to get the resources they need for it. At the ground
-level individual researchers need to think about how to structure their
-data into files, how these data files are to be organised and how to associate
-metadata with these data files [@Hart2016] [@Wickham2014] [@Leek].
-
-Although the broad and general goals of data management such as making
-data FAIR (Findable, Accessible, Interoperable and Reusable) [@Wilkinson2016]
-are admirable, they
-are currently difficult to achieve for anyone other
-than organisations dedicated to hosting scientific data [@deWaard].
-One reason for this is that there is a lack of tools even for basic data
-management at the level of research institutes, research groups and
-individual researchers.
-
-Another reason data management is challenging at the ground level is that
-there is limited immediate incentive for the people generating the data, most
-commonly PhD students and post-docs, to care about data management. This
-is understandable as their career relies on them generating research
-outputs such as publications, not managing data.
+However, there is a lack of tools for basic data
+management at the level of research institutes, research groups and individual
+researchers.
 
 Our Motivations
-===============
+---------------
 
 Our data management challenges occur at the John Innes Centre (JIC), an
 independent research institute in plant and microbial sciences. Like
@@ -165,8 +138,22 @@ these needs is likely to be valuable to a wide range of researchers and
 support groups, particularly those without existing centralised data
 management systems.
 
-Our Solution
-============
+Here we describe our lightweight approach to managing
+data. It centers around the concept of packaging metadata with data,
+and working with the two as a unified, portable whole (Fig. 1).
+
+![
+Managing data as a collection of individual files is hard.
+Packaging data and metadata into a unified whole makes it easier to manage
+without the need for a central database.
+](package_data_and_metadata_into_beautiful_box.png)
+
+
+Methodology
+===========
+
+Packaging data and metadata into a unified whole
+------------------------------------------------
 
 Our solution to this data management problem is dtool. It is lightweight
 in that it has no requirements for a (central) database. It simply
@@ -221,8 +208,25 @@ dataset, state the project name and whether or not the dataset contains
 any confidential or personally identifiable information.
 
 
-Extended use cases
-------------------
+Design decisions
+----------------
+
+WRITE THIS SECTION
+
+
+Source code and documentation
+-----------------------------
+
+The dtool source code is freely available under the liberal MIT licence on GitHub.
+The architecture of the code is pluggable with a core available at
+[https://github.com/jic-dtool/dtoolcore](https://github.com/jic-dtool/dtoolcore).
+
+The dtool documentation is available at
+[http://dtool.readthedocs.io/](http://dtool.readthedocs.io/).
+
+
+Results (use cases)
+===================
 
 From an end users' point of view there are some clear benefits to making use of
 dtool. First and foremost it provides a means to make data understandable in the future.
@@ -249,7 +253,8 @@ provides the benefit of enabling researchers to share datasets with
 collaborators.
 
 
-### Making sense of data
+Use case: Making sense of data
+------------------------------
 
 One of the challenges in starting work in a new lab is getting to grips with
 old lab members' data. The person who generated the data is often no longer
@@ -339,7 +344,8 @@ In summary the commands ``dtool readme show``, ``dtool summary`` and ``dtool
 ls`` give a clear overview of the context and content of a dataset.
 
 
-### Backing up raw data and archiving old data
+Use case: Backing up raw data and archiving old data
+----------------------------------------------------
 
 At the JIC we have several storage solutions, each one serving a
 specific purpose.  Relatively expensive file system storage is used
@@ -366,7 +372,8 @@ dtool makes it easy to copy a datasets between different storage solutions. It
 therefore becomes easy to copy data to storage solutions designed for backing up
 and archiving data.
 
-### Generating inventories of datasets
+Use case: Generating inventories of datasets
+--------------------------------------------
 
 One of the challenges of running a research group is keeping track of all the
 data being generated. As such it is useful to be able to list datasets and to
@@ -418,7 +425,8 @@ In summary the ``dtool ls`` command can be used to find data in a base URI and
 datasets findable.
 
 
-### Verifying the integrity of old data
+Use case: Verifying the integrity of old data
+---------------------------------------------
 
 It is useful for researchers to be able to reassure themselves that their
 research data is intact.
@@ -448,7 +456,8 @@ Missing item: b445ff5a1e468ab48628a00a944cac2e007fb9bc U00096.3.fasta
 In summary dtool provides a means to get clarity with regards to the integrity
 of a dataset.
 
-### Processing data
+Use case: Processing data
+-------------------------
 
 dtool provides programmatic access to the data in a dataset. This means that
 one can use dtool to create scripts that abstract away the location of the
@@ -623,7 +632,8 @@ generated from processing scripts allow researchers to automate parts of their
 data management.
 
 
-### Sharing data
+Use case: Sharing data
+----------------------
 
 It is possible to share datasets hosted in cloud storage such as Amazon S3
 and Microsoft Azure storage.
@@ -670,15 +680,6 @@ Escherichia-coli-ref-genome
 
 In summary dtool makes it easy to share datasets with collaborators and to make
 dataset  accessible to the research community.
-
-### Source code and documentation
-
-The dtool source code is freely available under the liberal MIT licence on GitHub.
-The architecture of the code is pluggable with a core available at
-[https://github.com/jic-dtool/dtoolcore](https://github.com/jic-dtool/dtoolcore).
-
-The dtool documentation is available at
-[http://dtool.readthedocs.io/](http://dtool.readthedocs.io/).
 
 
 Discussion

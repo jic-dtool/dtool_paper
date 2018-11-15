@@ -6,6 +6,10 @@ CHANGELOG
 
 Changes in response to reviewers comments.
 
+- Restructured sections using more traditional headings
+- Removed the word "extreme" in relation to traditional lab notebooks
+- Removed statements not backed up by references or data
+
 
 1.1.0
 -----
