@@ -10,6 +10,11 @@ Changes in response to reviewers comments.
 - Removed the word "extreme" in relation to traditional lab notebooks
 - Removed statements not backed up by references or data
 - Remove extraneous "need"
+- Change sentence from "The URL below represents a publically accessible
+  dataset hosted in Amazon S3 object storage" to "The URL below represents a
+  dataset hosted in Amazon S3 that can be accessed by anyone using dtool
+  (the URL is not intended to be displayed using a web browser)"
+  to make it clearer that the URL is meant for consumption by dtool
 
 
 1.1.0

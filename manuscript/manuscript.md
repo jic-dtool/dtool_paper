@@ -264,8 +264,8 @@ of the data and the way it has been structured.
 dtool makes it easy to understand the context and content of a dataset by
 packaging the metadata with the data.  In other words one can quickly get from a
 URI specifying the location of a dataset to an overview of the dataset.
-The URL below represents a publically accessible dataset hosted in Amazon S3
-object storage.
+The URL below represents a dataset hosted in Amazon S3 that can be accessed by
+anyone using dtool (the URL is not intended to be displayed using a web browser).
 
 ```
 http://bit.ly/Ecoli-reads
