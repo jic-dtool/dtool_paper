@@ -21,6 +21,7 @@ Changes in response to reviewers comments.
 - Qualified the selection of the examples of organisations hosting scientific
   data to be from our domain
 - Added paragraph on sustainability
+- Made discussion about FAIR more nuanced
 
 
 1.1.0
