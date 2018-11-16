@@ -18,6 +18,9 @@ Changes in response to reviewers comments.
 - Updated simple_processing.sh script to reflect output
 - Introduced the ``dtool uuid`` command earlier in the making sense of data section
 - Added more references Lynch 2008, Howe 2008, Cook 2018, Stephens 2015
+- Qualified the selection of the examples of organisations hosting scientific
+  data to be from our domain
+- Added paragraph on sustainability
 
 
 1.1.0

@@ -41,7 +41,7 @@ Science is an empirical discipline and therefore requires careful data
 management. Advances in our ability to capture
 and store data have resulted in a "big data explosion". This is particularly
 true in biology and has resulted in data management becoming one of the
-big challenges faced by the biological sciences[@Howe2008] [@Stephens2015] [@Cook2018].
+big challenges faced by the biological sciences [@Howe2008] [@Stephens2015] [@Cook2018].
 
 ADD REFERENCES...
 
@@ -62,8 +62,8 @@ and many different approaches to meeting this have emerged.
 Traditional scientific data management consists of individual researchers
 recording observations in laboratory notebooks. At another end of the spectrum,
 there are organisations dedicated to curating and hosting scientific
-data, examples include EBI [@Cook2018], UniProt[@UniProt], the Cambridge Structural Database
-[@Groom2016] and the Sequence Read Archive[@Leinonen2011].
+data, examples from our field (biology) include EBI [@Cook2018], UniProt [@UniProt]
+and the Sequence Read Archive[@Leinonen2011].
 
 In-between these two solutions there is a variety of systems
 aimed at simplifying data management for particular types of data.
@@ -754,6 +754,10 @@ with the same resources.
 The packaged metadata can be used to locate a box of interest in among lots of
 other boxes.
 ](find_your_box_in_a_collection_of_boxes.png)
+
+dtool is now a key part of the JIC's data management strategy. This means that
+members of the core funded JIC Informatics team will maintain the tool and
+expand the software eco-system surrounding it.
 
 
 Conclusion
