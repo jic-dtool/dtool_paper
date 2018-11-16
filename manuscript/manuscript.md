@@ -41,7 +41,7 @@ Science is an empirical discipline and therefore requires careful data
 management. Advances in our ability to capture
 and store data have resulted in a "big data explosion". This is particularly
 true in biology and has resulted in data management becoming one of the
-big challenges faced by the biological sciences.
+big challenges faced by the biological sciences[@Howe2008] [@Stephens2015] [@Cook2018].
 
 ADD REFERENCES...
 
@@ -50,7 +50,7 @@ people. At a high level, funders and the research community
 care about data being trusted, shared and reusable [@Vision2010] [@Wilkinson2016]
 [@deWaard].
 At an intermediate level, research institutes and principal investigators need
-to think about the life cycle of data [@Michener2015],
+to think about the life cycle of data [@Lynch2008] [@Michener2015],
 and how to get the resources they need for it. At the ground
 level individual researchers need to think about how to structure their
 data into files, how these data files are to be organised and how to associate
@@ -62,7 +62,7 @@ and many different approaches to meeting this have emerged.
 Traditional scientific data management consists of individual researchers
 recording observations in laboratory notebooks. At another end of the spectrum,
 there are organisations dedicated to curating and hosting scientific
-data, examples include UniProt[@UniProt], the Cambridge Structural Database
+data, examples include EBI [@Cook2018], UniProt[@UniProt], the Cambridge Structural Database
 [@Groom2016] and the Sequence Read Archive[@Leinonen2011].
 
 In-between these two solutions there is a variety of systems
@@ -278,7 +278,14 @@ $ dtool name http://bit.ly/Ecoli-reads
 Escherichia-coli-reads-ERR022075
 ```
 
-In the example above dtool pulls out the name of the dataset
+To find out the UUID of this dataset one can use the ``dtool uuid`` command.
+
+```
+$ dtool uuid http://bit.ly/Ecoli-reads
+faa44606-cb86-4877-b9ea-643a3777e021
+```
+
+In the examples above dtool pulls out the name/UUID of the dataset
 and prints it to the terminal.
 
 To get more information about this dataset one can use the ``dtool readme

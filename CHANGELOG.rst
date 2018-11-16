@@ -16,6 +16,8 @@ Changes in response to reviewers comments.
   (the URL is not intended to be displayed using a web browser)"
   to make it clearer that the URL is meant for consumption by dtool
 - Updated simple_processing.sh script to reflect output
+- Introduced the ``dtool uuid`` command earlier in the making sense of data section
+- Added more references Lynch 2008, Howe 2008, Cook 2018, Stephens 2015
 
 
 1.1.0
