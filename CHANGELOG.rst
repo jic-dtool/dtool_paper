@@ -15,6 +15,7 @@ Changes in response to reviewers comments.
   dataset hosted in Amazon S3 that can be accessed by anyone using dtool
   (the URL is not intended to be displayed using a web browser)"
   to make it clearer that the URL is meant for consumption by dtool
+- Updated simple_processing.sh script to reflect output
 
 
 1.1.0
