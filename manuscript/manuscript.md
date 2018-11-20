@@ -195,13 +195,44 @@ making it difficult to work off-site when the database is managed
 centrally within an institute. It also makes it difficult to move data
 into other systems.
 
-When dtool is used to create a dataset (Fig 3.), it generates both administrative
-metadata and structural metadata. The administrative metadata contains
+When dtool is used to create a dataset, it generates both administrative
+metadata and structural metadata (Fig 3.). The administrative metadata contains
 information that helps manage the dataset and includes for example an
 automatically generated universally unique identifier (UUID). The
 structural metadata describes how the dataset is put together, for
 example each data item in the dataset has associated information about
 its size in a manifest, stored as part of the dataset.
+
+![
+**Dataset structure.**
+Dataset representation on file system. The user provides the data and the
+descriptive metadata. The software generates the administrative and the
+structural metadata. Per item descriptive metadata can be added to datasets
+as overlays. This is usually done by a writing a script to annotate the items
+in the dataset. The script ``create_paired_read_overlays_from_fname.py`` in the
+supplementary material is an example of such a script.
+](dataset_structure.png)
+
+
+When creating a dataset the user is asked to add descriptive metadata
+about the dataset (Fig 4.). The user is, for example, prompted to describe the
+dataset, state the project name and whether or not the dataset contains
+any confidential or personally identifiable information.
+
+
+Design decisions
+----------------
+
+The structure of the dataset was designed to be able to outlive the tool used
+to generate them. In practise this means that metadata files are plain text or
+make use of standard file formats such as JSON and YAML. It also means that
+there are files dedicated to describing the structure of the dataset itself
+(`.dtool/README.txt` and `.dtool/structure.json`).
+
+dtool was designed to abstract away the underlying storage system. The
+structure of a dataset on file system is illustrated in Fig 3. The
+representation in other storage systems, such as object, can be different.
+However, the end users interactions with dtool remain the same (Fig 4.), no matter what the underlying storage system is.
 
 ![
 **Dataset creation.**
@@ -214,16 +245,9 @@ file system and datasets stored in object storage even though their underlying
 representations in the storage systems may be different.
 ](dataset_creation_sequence_diagram.png)
 
-When creating a dataset the user is asked to add descriptive metadata
-about the dataset. The user is, for example, prompted to describe the
-dataset, state the project name and whether or not the dataset contains
-any confidential or personally identifiable information.
-
-
-Design decisions
-----------------
 
 WRITE THIS SECTION
+
 
 
 Source code and documentation
