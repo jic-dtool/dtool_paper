@@ -170,7 +170,7 @@ the dataset contains all the information required to verify the
 integrity of the data within it.
 
 ![
-Having the data and metadata packaged as a self contained whole makes it easy
+**Organising datasets.** Having the data and metadata packaged as a self contained whole makes it easy
 to move around and organise. dtool works with both traditional file system as
 well as cloud options such as Amazon S3 and Microsoft Azure giving researchers
 the ability to chose the storage solution that best suits their needs.
