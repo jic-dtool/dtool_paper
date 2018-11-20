@@ -143,9 +143,10 @@ data. It centers around the concept of packaging metadata with data,
 and working with the two as a unified, portable whole (Fig. 1).
 
 ![
-Managing data as a collection of individual files is hard.
-Packaging data and metadata into a unified whole makes it easier to manage
-without the need for a central database.
+**Packaging data and metadata into a unified whole.**
+Managing data as a collection of individual files can be difficult. Packaging
+data and metadata into a unified whole makes this easier by allowing users to
+treat the collection of files and their description as a single entity.
 ](package_data_and_metadata_into_beautiful_box.png)
 
 
