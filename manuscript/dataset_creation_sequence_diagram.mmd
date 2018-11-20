@@ -3,18 +3,21 @@ sequenceDiagram
     participant dtool
     participant Storage
 
+    Note left of User: Create an open <br/> proto dataset
     User->>dtool: dtool create ds-name
     dtool->>Storage: Create directories and files
-    Note right of Storage: ds-name<br/>├── README.yml<br/>└── data/
+    Note right of Storage: ds-name<br />├─ .dtool<br />│  ├─ README.txt<br />│  ├─ dtool<br />│  ├─ overlays<br />│  └─ structure.json<br />├─ README.yml<br />└─ data
     dtool->>User: URI
-    User->>Storage: cp hello.txt ds-name/data
-    User->>dtool: dtool add item world.txt URI
-    dtool->>Storage: Copy world.txt to data
+    Note left of User: Add data and <br/> metadata
+    User->>dtool: dtool add item hello.txt URI
+    dtool->>Storage: Write hello.txt to data/
     User->>dtool: dtool readme interactive URI 
     loop Prompts
         dtool->>User: Metadata key
         User->>dtool: Metadata value
     end
     dtool->>Storage: Write README.yml
+    Note left of User: Convert proto <br/> dataset into a <br/> frozen dataset
     User->>dtool: dtool freeze URI
-    dtool->>Storage: Generate .dtool/manifest.json
+    dtool->>Storage: Generate manifest.json
+    Note right of Storage: ds-name<br />├─ .dtool<br />│  ├─ README.txt<br />│  ├─ dtool<br />│  ├─ manifest.json<br />│  ├─ overlays<br />│  └─ structure.json<br />├─ README.yml<br />└─ data<br />    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ hello.txt
