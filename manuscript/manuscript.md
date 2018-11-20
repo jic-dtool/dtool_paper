@@ -182,7 +182,7 @@ common solution is to store metadata in file names and directory
 structures. For example consider a file named `col0_chitin_leaf_1.tif`
 stored in a directory named `repl_2`. The file name contains several
 pieces of metadata, namely that the image is of leaf sample 1
-(`leaf_1`), of the wild type variant of *A. thaliana* (`col0`), treated
+(`leaf_1`), of the Colombia-0 ecotype of *A. thaliana* (`col0`), treated
 with chitin (`chitin`). Furthermore the information that this is
 replicate 2 (`repl_2`) is encoded in the directory structure. This makes
 it hard to move this data around without losing metadata.
