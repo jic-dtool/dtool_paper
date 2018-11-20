@@ -478,9 +478,9 @@ In order to be able to check whether or not this is the case dtool provides a
 means to verify the integrity of a dataset (Fig 5.).
 
 ![
-The packaged metadata can be used to verify the integrity of the data items in
-the box giving researchers peace of mind that the data underpinning their
-scientific results are safe and secure.
+**Verifying the integrity of a dataset.** The packaged metadata can be used to verify
+the integrity of the data items in the box giving researchers peace of mind
+that the data underpinning their scientific results are safe and secure.
 ](verify_items_in_box.png)
 
 ```
@@ -789,7 +789,7 @@ practices. Dataset consistency checking has given our researchers peace of mind
 that the key data underpinning their scientific results are safe and secure.
 Requiring entry of appropriate metadata when datasets are created has led to
 better organisation of data and the ability to retrieve and understand data long
-after capture and storage (Fig  6). The ability of the tool to store data on the
+after capture and storage (Fig 6). The ability of the tool to store data on the
 many different storage systems to which we have access has substantially reduced
 our storage costs, translating into increased capacity to store and process data
 with the same resources.
