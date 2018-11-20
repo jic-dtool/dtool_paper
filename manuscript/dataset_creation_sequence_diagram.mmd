@@ -1,0 +1,20 @@
+sequenceDiagram
+    participant User
+    participant dtool
+    participant Storage
+
+    User->>dtool: dtool create ds-name
+    dtool->>Storage: Create directories and files
+    Note right of Storage: ds-name<br/>├── README.yml<br/>└── data/
+    dtool->>User: URI
+    User->>Storage: cp hello.txt ds-name/data
+    User->>dtool: dtool add item world.txt URI
+    dtool->>Storage: Copy world.txt to data
+    User->>dtool: dtool readme interactive URI 
+    loop Prompts
+        dtool->>User: Metadata key
+        User->>dtool: Metadata value
+    end
+    dtool->>Storage: Write README.yml
+    User->>dtool: dtool freeze URI
+    dtool->>Storage: Generate .dtool/manifest.json
