@@ -465,7 +465,11 @@ $ dtool inventory --format=html my_datasets > my_datasets.html
 
 In summary the ``dtool ls`` command can be used to find data in a base URI and
 ``dtool inventory`` can be used to generate reports and web pages to make
-datasets findable.
+datasets findable (Fig 5.).
+
+![
+**Generating inventories of datasets.** The packaged metadata can be used to list datasets in a base URI and to generate inventories of datasets allowing researchers to keep track of their data.
+](find_your_box_in_a_collection_of_boxes.png)
 
 
 Use case: Verifying the integrity of old data
@@ -475,7 +479,7 @@ It is useful for researchers to be able to reassure themselves that their
 research data is intact.
 
 In order to be able to check whether or not this is the case dtool provides a
-means to verify the integrity of a dataset (Fig 5.).
+means to verify the integrity of a dataset (Fig 6.).
 
 ![
 **Verifying the integrity of a dataset.** The packaged metadata can be used to verify
@@ -789,15 +793,10 @@ practices. Dataset consistency checking has given our researchers peace of mind
 that the key data underpinning their scientific results are safe and secure.
 Requiring entry of appropriate metadata when datasets are created has led to
 better organisation of data and the ability to retrieve and understand data long
-after capture and storage (Fig 6). The ability of the tool to store data on the
+after capture and storage. The ability of the tool to store data on the
 many different storage systems to which we have access has substantially reduced
 our storage costs, translating into increased capacity to store and process data
 with the same resources.
-
-![
-The packaged metadata can be used to locate a box of interest in among lots of
-other boxes.
-](find_your_box_in_a_collection_of_boxes.png)
 
 dtool is now a key part of the JIC's data management strategy. This means that
 members of the core funded JIC Informatics team will maintain the tool and
