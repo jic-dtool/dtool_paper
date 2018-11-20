@@ -195,13 +195,24 @@ making it difficult to work off-site when the database is managed
 centrally within an institute. It also makes it difficult to move data
 into other systems.
 
-When dtool is used to create a dataset, it generates both administrative
+When dtool is used to create a dataset (Fig 3.), it generates both administrative
 metadata and structural metadata. The administrative metadata contains
 information that helps manage the dataset and includes for example an
 automatically generated universally unique identifier (UUID). The
 structural metadata describes how the dataset is put together, for
 example each data item in the dataset has associated information about
 its size in a manifest, stored as part of the dataset.
+
+![
+**Dataset creation.**
+The interactions between the end user, dtool and the underlying storage
+illustrated using a sequence diagram. In this example the dataset is given the
+name `ds-name` and it has one file added to it `hello.txt`. The dataset
+structure is illustrated as it would appear in a file system. The end user
+interaction with the dataset using dtool is the same for datasets stored in
+file system and datasets stored in object storage even though their underlying
+representations in the storage systems may be different.
+](dataset_creation_sequence_diagram.png)
 
 When creating a dataset the user is asked to add descriptive metadata
 about the dataset. The user is, for example, prompted to describe the
