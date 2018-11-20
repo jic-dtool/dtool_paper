@@ -22,6 +22,8 @@ Changes in response to reviewers comments.
   data to be from our domain
 - Added paragraph on sustainability
 - Made discussion about FAIR more nuanced
+- Added figure describing the structure of a dataset
+- Added sequence diagram figure illustrating the creation of a dataset
 
 
 1.1.0
