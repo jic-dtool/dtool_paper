@@ -115,7 +115,10 @@ reluctance to archive data. As a result, storage systems become full and data ac
 The JIC has 
 a mixture of different storage technologies bought at different
 times. Each technology has its own quirks with which the end user needs to gain
-familiarity. Having to manage different storage systems is not a
+familiarity. For example, object based storage and file system storage are
+accessed differently, user and group management varies from system to system
+and some technologies provide the ability to access deleted files while
+others do not. Having to manage different storage systems is not a
 productive use of researcher's time.
 
 We needed a solution that would:
@@ -185,7 +188,9 @@ pieces of metadata, namely that the image is of leaf sample 1
 (`leaf_1`), of the Colombia-0 ecotype of *A. thaliana* (`col0`), treated
 with chitin (`chitin`). Furthermore the information that this is
 replicate 2 (`repl_2`) is encoded in the directory structure. This makes
-it hard to move this data around without losing metadata.
+it hard to move this data around without accidentally losing metadata,
+since this metadata is implicitly encoded in the file path, rendering
+this approach fragile.
 
 Another common approach is to store metadata in a database, this is the
 solution used by systems such as iRODS and openBIS. A database is quite
@@ -245,9 +250,9 @@ file system and datasets stored in object storage even though their underlying
 representations in the storage systems may be different.
 ](dataset_creation_sequence_diagram.png)
 
+No dependencies in core + plugin architecture
 
-WRITE THIS SECTION
-
+Describe all the files in a file system dataset, in particular what is in the manifest
 
 
 Source code and documentation
@@ -479,7 +484,11 @@ It is useful for researchers to be able to reassure themselves that their
 research data is intact.
 
 In order to be able to check whether or not this is the case dtool provides a
-means to verify the integrity of a dataset (Fig 6.).
+means to verify the integrity of a dataset (Fig 6.), using the ``dtool verify``
+command. By default this checks that the expected items identifiers are present
+in the dataset and that files have the correct size. There is also a further
+option to check that the content of the files is correct by comparing
+checksums, using the ``-f/--full`` option.
 
 ![
 **Verifying the integrity of a dataset.** The packaged metadata can be used to verify
@@ -501,7 +510,10 @@ Missing item: b445ff5a1e468ab48628a00a944cac2e007fb9bc U00096.3.fasta
 ```
 
 In summary dtool provides a means to get clarity with regards to the integrity
-of a dataset.
+of a dataset. This is not, however, intented to detect delibarate tampering
+with the dataset, i.e. it would be possible to make the ``dtool verify``
+command pass by deliberate modification of the underlying files and the
+manifest.
 
 Use case: Processing data
 -------------------------

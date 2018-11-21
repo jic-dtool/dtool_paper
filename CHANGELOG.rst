@@ -24,6 +24,10 @@ Changes in response to reviewers comments.
 - Made discussion about FAIR more nuanced
 - Added figure describing the structure of a dataset
 - Added sequence diagram figure illustrating the creation of a dataset
+- Added example illustrating how different storage technologies differ
+- Clarified that it is easy to lose metadata when moving it around, rather than
+  it being difficult to move data per say
+- Added more detail and clarification to the verify section
 
 
 1.1.0
