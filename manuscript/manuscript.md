@@ -859,11 +859,12 @@ We hope that it will provide benefit to others.
 Acknowledgements
 ================
 
-We thank Adi Kliot and Hugh Woolfenden for critical reading and feedback on the
-manuscript. We thank the bioinformaticians at the John Innes Centre that
-have been kind enough to test and provide feedback on dtool. We thank the PeerJ
-editor and the reviewers for their constructive feedback that resulted in
-a much improved paper and enhancements to the dtool software.
+We thank Adi Kliot and Hugh Woolfenden for critical reading and feedback on
+early version of the manuscript. We thank the bioinformaticians at the John
+Innes Centre that have been kind enough to test and provide feedback on dtool.
+We thank the PeerJ editor and the reviewers for their constructive feedback
+that resulted in a much improved paper and enhancements to the dtool software.
+
 
 References
 ==========
