@@ -43,8 +43,6 @@ and store data have resulted in a "big data explosion". This is particularly
 true in biology and has resulted in data management becoming one of the
 big challenges faced by the biological sciences [@Howe2008] [@Stephens2015] [@Cook2018].
 
-ADD REFERENCES...
-
 Data management is a broad term and means different things to different
 people. At a high level, funders and the research community
 care about data being trusted, shared and reusable [@Vision2010] [@Wilkinson2016]
