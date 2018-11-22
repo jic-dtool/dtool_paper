@@ -36,6 +36,8 @@ Changes in response to reviewers comments.
   reviewer's suggestion
   https://github.com/jic-dtool/dtool-create/issues/19
 - Added design decisions section to the Methodology section
+- Created Git repository with scripts from manuscript and the supplementary material
+  https://github.com/jic-dtool/dtool_examples
 
 
 1.1.0
