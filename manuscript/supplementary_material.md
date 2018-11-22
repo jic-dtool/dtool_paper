@@ -10,6 +10,9 @@ This paper makes use of three datasets hosted in Amazon S3.
 
 Here are extended examples of how to create these datasets.
 
+The scripts in this document are available at
+[https://github.com/jic-dtool/dtool_examples](https://github.com/jic-dtool/dtool_examples).
+
 ### Escherichia-coli-ref-genome
 
 
@@ -151,7 +154,7 @@ dtool freeze $DS_NAME
 Run script to create *E. coli* reads dataset.
 
 ```
-$ bash create_reference_genome_dataset.sh
+$ bash create_ecoli_reads_dataset.sh
 ```
 
 Copy the dataset to Amazon S3 bucket.

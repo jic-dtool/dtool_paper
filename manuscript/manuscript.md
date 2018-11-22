@@ -296,6 +296,9 @@ The architecture of the code is pluggable with a core available at
 The dtool documentation is available at
 [http://dtool.readthedocs.io/](http://dtool.readthedocs.io/).
 
+Example scripts in the Results section and the supplementary material are available at
+[https://github.com/jic-dtool/dtool_examples](https://github.com/jic-dtool/dtool_examples).
+
 
 Results
 =======
