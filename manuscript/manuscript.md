@@ -834,7 +834,7 @@ dtool is to free up working space on expensive compute cluster associated storag
 The latter seems to have less weight than the former as no group has yet started
 using dtool in anger to do the latter.
 
-Anther hurdle to the uptake of dtool has been that it is a command line tool.
+Another hurdle to the uptake of dtool has been that it is a command line tool.
 This means that some group leaders, who are often unfamiliar with the command
 line, have some reservations about the tool. We are currently working on building
 graphical tools to overcome this.
