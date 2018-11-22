@@ -28,6 +28,8 @@ Changes in response to reviewers comments.
 - Clarified that it is easy to lose metadata when moving it around, rather than
   it being difficult to move data per say
 - Added more detail and clarification to the verify section
+- Added section to results about uptake at JIC
+- Added section to discussions about challenges of uptake at JIC
 
 
 1.1.0
