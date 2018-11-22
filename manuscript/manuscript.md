@@ -366,14 +366,12 @@ To see the size of the dataset one can use the ``dtool summary`` command.
 
 ```
 $ dtool summary http://bit.ly/Ecoli-reads
-{
-  "name": "Escherichia-coli-reads-ERR022075",
-  "uuid": "faa44606-cb86-4877-b9ea-643a3777e021",
-  "creator_username": "olssont",
-  "number_of_items": 2,
-  "size_in_bytes": 3858445043,
-  "frozen_at": 1537950392.95
-}
+name: Escherichia-coli-reads-ERR022075
+uuid: faa44606-cb86-4877-b9ea-643a3777e021
+creator_username: olssont
+number_of_items: 2
+size: 3.6GiB
+frozen_at: 2018-09-26
 ```
 
 This reveals that the dataset contains two items and is just short of 4GB in
@@ -710,16 +708,16 @@ Escherichia-coli-ref-genome
 
 This URI can only be used by people that have been authorised to interact with
 the ``dtool-demo`` Amazon S3 bucket. To make this dataset accessible to the
-public one can use the ``dtool_publish_dataset`` command line utility.
+public one can use the ``dtool publish`` command.
 
 ```
-$ dtool_publish_dataset -q  \
+$ dtool publish -q  \
   s3://dtool-demo/8ecd8e05-558a-48e2-b563-0c9ea273e71e
 https://dtool-demo.s3.amazonaws.com/8ecd8e05-558a-48e2-b563-0c9ea273e71e
 ```
 
 It is now possible for anyone in the world to interact with this dataset using
-the HTTPS URI returned by the ``dtool_publish_dataset`` command.
+the HTTPS URI returned by the ``dtool publish`` command.
 
 ```
 $ dtool name  \

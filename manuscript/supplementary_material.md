@@ -88,7 +88,7 @@ s3://dtool-demo/8ecd8e05-558a-48e2-b563-0c9ea273e71e
 Publish the dataset to make it world readable via HTTP.
 
 ```
-$ dtool_publish_dataset -q  \
+$ dtool publish -q  \
    s3://dtool-demo/8ecd8e05-558a-48e2-b563-0c9ea273e71e
 https://dtool-demo.s3.amazonaws.com/8ecd8e05-558a-48e2-b563-0c9ea273e71e
 ```
@@ -164,7 +164,7 @@ s3://dtool-demo/faa44606-cb86-4877-b9ea-643a3777e021
 Publish the dataset to make it world readable via HTTP.
 
 ```
-$ dtool_publish_dataset -q  \
+$ dtool publish -q  \
    s3://dtool-demo/faa44606-cb86-4877-b9ea-643a3777e021
 https://dtool-demo.s3.amazonaws.com/faa44606-cb86-4877-b9ea-643a3777e021
 ```
@@ -245,7 +245,7 @@ Dataset frozen s3://dtool-demo/907e1b52-d649-476a-b0bc-643ef769a7d9
 Publish the dataset to make it world readable via HTTP.
 
 ```
-$ dtool_publish_dataset -q  \
+$ dtool publish -q  \
    s3://dtool-demo/907e1b52-d649-476a-b0bc-643ef769a7d9
 https://dtool-demo.s3.amazonaws.com/907e1b52-d649-476a-b0bc-643ef769a7d9
 ```

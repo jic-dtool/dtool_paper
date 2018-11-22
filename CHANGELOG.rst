@@ -30,6 +30,11 @@ Changes in response to reviewers comments.
 - Added more detail and clarification to the verify section
 - Added section to results about uptake at JIC
 - Added section to discussions about challenges of uptake at JIC
+- Updated format of ``dtool summary`` output in line with reviewer's suggestion
+  https://github.com/jic-dtool/dtool-info/issues/14
+- Replaced ``dtool_publish_dataset`` with ``dtool publish`` in line with
+  reviewer's suggestion
+  https://github.com/jic-dtool/dtool-create/issues/19
 
 
 1.1.0
