@@ -35,6 +35,7 @@ Changes in response to reviewers comments.
 - Replaced ``dtool_publish_dataset`` with ``dtool publish`` in line with
   reviewer's suggestion
   https://github.com/jic-dtool/dtool-create/issues/19
+- Added design decisions section to the Methodology section
 
 
 1.1.0

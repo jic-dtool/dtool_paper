@@ -232,12 +232,39 @@ The structure of the dataset was designed to be able to outlive the tool used
 to generate them. In practise this means that metadata files are plain text or
 make use of standard file formats such as JSON and YAML. It also means that
 there are files dedicated to describing the structure of the dataset itself
-(`.dtool/README.txt` and `.dtool/structure.json`).
+(`.dtool/README.txt` and `.dtool/structure.json` in Fig 3).
+
+The structural metadata in the manifest (``.dtool/manifest.json``) was designed
+to be able to verify the content of a dataset and abstract away file paths. It
+therefore stores the size, checksum, and relative path of each item in the
+dataset. Below is the content of a sample manifest.
+
+```
+{
+  "dtoolcore_version": "3.7.0",
+  "hash_function": "md5sum_hexdigest",
+  "items": {
+    "8bda245a8cd526673aab775f90206c8b67d196af": {
+      "hash": "78608288625e084d68b4b5e8c1725933",
+      "relpath": "ERR022075_2.fastq.gz",
+      "size_in_bytes": 1982742623,
+      "utc_timestamp": 1537805410.0
+    },
+    "9760280dc6313d3bb598fa03c5931a7f037d7ffc": {
+      "hash": "4766e60e72da987e4c54e47fee5653a4",
+      "relpath": "ERR022075_1.fastq.gz",
+      "size_in_bytes": 1875702420,
+      "utc_timestamp": 1537805358.0
+    }
+  }
+}
+```
 
 dtool was designed to abstract away the underlying storage system. The
 structure of a dataset on file system is illustrated in Fig 3. The
 representation in other storage systems, such as object, can be different.
-However, the end users interactions with dtool remain the same (Fig 4.), no matter what the underlying storage system is.
+However, the end users interactions with dtool remain the same (Fig 4.), no
+matter what the underlying storage system is.
 
 ![
 **Dataset creation.**
@@ -250,9 +277,15 @@ file system and datasets stored in object storage even though their underlying
 representations in the storage systems may be different.
 ](dataset_creation_sequence_diagram.png)
 
-No dependencies in core + plugin architecture
+To ensure stability the core code base (``dtoolcore``) has not got any
+dependencies outside of the Python standard library. The core code base has got
+a high test coverage to minimise the chance of accidentally introducing bugs
+when developing new features.
 
-Describe all the files in a file system dataset, in particular what is in the manifest
+The dtool storage backends and the command line interface make use of a
+pluggable architecture, which makes it possible to write separate Python
+packages for creating custom storage backends and adding new sub commands to
+dtool without touching the existing code bases.
 
 
 Source code and documentation
