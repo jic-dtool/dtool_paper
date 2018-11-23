@@ -23,7 +23,7 @@ abstract: |
 	whole, which we call a dataset. The dataset provides consistency
 	checking and the ability to access metadata for both the whole dataset
 	and individual files. The tool can store these datasets on several
-	different storage systems, including traditional filesystem, object
+	different storage systems, including traditional file system, object
 	store (S3 and Azure) and iRODS. It includes an application programming
         interface that can be used to incorporate it into existing pipelines and
         workflows.
@@ -53,9 +53,6 @@ and how to get the resources they need for it. At the ground
 level individual researchers need to think about how to structure their
 data into files, how these data files are to be organised and how to associate
 metadata with these data files [@Hart2016] [@Wickham2014] [@Leek].
-
-The problem of managing scientific data remains a challenge 
-and many different approaches to meeting this have emerged.
 
 Traditional scientific data management consists of individual researchers
 recording observations in laboratory notebooks. At another end of the spectrum,
@@ -116,8 +113,8 @@ reluctance to archive data. As a result, storage systems become full and data ac
 The JIC has 
 a mixture of different storage technologies bought at different
 times. Each technology has its own quirks with which the end user needs to gain
-familiarity. For example, object based storage and file system storage are
-accessed differently, user and group management varies from system to system
+familiarity. For example, access to data on file system and object based storage
+work differently, user and group management varies from system to system
 and some technologies provide the ability to access deleted files while
 others do not. Having to manage different storage systems is not a
 productive use of researcher's time.
@@ -230,17 +227,17 @@ Design decisions
 ----------------
 
 The structure of the dataset was designed to be able to outlive the tool used
-to generate them. In practise this means that metadata files are plain text or
+to generate them. In practise this means that metadata files are plain text and
 make use of standard file formats such as JSON and YAML. It also means that
 there are files dedicated to describing the structure of the dataset itself
-(`.dtool/README.txt` and `.dtool/structure.json` in Fig 3).
+(`.dtool/README.txt` and `.dtool/structure.json` in Fig 3.).
 
 The structural metadata in the manifest (``.dtool/manifest.json``) was designed
 to be able to verify the content of a dataset and abstract away file paths. It
 therefore stores the size, checksum, and relative path of each item in the
 dataset. Below is the content of a sample manifest.
 
-```
+```json
 {
   "dtoolcore_version": "3.7.0",
   "hash_function": "md5sum_hexdigest",
@@ -822,7 +819,7 @@ files together with key metadata, which we term a dataset. This dataset provides
 both consistency checking and access to both dataset and file level metadata,
 while being portable.
 
-Dtool shares several features with BagIt [@bagit]. In particular, dtool's disk storage
+dtool shares several features with BagIt [@bagit]. In particular, dtool's disk storage
 implementation also makes use of file manifests containing checksums,
 descriptive metadata in plain text format, and a flexible system for annotation
 with further metadata.
@@ -831,16 +828,16 @@ dtool differs, however, in that it is fundamentally an API that provides an
 abstract interface to data and metadata, while BagIt is a specific way in which
 to store data on a standard file system. dtool provides the ability to store
 data and metadata on different storage systems (file system disk, iRODS, S3,
-Azure at present, with a structure that allows further extension). This is
-coupled with provision of a consistent inferface for working with this data
+and Azure at present, with a structure that allows further extension). This is
+coupled with provision of a consistent interface for working with this data
 that is independent of the storage medium. These different natures give rise to
 different use cases - BagIt for ensuring safety of data in transit and at rest,
-dtool to enable programmatic data management processes and make use of
+dtool to enable programmatic data management processes and use of
 different storage technologies.
 
 Beyond this difference in purpose (format versus abstraction tool), dtool
 provides the ability to programmatically set and work with per-item metadata
-through its overlay system. While this would be possible by using BagIt's tag
+through its overlay system. While this would be possible using BagIt's tag
 system, it would require implementing a consistent convention for storage of
 this metadata on top of BagIt.
 
@@ -874,7 +871,7 @@ have started using it.  Dataset consistency checking has given the researchers
 peace of mind that the key data underpinning their scientific results are safe
 and secure.  Requiring entry of appropriate metadata when datasets are created
 has led to better organisation of data and the ability to retrieve and
-understand data long after capture and storage. The ability of the tool to
+understand data after capture and storage. The ability of the tool to
 easily move datasets between the different storage systems to which they have
 access has substantially reduced their storage costs, translating into
 increased capacity to store and process data with the same resources.
@@ -887,7 +884,7 @@ The latter seems to have less weight than the former as no group has yet started
 using dtool in anger to do the latter.
 
 Another hurdle to the uptake of dtool has been that it is a command line tool.
-This means that some group leaders, who are often unfamiliar with the command
+This means that some group leaders, who are less unfamiliar with the command
 line, have some reservations about the tool. We are currently working on building
 graphical tools to overcome this.
 
@@ -922,7 +919,7 @@ dataset provides consistency checking, giving reseachers confidence that
 their data maintains integrity while moving it between storage systems.
 Storing key file- and dataset-level metadata together with the data
 allows the data to be understood in future. The ability to use different
-storage backends such as filesystem, iRODS, S3 or Azure storage allows
+storage backends such as file system, iRODS, S3 or Azure storage allows
 data to be moved to the most appropriate location to balance cost and
 accessibility.
 
