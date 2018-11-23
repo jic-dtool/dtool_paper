@@ -38,6 +38,8 @@ Changes in response to reviewers comments.
 - Added design decisions section to the Methodology section
 - Created Git repository with scripts from manuscript and the supplementary material
   https://github.com/jic-dtool/dtool_examples
+- Added reference to BagIt to introduction
+- Added comparison to BagIt to discussion
 
 
 1.1.0

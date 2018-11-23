@@ -86,9 +86,12 @@ with metadata stored in a database for fast querying and data as flat
 files. These systems are flexible, but require effort
 to customise [@Chiang2011].
 
-ADD SECTION ON BAGIT HERE...
+A generic format for structuring data without the need for a central database
+is BagIt [@bagit].  BagIt is a set of hierarchical file layout conventions
+designed to make data storage and transfer safer. It is used in digital
+curation, particularly within libraries.
 
-However, there is a lack of tools for basic data
+However, despite all these offerings there is a lack of tools for basic data
 management at the level of research institutes, research groups and individual
 researchers.
 
@@ -819,6 +822,28 @@ files together with key metadata, which we term a dataset. This dataset provides
 both consistency checking and access to both dataset and file level metadata,
 while being portable.
 
+Dtool shares several features with BagIt [@bagit]. In particular, dtool's disk storage
+implementation also makes use of file manifests containing checksums,
+descriptive metadata in plain text format, and a flexible system for annotation
+with further metadata.
+
+dtool differs, however, in that it is fundamentally an API that provides an
+abstract interface to data and metadata, while BagIt is a specific way in which
+to store data on a standard file system. dtool provides the ability to store
+data and metadata on different storage systems (file system disk, iRODS, S3,
+Azure at present, with a structure that allows further extension). This is
+coupled with provision of a consistent inferface for working with this data
+that is independent of the storage medium. These different natures give rise to
+different use cases - BagIt for ensuring safety of data in transit and at rest,
+dtool to enable programmatic data management processes and make use of
+different storage technologies.
+
+Beyond this difference in purpose (format versus abstraction tool), dtool
+provides the ability to programmatically set and work with per-item metadata
+through its overlay system. While this would be possible by using BagIt's tag
+system, it would require implementing a consistent convention for storage of
+this metadata on top of BagIt.
+
 dtool datasets have been designed in accordance with the principles for storing
 digital data outlined in [@Hart2016]. dtool leaves original files intact and
 uses mark up to add additional metadata, adhering to the principle of keeping
@@ -844,15 +869,15 @@ The core Python API provides programmatic access to metadata that can be used
 to create tools for indexing and searching the datasets. Therefore it provides
 the potential to make the data Findable.
 
-dtool has provided substantial benefits for the research groups at JIC that have started using it.
-Dataset consistency checking has given the researchers peace of mind
-that the key data underpinning their scientific results are safe and secure.
-Requiring entry of appropriate metadata when datasets are created has led to
-better organisation of data and the ability to retrieve and understand data long
-after capture and storage. The ability of the tool to easily move datasets between the
-different storage systems to which they have access has substantially reduced
-their storage costs, translating into increased capacity to store and process data
-with the same resources.
+dtool has provided substantial benefits for the research groups at JIC that
+have started using it.  Dataset consistency checking has given the researchers
+peace of mind that the key data underpinning their scientific results are safe
+and secure.  Requiring entry of appropriate metadata when datasets are created
+has led to better organisation of data and the ability to retrieve and
+understand data long after capture and storage. The ability of the tool to
+easily move datasets between the different storage systems to which they have
+access has substantially reduced their storage costs, translating into
+increased capacity to store and process data with the same resources.
 
 However, we have found that for a research group to start making use of dtool
 they need some external incentive. To date the most common one has been a key
@@ -874,7 +899,7 @@ expand the software eco-system surrounding it.
 Conclusion
 ==========
 
-Without data mangement, reproducible science is impossible. Our
+Without data management, reproducible science is impossible. Our
 rapidly expanding ability to collect and process data has the potential
 to generate important insights. However, this is only possible if the
 data is accessible and the person doing the analysis has enough
