@@ -11,6 +11,10 @@ Minor tweaks in response to reviewer comments.
 - Removed Figure 5
 - Removed Figure 6
 - Added year to Kunze reference
+- Removed 1 "easily" in Methodology section
+- Replaced 3 "makes it easy to" with "enables researchers to" in Results section
+- Replaced 2 "easy" with "possible" in Results section
+- Removed 2 "easy" in Results section
 
 
 1.2.0

@@ -158,7 +158,7 @@ consists of a command line tool and an application programming interface
 The most important aspect of dtool is that it packages data files with
 accompanying metadata into a unified whole. The packaged data and
 metadata is referred to as a dataset. Having the metadata associated
-with the data means that datasets can easily be moved around and organised.
+with the data means that datasets can be moved around and organised.
 It also means that
 the dataset contains all the information required to verify the
 integrity of the data within it.
@@ -295,7 +295,7 @@ dtool. First and foremost it provides a means to make data understandable in the
 This is achieved by providing a standardised way to annotate a dataset with
 descriptive metadata.
 
-dtool also makes it easy to:
+dtool also enables researchers to:
 
 - Back up raw data and archive old data
 - Safely move data from expensive to more cost effective storage solutions
@@ -322,7 +322,7 @@ old lab members' data. The person who generated the data is often no longer
 around and substantial effort can be spent trying to understand the context
 of the data and the way it has been structured.
 
-dtool makes it easy to understand the context and content of a dataset by
+dtool enables researchers to understand the context and content of a dataset by
 packaging the metadata with the data.  In other words one can quickly get from a
 URI specifying the location of a dataset to an overview of the dataset.
 The URL below represents a dataset hosted in Amazon S3 that can be accessed by
@@ -434,8 +434,8 @@ In the above the ``-q/--quiet`` flag is used to only return the URI specifying
 the location that the dataset has been copied to, in this case a directory
 named ``Escherichia-coli-ref-genome`` in the current working directory.
 
-dtool makes it easy to copy a datasets between different storage solutions. It
-therefore becomes easy to copy data to storage solutions designed for backing up
+dtool can be used to copy a dataset between different storage solutions.
+This enables researchers to copy data to storage solutions designed for backing up
 and archiving data.
 
 Use case: Generating inventories of datasets
@@ -446,7 +446,7 @@ data being generated. As such it is useful to be able to list datasets and to
 generate inventories of datasets. This can be achieved using the commands
 ``dtool ls`` and ``dtool inventory``.
 
-The purpose of ``dtool ls`` is to provide an easy way to list names and URIs of
+The purpose of ``dtool ls`` is to provide a way to list names and URIs of
 datasets. Below is an example of the ``dtool ls`` command listing three
 datasets stored in a directory named ``my_datasets`` (see the supplementary
 material for details on how to setup this directory).
@@ -743,7 +743,7 @@ dtool name http://bit.ly/Ecoli-ref-genome
 Escherichia-coli-ref-genome
 ```
 
-In summary dtool makes it easy to share datasets with collaborators and to make
+In summary dtool makes it possible to share datasets with collaborators and to make
 dataset  accessible to the research community.
 
 
