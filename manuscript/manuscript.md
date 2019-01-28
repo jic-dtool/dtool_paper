@@ -263,13 +263,23 @@ representations in the storage systems may be different.
 
 To ensure stability the core code base (``dtoolcore``) has not got any
 dependencies outside of the Python standard library. The core code base has got
-a high test coverage to minimise the chance of accidentally introducing bugs
-when developing new features.
+a high test coverage (91%) to minimise the chance of accidentally introducing bugs
+when developing new features. The high test coverage is a result of insisting on
+tests for all core code that relate to the creation and interaction with datasets.
 
 The dtool storage backends and the command line interface make use of a
 pluggable architecture, which makes it possible to write separate Python
 packages for creating custom storage backends and adding new sub commands to
 the dtool command line interface without touching the existing code bases.
+
+
+Language choice
+---------------
+
+The dtool API and command line tool were implemented in Python. Python was
+chosen as it is open source, freely available and well established in the
+scientific community with a rich ecosystem of scientific packages. It was also
+chosen because it is the language the authors prefer to program in.
 
 
 Source code and documentation

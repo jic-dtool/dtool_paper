@@ -19,6 +19,8 @@ Minor tweaks in response to reviewer comments.
 - Removed "clear" in Results section
 - Replaced the word "powerful" with "can be used to" in Results section
 - Changed TiB to TB
+- Expanded paragraph relating to test coverage to give more details
+- Added section explaining the choice of Python as an implementation language
 
 
 1.2.0
