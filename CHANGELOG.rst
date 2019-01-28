@@ -18,6 +18,7 @@ Minor tweaks in response to reviewer comments.
 - Replaced "some clear" with "several" in Results section
 - Removed "clear" in Results section
 - Replaced the word "powerful" with "can be used to" in Results section
+- Changed TiB to TB
 
 
 1.2.0

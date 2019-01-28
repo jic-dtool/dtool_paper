@@ -751,7 +751,7 @@ Uptake at JIC
 -------------
 
 At the JIC we have introduced twelve research groups that deal with high volumes of data
-(>10TiB) to dtool. Of these five groups have adopted dtool to manage their
+(>10TB) to dtool. Of these five groups have adopted dtool to manage their
 data, another four are still evaluating it and three have found it difficult to
 move away from their existing working practises.
 
@@ -761,7 +761,7 @@ dtool did so as part of starting a new project. In this instance we helped the
 group devise a protocol for packaging raw sequencing data into datasets as it arrived from
 the sequencing company.
 
-To date 26TiB of data has been packaged into 803 datasets.
+To date 26TB of data has been packaged into 803 datasets.
 
 
 Discussion
