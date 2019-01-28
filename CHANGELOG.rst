@@ -10,6 +10,7 @@ Minor tweaks in response to reviewer comments.
 - Removed Figure 2
 - Removed Figure 5
 - Removed Figure 6
+- Added year to Kunze reference
 
 
 1.2.0
