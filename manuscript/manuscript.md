@@ -578,8 +578,8 @@ $ bash simple_processing.sh $LOCAL_DS_URI
 
 It is also possible to use dtool to store the output of processing scripts,
 both in terms of data and metadata. In other words, it is possible to
-implement scripts that implement dataset to dataset processing. This is
-powerful as it allows the automation of aspects of data management.
+implement scripts that implement dataset to dataset processing. This
+can be used to automate aspects of data management.
 
 The script below, called ``minfiy.sh``, uses this concept of dataset to dataset
 processing. It is worth noting that the script:
