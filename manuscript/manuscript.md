@@ -185,7 +185,7 @@ centrally within an institute. It also makes it difficult to move data
 into other systems.
 
 When dtool is used to create a dataset, it generates both administrative
-metadata and structural metadata (Fig 3.). The administrative metadata contains
+metadata and structural metadata (Fig 1.). The administrative metadata contains
 information that helps manage the dataset and includes for example an
 automatically generated universally unique identifier (UUID). The
 structural metadata describes how the dataset is put together, for
@@ -204,7 +204,7 @@ supplementary material is an example of such a script.
 
 
 When creating a dataset the user is asked to add descriptive metadata
-about the dataset (Fig 4.). The user is, for example, prompted to describe the
+about the dataset (Fig 2.). The user is, for example, prompted to describe the
 dataset, state the project name and whether or not the dataset contains
 any confidential or personally identifiable information.
 
@@ -216,7 +216,7 @@ The structure of the dataset was designed to be able to outlive the tool used
 to generate them. In practise this means that metadata files are plain text and
 make use of standard file formats such as JSON and YAML. It also means that
 there are files dedicated to describing the structure of the dataset itself
-(`.dtool/README.txt` and `.dtool/structure.json` in Fig 3.).
+(`.dtool/README.txt` and `.dtool/structure.json` in Fig 1.).
 
 The structural metadata in the manifest (``.dtool/manifest.json``) was designed
 to be able to verify the content of a dataset and abstract away file paths. It
@@ -245,9 +245,9 @@ dataset. Below is the content of a sample manifest.
 ```
 
 dtool was designed to abstract away the underlying storage system. The
-structure of a dataset on file system is illustrated in Fig 3. The
+structure of a dataset on file system is illustrated in Fig 1. The
 representation in other storage systems, such as object, can be different.
-However, the end user's interactions with dtool remain the same (Fig 4.), no
+However, the end user's interactions with dtool remain the same (Fig 2.), no
 matter what the underlying storage system is.
 
 ![
