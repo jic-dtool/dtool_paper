@@ -141,14 +141,7 @@ management systems.
 
 Here we describe our lightweight approach to managing
 data. It centers around the concept of packaging metadata with data,
-and working with the two as a unified, portable whole (Fig. 1).
-
-![
-**Packaging data and metadata into a unified whole.**
-Managing data as a collection of individual files can be difficult. Packaging
-data and metadata into a unified whole makes this easier by allowing users to
-treat the collection of files and their description as a single entity.
-](package_data_and_metadata_into_beautiful_box.png)
+and working with the two as a unified, portable whole.
 
 
 Methodology
@@ -163,19 +156,12 @@ consists of a command line tool and an application programming interface
 (API) for packaging and interacting with data.
 
 The most important aspect of dtool is that it packages data files with
-accompanying metadata into a unified whole (Fig 1.). The packaged data and
+accompanying metadata into a unified whole. The packaged data and
 metadata is referred to as a dataset. Having the metadata associated
-with the data means that datasets can easily be moved around and organised (Fig 2.)
+with the data means that datasets can easily be moved around and organised.
 It also means that
 the dataset contains all the information required to verify the
 integrity of the data within it.
-
-![
-**Organising datasets.** Having the data and metadata packaged as a self contained whole makes it easy
-to move around and organise. dtool works with both traditional file system as
-well as cloud options such as Amazon S3 and Microsoft Azure giving researchers
-the ability to chose the storage solution that best suits their needs.
-](move_and_organise_boxes_easily.png)
 
 To illustrate the benefits of packaging data and associated metadata
 into a unified whole, it is worth comparing it to other alternatives. A
@@ -502,11 +488,7 @@ $ dtool inventory --format=html my_datasets > my_datasets.html
 
 In summary the ``dtool ls`` command can be used to find data in a base URI and
 ``dtool inventory`` can be used to generate reports and web pages to make
-datasets findable (Fig 5.).
-
-![
-**Generating inventories of datasets.** The packaged metadata can be used to list datasets in a base URI and to generate inventories of datasets allowing researchers to keep track of their data.
-](find_your_box_in_a_collection_of_boxes.png)
+datasets findable.
 
 
 Use case: Verifying the integrity of old data
@@ -516,17 +498,11 @@ It is useful for researchers to be able to reassure themselves that their
 research data is intact.
 
 In order to be able to check whether or not this is the case dtool provides a
-means to verify the integrity of a dataset (Fig 6.), using the ``dtool verify``
+means to verify the integrity of a dataset, using the ``dtool verify``
 command. By default this checks that the expected items identifiers are present
 in the dataset and that files have the correct size. There is also a further
 option to check that the content of the files is correct by comparing
 checksums, using the ``-f/--full`` option.
-
-![
-**Verifying the integrity of a dataset.** The packaged metadata can be used to verify
-the integrity of the data items in the box giving researchers peace of mind
-that the data underpinning their scientific results are safe and secure.
-](verify_items_in_box.png)
 
 ```
 $ dtool verify Escherichia-coli-ref-genome

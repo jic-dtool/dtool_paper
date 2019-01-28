@@ -1,6 +1,17 @@
 CHANGELOG
 =========
 
+1.3.0
+-----
+
+Minor tweaks in response to reviewer comments.
+
+- Removed Figure 1
+- Removed Figure 2
+- Removed Figure 5
+- Removed Figure 6
+
+
 1.2.0
 -----
 
