@@ -266,6 +266,8 @@ dependencies outside of the Python standard library. The core code base has got
 a high test coverage (91%) to minimise the chance of accidentally introducing bugs
 when developing new features. The high test coverage is a result of insisting on
 tests for all core code that relate to the creation and interaction with datasets.
+Tests were implemented using the ``pytest`` package and coverage was measured using
+[CodeCov](https://codecov.io/).
 
 The dtool storage backends and the command line interface make use of a
 pluggable architecture, which makes it possible to write separate Python
@@ -289,7 +291,8 @@ The dtool source code is freely available under the liberal MIT licence on GitHu
 The architecture of the code is pluggable with a core available at
 [https://github.com/jic-dtool/dtoolcore](https://github.com/jic-dtool/dtoolcore).
 
-The dtool documentation is available at
+The dtool documentation was created using [Sphinx](http://www.sphinx-doc.org) and hosted
+using [Read the Docs](https://readthedocs.org). It is available at
 [http://dtool.readthedocs.io/](http://dtool.readthedocs.io/).
 
 Example scripts in the Results section and the supplementary material are available at
