@@ -15,6 +15,8 @@ Minor tweaks in response to reviewer comments.
 - Replaced 3 "makes it easy to" with "enables researchers to" in Results section
 - Replaced 2 "easy" with "possible" in Results section
 - Removed 2 "easy" in Results section
+- Replaced "some clear" with "several" in Results section
+- Removed "clear" in Results section
 
 
 1.2.0

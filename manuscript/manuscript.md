@@ -289,7 +289,7 @@ Example scripts in the Results section and the supplementary material are availa
 Results
 =======
 
-From an end user's point of view there are some clear benefits to making use of
+From an end user's point of view there are several benefits to making use of
 dtool. First and foremost it provides a means to make data understandable in the future.
 
 This is achieved by providing a standardised way to annotate a dataset with
@@ -407,7 +407,7 @@ In the above the ``-v/--verbose`` flag is used to return the size as well as
 the identifier and the relative path of each item.
 
 In summary the commands ``dtool readme show``, ``dtool summary`` and ``dtool
-ls`` give a clear overview of the context and content of a dataset.
+ls`` give an overview of the context and content of a dataset.
 
 
 Use case: Backing up raw data and archiving old data
