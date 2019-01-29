@@ -22,7 +22,10 @@ Minor tweaks in response to reviewer comments.
 - Expanded paragraph relating to test coverage to give more details
 - Added section explaining the choice of Python as an implementation language
 - Added details about testing and documentation technologies
-- Added another paragraph describing the main barriers to uptake to the "Uptake at JIC section"
+- Added another paragraph describing the main barriers to uptake to the "Uptake
+  at JIC section"
+- Added paragraph to state that we will be collecting information more
+  systematically to improve dtool
 
 
 1.2.0

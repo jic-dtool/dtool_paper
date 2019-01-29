@@ -872,7 +872,9 @@ easily move datasets between the different storage systems to which they have
 access has substantially reduced their storage costs, translating into
 increased capacity to store and process data with the same resources.
 
-However, we have found that for a research group to start making use of dtool
+However, there are hurdles to the uptake of dtool.
+Particularly when people feel overwhelmed by the amount of data
+they have. We have found that for a research group to start making use of dtool
 they need some external incentive. To date the most common one has been a key
 member leaving the group. The incentive for the groups that are still evaluating
 dtool is to free up working space on expensive compute cluster associated storage.
@@ -883,6 +885,11 @@ Another hurdle to the uptake of dtool has been that it is a command line tool.
 This means that some group leaders, who are less unfamiliar with the command
 line, have some reservations about the tool. We are currently working on building
 graphical tools to overcome this.
+
+We did not initially plan deployment to systematically collect information on
+usage, strengths and barriers to use. As we continue to use an deploy dtool at
+JIC, we will more systematically collect information and work with users to
+continue to improve dtool.
 
 dtool is now a key part of the JIC's data management strategy. This means that
 members of the core funded JIC Informatics team will maintain the tool and
