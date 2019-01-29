@@ -768,6 +768,13 @@ At the JIC we have introduced twelve research groups that deal with high volumes
 data, another four are still evaluating it and three have found it difficult to
 move away from their existing working practises.
 
+Of the three groups that have found it difficult to move away from their
+exising working practises the main barriers to uptake have included (1) feeling
+overwhelmed with the amount of exising data; (2) tight coupling of data
+analysis and input files, i.e. hard coded paths in scripts; (3) use of
+directory structures to encode provenance of data analysis; (4) abscence of
+data managment champion within the group. 
+
 Four of the five groups that have adopted dtool found the incentive to do so in
 association with a key member leaving the group. The other group that adopted
 dtool did so as part of starting a new project. In this instance we helped the
