@@ -26,6 +26,11 @@ Minor tweaks in response to reviewer comments.
   at JIC section"
 - Added paragraph to state that we will be collecting information more
   systematically to improve dtool
+- Added note to mention that we were not aware of BagIt when we started
+  developing dtool
+- Changed tone when talking about per-item metadata
+- Added note that we would like to test the idea that dtool could make use of
+  BagIt format for storing datasets on disk
 
 
 1.2.0

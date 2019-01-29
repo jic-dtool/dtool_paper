@@ -815,7 +815,9 @@ files together with key metadata, which we term a dataset. This dataset provides
 both consistency checking and access to both dataset and file level metadata,
 while being portable.
 
-dtool shares several features with BagIt [@bagit]. In particular, dtool's disk storage
+During the development of dtool we were not aware of the BagIt [@bagit] file
+packaging format. Despite this, during its development, dtool evolved to share
+several features with BagIt [@bagit]. In particular, dtool's disk storage
 implementation also makes use of file manifests containing checksums,
 descriptive metadata in plain text format, and a flexible system for annotation
 with further metadata.
@@ -833,9 +835,14 @@ different storage technologies.
 
 Beyond this difference in purpose (format versus abstraction tool), dtool
 provides the ability to programmatically set and work with per-item metadata
-through its overlay system. While this would be possible using BagIt's tag
-system, it would require implementing a consistent convention for storage of
+through its overlay system. This could be achieved using BagIt's tag
+system, by implementing a consistent convention for storage of
 this metadata on top of BagIt.
+
+In future work we would like to experiment with creating a custom storage
+broker for writing datasets to disk following the BagIt file packaging format.
+If successful this could pave the way to making it dtool's default on disk
+packing format.
 
 dtool datasets have been designed in accordance with the principles for storing
 digital data outlined in [@Hart2016]. dtool leaves original files intact and
