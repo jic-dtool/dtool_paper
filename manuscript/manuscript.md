@@ -197,7 +197,7 @@ its size in a manifest, stored as part of the dataset.
 Dataset representation on file system. The user provides the data and the
 descriptive metadata. The software generates the administrative and the
 structural metadata. Per item descriptive metadata can be added to datasets
-as overlays. This is usually done by a writing a script to annotate the items
+as overlays. This is usually done by writing a script to annotate the items
 in the dataset. The script ``create_paired_read_overlays_from_fname.py`` in the
 supplementary material is an example of such a script.
 ](dataset_structure.png)
@@ -262,7 +262,7 @@ representations in the storage systems may be different.
 ](dataset_creation_sequence_diagram.png)
 
 To ensure stability the core code base (``dtoolcore``) has not got any
-dependencies outside of the Python standard library. The core code base has got
+dependencies outside of the Python standard library. The core code base has
 a high test coverage (91%) to minimise the chance of accidentally introducing bugs
 when developing new features. The high test coverage is a result of insisting on
 tests for all core code that relate to the creation and interaction with datasets.
@@ -291,7 +291,7 @@ The dtool source code is freely available under the liberal MIT licence on GitHu
 The architecture of the code is pluggable with a core available at
 [https://github.com/jic-dtool/dtoolcore](https://github.com/jic-dtool/dtoolcore).
 
-The dtool documentation was created using [Sphinx](http://www.sphinx-doc.org) and hosted
+The dtool documentation was created using [Sphinx](http://www.sphinx-doc.org) and is hosted
 using [Read the Docs](https://readthedocs.org). It is available at
 [http://dtool.readthedocs.io/](http://dtool.readthedocs.io/).
 
@@ -772,7 +772,7 @@ Of the three groups that have found it difficult to move away from their
 exising working practises the main barriers to uptake have included (1) feeling
 overwhelmed with the amount of exising data; (2) tight coupling of data
 analysis and input files, i.e. hard coded paths in scripts; (3) use of
-directory structures to encode provenance of data analysis; (4) abscence of
+directory structures to encode provenance of data analysis; (4) absence of a
 data managment champion within the group. 
 
 Four of the five groups that have adopted dtool found the incentive to do so in
